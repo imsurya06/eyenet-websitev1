@@ -57,7 +57,7 @@ const AdditionalFashionCoursesSection = () => {
                       {course.title}
                     </Link>
                   </h3>
-                  <p className="text-text-regular font-body text-gray-600 mb-6 line-clamp-4"> {/* Changed min-h to line-clamp-4 */}
+                  <p className="text-text-regular font-body text-gray-600 mb-6 h-[6.4rem] overflow-hidden"> {/* Changed line-clamp-4 to h-[6.4rem] and added overflow-hidden */}
                     {course.description.split('Details...')[0]}
                     <Link to={`/courses/fashion-design/${course.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-primary hover:underline ml-1">
                       Details...
