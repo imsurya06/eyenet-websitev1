@@ -10,6 +10,7 @@ import CallToActionSection from '@/components/CallToActionSection';
 import NewsletterSection from '@/components/NewsletterSection';
 import FAQSection from '@/components/FAQSection';
 import LocationSection from '@/components/LocationSection'; // Import the new component
+import ImageGallerySection from '@/components/ImageGallerySection'; // Import the new ImageGallerySection
 
 const Index = () => {
   return (
@@ -58,6 +59,9 @@ const Index = () => {
 
       {/* Our Programs Section */}
       <OurProgramsSection />
+
+      {/* Image Gallery Section */}
+      <ImageGallerySection />
 
       {/* Impact By Numbers Section */}
       <ImpactByNumbersSection />
