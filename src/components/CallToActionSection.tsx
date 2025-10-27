@@ -6,7 +6,7 @@ import AnimateOnScroll from './AnimateOnScroll';
 const CallToActionSection = () => {
   return (
     <section
-      className="relative py-20 md:py-24 lg:py-32 bg-cover bg-center"
+      className="relative py-10 bg-cover bg-center"
       style={{ backgroundImage: 'url(/images/design-journey-cta.png)' }}
     >
       <div className="absolute inset-0 bg-black/60"></div> {/* Dark overlay */}

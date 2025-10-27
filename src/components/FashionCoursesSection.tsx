@@ -35,7 +35,7 @@ const FashionCoursesSection = () => {
   ];
 
   return (
-    <section className="py-12 md:py-16 lg:py-20 px-3 md:px-8 lg:px-[80px] bg-background text-foreground">
+    <section className="py-10 px-3 md:px-8 lg:px-[80px] bg-background text-foreground">
       <div className="max-w-7xl mx-auto">
         <AnimateOnScroll isHero={true} delay={500}>
           <h1 className="text-h1-mobile md:text-h1-desktop font-heading mb-4 text-foreground">
