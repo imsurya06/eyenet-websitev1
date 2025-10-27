@@ -27,23 +27,32 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         {!isMobile && (
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.href}
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                {link.name}
-              </Link>
-            ))}
-            <Button variant="outline" asChild className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-              <Link to="/contact">Contact</Link>
-            </Button>
-            <Button variant="default">
-              Apply
-            </Button>
-          </div>
+          <>
+            {/* Nav Links - Centered */}
+            <div className="hidden md:flex flex-grow justify-center">
+              <div className="flex items-center space-x-8">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="text-sm font-medium transition-colors hover:text-primary"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Buttons - Right aligned */}
+            <div className="hidden md:flex items-center space-x-4">
+              <Button variant="outline" asChild className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                <Link to="/contact">Contact</Link>
+              </Button>
+              <Button variant="default">
+                Apply
+              </Button>
+            </div>
+          </>
         )}
 
         {/* Mobile Navigation */}
