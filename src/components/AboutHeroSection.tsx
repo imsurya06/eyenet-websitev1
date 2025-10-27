@@ -21,7 +21,7 @@ const AboutHeroSection = () => {
         </div>
 
         {/* Image and Text Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8 md:mb-10 lg:mb-12"> {/* Reduced bottom margin here */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8 md:mb-10 lg:mb-12">
           {/* Left Image */}
           <div className="w-full h-[400px] md:h-[500px] overflow-hidden rounded-lg shadow-lg">
             <img
@@ -40,7 +40,7 @@ const AboutHeroSection = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <p className="text-text-regular font-body text-gray-600 text-left">
+            <p className="text-text-regular font-body text-gray-600 text-justify"> {/* Added text-justify */}
               For 25+ years, Eyenet Institute has trained creative minds in fashion
               design, Photoshop, illustrator, and modern tools
             </p>
@@ -48,7 +48,7 @@ const AboutHeroSection = () => {
         </div>
 
         {/* Bottom Paragraph */}
-        <p className="text-text-regular font-body text-gray-600 text-left max-w-4xl mx-auto">
+        <p className="text-text-regular font-body text-gray-600 text-justify max-w-4xl mx-auto"> {/* Added text-justify */}
           Guided by our Founder and Director's vision, Eyenet shapes confident, skilled designers through hands-on training, industry-relevant courses, and real-world projects. Combining creativity, technology, and professional discipline, we equip students to master tools like Photoshop and Illustrator and succeed in today's competitive design industry.
         </p>
       </div>
