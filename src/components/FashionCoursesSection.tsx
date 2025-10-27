@@ -45,7 +45,7 @@ const FashionCoursesSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {courses.map((course, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200">
+            <div key={index} className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-col"> {/* Added flex flex-col */}
               <div className="w-full h-48 overflow-hidden">
                 <img
                   src={course.image}
@@ -53,7 +53,7 @@ const FashionCoursesSection = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="p-6">
+              <div className="p-6 flex flex-col flex-grow"> {/* Added flex flex-col flex-grow */}
                 <span className="inline-block bg-muted text-text-small font-body text-gray-600 px-3 py-1 rounded-full mb-4">
                   {course.tag}
                 </span>
@@ -63,7 +63,7 @@ const FashionCoursesSection = () => {
                 <p className="text-text-regular font-body text-gray-600 mb-6">
                   {course.description}
                 </p>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mt-auto"> {/* Added mt-auto to push to bottom */}
                   <Link to={course.brochureLink} className="text-text-regular font-body text-primary hover:underline">
                     Download Brochure
                   </Link>
