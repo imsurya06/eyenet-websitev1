@@ -19,7 +19,7 @@ const ImpactByNumbersSection = () => {
         Transforming creative potential into professional success stories.
       </p>
 
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20">
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-12"> {/* Changed lg:gap-20 to lg:gap-12 */}
         {/* Video Player */}
         <div className="w-full lg:w-1/2 max-w-2xl aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-lg">
           <video
@@ -34,7 +34,7 @@ const ImpactByNumbersSection = () => {
         </div>
 
         {/* Statistics */}
-        <div className="w-full lg:w-1/2 flex flex-col items-center text-center space-y-8"> {/* Changed lg:items-start and lg:text-left to items-center and text-center */}
+        <div className="w-full lg:w-1/2 flex flex-col items-center text-center space-y-8">
           {stats.map((stat, index) => (
             <div key={index}>
               <p className="text-h2-mobile md:text-h2-desktop font-heading text-foreground mb-1">
