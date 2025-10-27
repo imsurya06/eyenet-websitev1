@@ -27,12 +27,12 @@ const EnrollmentSuccessDialog: React.FC<EnrollmentSuccessDialogProps> = ({ show,
           <DialogTitle className="text-h4-mobile md:text-h4-desktop font-heading text-foreground">
             Congratulations!
           </DialogTitle>
-          <DialogDescription className="text-text-medium font-body text-gray-700">
+          <DialogDescription className="text-text-medium font-body text-gray-700 text-center"> {/* Added text-center here */}
             You have enrolled for <span className="font-semibold text-primary">{courseName}</span>. Let's start your career with us.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex justify-center">
-          <Button onClick={onClose} className="bg-primary hover:bg-primary/90 !text-white px-6 py-3 text-text-regular"> {/* Added !text-white */}
+          <Button onClick={onClose} className="bg-primary hover:bg-primary/90 !text-white px-6 py-3 text-text-regular">
             Awesome!
           </Button>
         </DialogFooter>
