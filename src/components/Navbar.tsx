@@ -104,7 +104,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-background text-foreground shadow-md py-4"> {/* Added shadow-md */}
+    <nav className="bg-background text-foreground shadow-lg py-4"> {/* Changed shadow-md to shadow-lg */}
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link to="/" className="flex items-center">
