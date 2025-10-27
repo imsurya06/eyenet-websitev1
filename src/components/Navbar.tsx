@@ -61,47 +61,23 @@ const Navbar = () => {
   const coursesTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const exploreTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleOpen = (dropdownName: 'Courses' | 'Explore') => {
-    if (dropdownName === 'Courses') {
-      if (coursesTimeoutRef.current) {
-        clearTimeout(coursesTimeoutRef.current);
-        coursesTimeoutRef.current = null;
-      }
-      setCoursesOpen(true);
-    } else if (dropdownName === 'Explore') {
-      if (exploreTimeoutRef.current) {
-        clearTimeout(exploreTimeoutRef.current);
-        exploreTimeoutRef.current = null;
-      }
-      setExploreOpen(true);
-    }
-  };
-
-  const handleClose = (dropdownName: 'Courses' | 'Explore') => {
-    if (dropdownName === 'Courses') {
-      coursesTimeoutRef.current = setTimeout(() => {
-        setCoursesOpen(false);
-      }, 150); // 150ms delay
-    } else if (dropdownName === 'Explore') {
-      exploreTimeoutRef.current = setTimeout(() => {
-        setExploreOpen(false);
-      }, 150); // 150ms delay
-    }
-  };
-
-  const handleOpenChange = (dropdownName: 'Courses' | 'Explore', openState: boolean) => {
-    const timeoutRef = dropdownName === 'Courses' ? coursesTimeoutRef : exploreTimeoutRef;
+  const handleDropdownOpenChange = (dropdownName: 'Courses' | 'Explore', newOpenState: boolean) => {
     const setOpenState = dropdownName === 'Courses' ? setCoursesOpen : setExploreOpen;
+    const timeoutRef = dropdownName === 'Courses' ? coursesTimeoutRef : exploreTimeoutRef;
 
-    if (openState) { // Radix wants to open (e.g., keyboard interaction)
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+
+    if (newOpenState) {
+      // If it's opening, set it immediately
       setOpenState(true);
-    } else { // Radix wants to close (e.g., escape key, click outside, or internal hover logic)
-      // Only force close immediately if there's no active hover-based close timer.
-      // This prevents Radix's internal close from overriding our delayed hover close.
-      if (!timeoutRef.current) {
+    } else {
+      // If it's closing, set a delay
+      timeoutRef.current = setTimeout(() => {
         setOpenState(false);
-      }
+      }, 150); // Adjust delay as needed
     }
   };
 
@@ -132,14 +108,13 @@ const Navbar = () => {
                     <DropdownMenu
                       key={item.name}
                       open={item.name === 'Courses' ? coursesOpen : exploreOpen}
-                      onOpenChange={(openState) => handleOpenChange(item.name as 'Courses' | 'Explore', openState)}
+                      onOpenChange={(newOpenState) => handleDropdownOpenChange(item.name as 'Courses' | 'Explore', newOpenState)}
                     >
                       <DropdownMenuTrigger asChild>
                         <Button
                           variant="ghost"
                           className="text-sm font-medium transition-colors hover:text-primary data-[state=open]:text-primary"
-                          onMouseEnter={() => handleOpen(item.name as 'Courses' | 'Explore')}
-                          onMouseLeave={() => handleClose(item.name as 'Courses' | 'Explore')}
+                          // Removed onMouseEnter and onMouseLeave from here
                         >
                           {item.name}
                           <ChevronDown className="ml-1 h-4 w-4" />
@@ -148,8 +123,7 @@ const Navbar = () => {
                       <DropdownMenuContent
                         className="w-80 p-4 bg-muted data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 duration-300"
                         align="start"
-                        onMouseEnter={() => handleOpen(item.name as 'Courses' | 'Explore')}
-                        onMouseLeave={() => handleClose(item.name as 'Courses' | 'Explore')}
+                        // Removed onMouseEnter and onMouseLeave from here
                       >
                         {item.heading && (
                           <DropdownMenuLabel className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">
