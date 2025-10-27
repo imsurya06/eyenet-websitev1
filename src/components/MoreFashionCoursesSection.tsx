@@ -47,8 +47,9 @@ const MoreFashionCoursesSection = () => {
                 />
               </div>
               <div className="p-6 flex flex-col flex-grow">
-                <span className="inline-block bg-muted text-text-small font-body text-gray-600 px-3 py-1 rounded-full mb-4">
-                  {course.tag} / Offline
+                <span className="inline-flex items-center bg-muted text-text-small font-body text-gray-600 px-3 py-1 rounded-full mb-4">
+                  <span>{course.tag}</span>
+                  <span className="ml-8">Offline</span> {/* ml-8 for 32px gap */}
                 </span>
                 <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground">
                   <Link to={`/courses/fashion-design/${course.title.toLowerCase().replace(/\s+/g, '-')}`} className="hover:underline">
