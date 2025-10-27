@@ -90,8 +90,8 @@ const Admissions = () => {
         </AnimateOnScroll>
 
         {/* Right Section: Enroll Now Form */}
-        <AnimateOnScroll isHero={true} delay={700} className="w-full lg:w-1/2 flex justify-center">
-          <div className="bg-white p-8 md:p-10 lg:p-12 rounded-lg shadow-xl max-w-md lg:max-w-none text-center lg:text-left">
+        <AnimateOnScroll isHero={true} delay={700} className="w-full lg:w-2/3 flex justify-center"> {/* Changed lg:w-1/2 to lg:w-2/3 */}
+          <div className="bg-white p-8 md:p-10 lg:p-12 rounded-lg shadow-xl max-w-xl lg:max-w-none text-center lg:text-left"> {/* Changed max-w-md to max-w-xl */}
             <h2 className="text-h2-mobile md:text-h2-desktop font-heading mb-2 text-foreground">
               Enroll Now
             </h2>
