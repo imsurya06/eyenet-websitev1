@@ -28,7 +28,7 @@ const LocationSection = () => {
         {/* Right Section: Map Image */}
         <div className="w-full aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-lg">
           <img
-            src="/images/madurai-map.png" // Placeholder image for the map
+            src="/images/madurai-map.png" // Updated to use the new image
             alt="Map of Eye Net Educational Academy in Madurai"
             className="w-full h-full object-cover"
           />
