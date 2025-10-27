@@ -68,13 +68,13 @@ const FashionCoursesSection = () => {
                     Details...
                   </Link>
                 </p>
-                <div className="flex items-center justify-between mt-auto">
-                  <Link to={course.brochureLink} className="text-text-regular font-body text-primary hover:underline">
+                <div className="flex flex-row items-center justify-center gap-2 mt-auto md:justify-between">
+                  <Link to={course.brochureLink} className="text-text-small font-body text-primary hover:underline whitespace-nowrap">
                     Download Brochure
                   </Link>
-                  <Button asChild className="bg-primary hover:bg-primary/90 px-6 py-3 text-text-regular">
-                    <Link to={course.enrollLink} className="text-white"> {/* Added text-white here */}
-                      Enroll <ArrowRight className="ml-2 h-4 w-4 inline-block" />
+                  <Button asChild className="bg-primary hover:bg-primary/90 px-4 py-2 text-text-small flex-shrink-0">
+                    <Link to={course.enrollLink} className="text-white">
+                      Enroll <ArrowRight className="ml-1 h-3 w-3 inline-block" />
                     </Link>
                   </Button>
                 </div>
