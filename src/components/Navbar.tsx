@@ -228,10 +228,11 @@ const Navbar = () => {
               <nav className="flex flex-col gap-4 pt-6">
                 {navItems.map((item) => (
                   item.type === 'link' ? (
+                    // Close sheet on link click
                     <NavLink
                       key={item.name}
                       to={item.href}
-                      onClick={() => setIsSheetOpen(false)} {/* Close sheet on link click */}
+                      onClick={() => setIsSheetOpen(false)}
                       className={({ isActive }) =>
                         cn(
                           "text-lg font-normal hover:text-primary",
@@ -255,10 +256,11 @@ const Navbar = () => {
                       </span>
                       <div className="ml-4 flex flex-col gap-2">
                         {item.links.map((link) => (
+                          // Close sheet on link click
                           <NavLink
                             key={link.name}
                             to={link.href}
-                            onClick={() => setIsSheetOpen(false)} {/* Close sheet on link click */}
+                            onClick={() => setIsSheetOpen(false)}
                             className={({ isActive }) =>
                               cn(
                                 "text-base hover:text-primary",
