@@ -15,7 +15,8 @@ import Explore from "./pages/Explore";
 import StudentsZone from "./pages/StudentsZone";
 import Infrastructure from "./pages/Infrastructure";
 import NewsEvents from "./pages/NewsEvents";
-import FashionDesignCourses from "./pages/FashionDesignCourses"; // Import the new page
+import FashionDesignCourses from "./pages/FashionDesignCourses";
+import CourseDetailsPage from "./pages/CourseDetailsPage"; // Import the new page
 import Footer from "./components/Footer";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 
@@ -33,7 +34,8 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/admissions" element={<Admissions />} />
           <Route path="/courses" element={<Courses />} />
-          <Route path="/courses/fashion-design" element={<FashionDesignCourses />} /> {/* Add the new route here */}
+          <Route path="/courses/fashion-design" element={<FashionDesignCourses />} />
+          <Route path="/courses/fashion-design/:slug" element={<CourseDetailsPage />} /> {/* Add the new dynamic route here */}
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/explore/students-zone" element={<StudentsZone />} />
