@@ -7,13 +7,13 @@ import AnimateOnScroll from '@/components/AnimateOnScroll'; // Import AnimateOnS
 const Infrastructure = () => {
   return (
     <>
-      <AnimateOnScroll isHero={true} delay={200}>
+      <AnimateOnScroll isHero={true} delay={500}>
         <InfrastructureHeroSection />
       </AnimateOnScroll>
-      <AnimateOnScroll>
+      <AnimateOnScroll delay={200}>
         <InfrastructureGridSection />
       </AnimateOnScroll>
-      <AnimateOnScroll>
+      <AnimateOnScroll delay={200}>
         <InfrastructureImageGridSection />
       </AnimateOnScroll>
     </>

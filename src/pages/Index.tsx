@@ -16,7 +16,7 @@ import AnimateOnScroll from '@/components/AnimateOnScroll'; // Import the new co
 const Index = () => {
   return (
     <>
-      <AnimateOnScroll isHero={true} delay={200}> {/* Apply hero animation */}
+      <AnimateOnScroll isHero={true} delay={500}> {/* Apply hero animation */}
         <div className="relative min-h-[calc(100vh-6rem)] flex flex-col md:flex-row items-center justify-center px-3 py-12 md:px-8 lg:px-[80px] bg-background md:py-16 lg:py-24">
           {/* Mobile Background Image with Overlay */}
           <div
@@ -58,37 +58,37 @@ const Index = () => {
       </AnimateOnScroll>
 
       {/* Why Choose Us Section (Home Page Specific) */}
-      <AnimateOnScroll>
+      <AnimateOnScroll delay={200}>
         <HomeWhyChooseUsSection />
       </AnimateOnScroll>
 
       {/* Our Programs Section */}
-      <AnimateOnScroll>
+      <AnimateOnScroll delay={200}>
         <OurProgramsSection />
       </AnimateOnScroll>
 
       {/* Impact By Numbers Section */}
-      <AnimateOnScroll>
+      <AnimateOnScroll delay={200}>
         <ImpactByNumbersSection />
       </AnimateOnScroll>
 
       {/* Student Stories Section */}
-      <AnimateOnScroll>
+      <AnimateOnScroll delay={200}>
         <StudentStoriesSection />
       </AnimateOnScroll>
 
       {/* Call To Action Section */}
-      <AnimateOnScroll>
+      <AnimateOnScroll delay={200}>
         <CallToActionSection />
       </AnimateOnScroll>
 
       {/* FAQ Section */}
-      <AnimateOnScroll>
+      <AnimateOnScroll delay={200}>
         <FAQSection />
       </AnimateOnScroll>
 
       {/* Location Section */}
-      <AnimateOnScroll>
+      <AnimateOnScroll delay={200}>
         <LocationSection />
       </AnimateOnScroll>
     </>

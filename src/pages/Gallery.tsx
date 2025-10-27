@@ -7,7 +7,7 @@ import AnimateOnScroll from '@/components/AnimateOnScroll'; // Import AnimateOnS
 const Gallery = () => {
   return (
     <>
-      <AnimateOnScroll isHero={true} delay={200}> {/* Apply hero animation to the first section */}
+      <AnimateOnScroll isHero={true} delay={500}> {/* Apply hero animation to the first section */}
         <section className="py-12 md:py-16 lg:py-20 px-3 md:px-8 lg:px-[80px] bg-background text-foreground">
           <div className="max-w-7xl mx-auto">
             {/* Title and Subtitle */}
@@ -43,13 +43,13 @@ const Gallery = () => {
           </div>
         </section>
       </AnimateOnScroll>
-      <AnimateOnScroll>
+      <AnimateOnScroll delay={200}>
         <GalleryCarouselSection />
       </AnimateOnScroll>
-      <AnimateOnScroll>
+      <AnimateOnScroll delay={200}>
         <GalleryGridSection />
       </AnimateOnScroll>
-      <AnimateOnScroll>
+      <AnimateOnScroll delay={200}>
         <CallToActionSection />
       </AnimateOnScroll>
     </>

@@ -3,7 +3,7 @@ import AnimateOnScroll from '@/components/AnimateOnScroll'; // Import AnimateOnS
 
 const Courses = () => {
   return (
-    <AnimateOnScroll isHero={true} delay={200}> {/* Apply hero animation */}
+    <AnimateOnScroll isHero={true} delay={500}> {/* Apply hero animation */}
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <h1 className="text-h1-mobile md:text-h1-desktop font-heading">Courses Page</h1>
       </div>

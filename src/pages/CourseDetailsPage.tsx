@@ -8,7 +8,7 @@ const CourseDetailsPage = () => {
   const { slug } = useParams<{ slug: string }>();
 
   return (
-    <AnimateOnScroll isHero={true} delay={200}> {/* Apply hero animation */}
+    <AnimateOnScroll isHero={true} delay={500}> {/* Apply hero animation */}
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
         <h1 className="text-h1-mobile md:text-h1-desktop font-heading mb-4 text-foreground text-center">
           Course Details

@@ -17,7 +17,7 @@ import AnimateOnScroll from '@/components/AnimateOnScroll'; // Import AnimateOnS
 
 const Admissions = () => {
   return (
-    <AnimateOnScroll isHero={true} delay={200}> {/* Apply hero animation to the main section */}
+    <AnimateOnScroll isHero={true} delay={500}> {/* Apply hero animation to the main section */}
       <section
         className="relative min-h-screen bg-cover bg-center py-12 md:py-16 lg:py-20 px-3 md:px-8 lg:px-[80px] flex items-center justify-center"
         style={{ backgroundImage: 'url(/images/admissions-background.jpg)' }}
