@@ -52,12 +52,12 @@ const AdditionalFashionCoursesSection = () => {
                   <span className="inline-block bg-muted text-text-small font-body text-gray-600 px-3 py-1 rounded-full mb-4 border border-input">
                     {course.tag} / Offline
                   </span>
-                  <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground">
+                  <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground line-clamp-2"> {/* Added line-clamp-2 */}
                     <Link to={`/courses/fashion-design/${course.title.toLowerCase().replace(/\s+/g, '-')}`} className="hover:underline">
                       {course.title}
                     </Link>
                   </h3>
-                  <p className="text-text-regular font-body text-gray-600 mb-6 h-[6.4rem] overflow-hidden"> {/* Changed line-clamp-4 to h-[6.4rem] and added overflow-hidden */}
+                  <p className="text-text-regular font-body text-gray-600 mb-6 h-[6.4rem] overflow-hidden">
                     {course.description.split('Details...')[0]}
                     <Link to={`/courses/fashion-design/${course.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-primary hover:underline ml-1">
                       Details...
