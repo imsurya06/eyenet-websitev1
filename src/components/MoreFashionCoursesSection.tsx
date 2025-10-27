@@ -8,7 +8,7 @@ import { ArrowRight } from 'lucide-react';
 const MoreFashionCoursesSection = () => {
   const courses = [
     {
-      image: '/images/aari-making.png',
+      image: '/images/img7.png', // Updated to use img7.png
       tag: 'Course',
       title: 'Aari Making Course',
       description: 'An Aari Making Course is a specialized program designed to teach the intricate art of Aari Details...',
@@ -16,7 +16,7 @@ const MoreFashionCoursesSection = () => {
       enrollLink: '/admissions',
     },
     {
-      image: '/images/fashion-illustration.png',
+      image: '/images/img8.png', // Updated to use img8.png
       tag: 'Course',
       title: 'Fashion Illustration Course',
       description: 'A Fashion Illustration Course is a specialized program designed to teach the art of drawing Details...',
@@ -24,7 +24,7 @@ const MoreFashionCoursesSection = () => {
       enrollLink: '/admissions',
     },
     {
-      image: '/images/fabric-painting.png',
+      image: '/images/img9.png', // Updated to use img9.png
       tag: 'Course',
       title: 'Fabric Painting Course',
       description: 'A Fabric Painting Course is a creative program designed to teach the techniques and skills Details...',
