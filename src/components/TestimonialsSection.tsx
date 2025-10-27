@@ -58,11 +58,11 @@ const TestimonialsSection = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Button asChild variant="outline" className="px-6 py-3 text-text-regular border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-              <Link to="/contact">Button</Link>
+              <Link to="/admissions">Apply</Link>
             </Button>
             <Button asChild variant="ghost" className="px-6 py-3 text-text-regular text-primary hover:bg-transparent hover:text-primary/80">
-              <Link to="/gallery">
-                Button <ArrowRight className="ml-2 h-4 w-4 inline-block" />
+              <Link to="/contact">
+                Get info <ArrowRight className="ml-2 h-4 w-4 inline-block" />
               </Link>
             </Button>
           </div>
