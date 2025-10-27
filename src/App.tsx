@@ -17,16 +17,6 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="/about" element={<Index />} /> {/* Placeholder */}
-          <Route path="/admissions" element={<Index />} /> {/* Placeholder */}
-          <Route path="/courses" element={<Index />} /> {/* Placeholder */}
-          <Route path="/courses/fashion" element={<Index />} /> {/* Placeholder */}
-          <Route path="/courses/interior" element={<Index />} /> {/* Placeholder */}
-          <Route path="/explore" element={<Index />} /> {/* Placeholder */}
-          <Route path="/explore/gallery" element={<Index />} /> {/* Placeholder */}
-          <Route path="/explore/events" element={<Index />} /> {/* Placeholder */}
-          <Route path="/contact" element={<Index />} /> {/* Placeholder */}
-          <Route path="/apply" element={<Index />} /> {/* Placeholder */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
