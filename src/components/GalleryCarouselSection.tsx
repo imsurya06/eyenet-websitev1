@@ -25,9 +25,9 @@ const GalleryCarouselSection = () => {
 
   return (
     <section className="py-12 md:py-16 lg:py-20 px-3 md:px-8 lg:px-[80px] bg-background text-foreground">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-        {/* Left Section: Text Content */}
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+      <div className="max-w-7xl mx-auto"> {/* This container now holds both text and carousel */}
+        {/* Text Content - now above the carousel */}
+        <div className="flex flex-col items-center text-center lg:items-start lg:text-left mb-8">
           <h2 className="text-h2-mobile md:text-h2-desktop font-heading mb-4">
             South Indian Designer <br /> Concert
           </h2>
@@ -36,8 +36,8 @@ const GalleryCarouselSection = () => {
           </p>
         </div>
 
-        {/* Right Section: Carousel */}
-        <div className="w-full max-w-lg mx-auto lg:mx-0">
+        {/* Carousel - now full width within max-w-7xl */}
+        <div className="w-full">
           <Carousel
             plugins={[plugin.current]}
             className="w-full"
