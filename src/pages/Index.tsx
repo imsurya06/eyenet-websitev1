@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import WhyChooseUsSection from '@/components/WhyChooseUsSection';
-import OurProgramsSection from '@/components/OurProgramsSection'; // Import the new component
+import OurProgramsSection from '@/components/OurProgramsSection';
+import ImpactByNumbersSection from '@/components/ImpactByNumbersSection'; // Import the new component
 
 const Index = () => {
   return (
@@ -51,6 +52,9 @@ const Index = () => {
 
       {/* Our Programs Section */}
       <OurProgramsSection />
+
+      {/* Impact By Numbers Section */}
+      <ImpactByNumbersSection />
     </>
   );
 };
