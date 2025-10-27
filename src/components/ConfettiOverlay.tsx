@@ -23,13 +23,13 @@ const ConfettiOverlay: React.FC<ConfettiOverlayProps> = ({ show, duration = 3000
 
   if (!isVisible) return null;
 
-  // Generate a few confetti pieces with random positions and delays
-  const confettiPieces = Array.from({ length: 50 }).map((_, i) => (
+  // Generate more confetti pieces with varied sizes and colors
+  const confettiPieces = Array.from({ length: 100 }).map((_, i) => (
     <div
       key={i}
       className={cn(
-        "absolute w-2 h-2 bg-primary rounded-full opacity-0 animate-fall",
-        i % 2 === 0 ? "bg-primary" : "bg-yellow-400", // Alternate colors
+        "absolute rounded-full opacity-0 animate-fall",
+        i % 3 === 0 ? "bg-primary w-3 h-3" : i % 3 === 1 ? "bg-yellow-400 w-2 h-2" : "bg-blue-400 w-4 h-4", // Varied colors and sizes
       )}
       style={{
         left: `${Math.random() * 100}%`,

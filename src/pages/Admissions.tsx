@@ -25,8 +25,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { showSuccess } from '@/utils/toast';
-import ConfettiOverlay from '@/components/ConfettiOverlay'; // Import the new ConfettiOverlay
+import ConfettiOverlay from '@/components/ConfettiOverlay';
+import EnrollmentSuccessDialog from '@/components/EnrollmentSuccessDialog'; // Import the new dialog
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -40,6 +40,8 @@ const formSchema = z.object({
 
 const Admissions = () => {
   const [showConfetti, setShowConfetti] = React.useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = React.useState(false);
+  const [enrolledCourseName, setEnrolledCourseName] = React.useState('');
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -55,10 +57,18 @@ const Admissions = () => {
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
     // Simulate API call or form submission
-    showSuccess(`You have enrolled for ${values.program}. Let's start your career with us.`);
+    setEnrolledCourseName(values.program);
     setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 3000); // Hide confetti after 3 seconds
+    setShowSuccessDialog(true);
+    
+    // Hide confetti after 3 seconds
+    setTimeout(() => setShowConfetti(false), 3000); 
+    
     form.reset(); // Reset form fields after submission
+  };
+
+  const handleCloseSuccessDialog = () => {
+    setShowSuccessDialog(false);
   };
 
   return (
@@ -221,6 +231,11 @@ const Admissions = () => {
         </AnimateOnScroll>
       </div>
       <ConfettiOverlay show={showConfetti} />
+      <EnrollmentSuccessDialog
+        show={showSuccessDialog}
+        courseName={enrolledCourseName}
+        onClose={handleCloseSuccessDialog}
+      />
     </section>
   );
 };
