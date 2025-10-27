@@ -47,10 +47,10 @@ const Footer = () => {
           <Link to="/" className="mb-6">
             <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-10" />
           </Link>
-          <p className="text-text-regular font-body text-gray-600 mb-4 max-w-xs">
+          <p className="text-text-regular font-body text-gray-600 mb-4 max-w-xs md:max-w-none">
             Join our newsletter to stay up to date on features and releases.
           </p>
-          <div className="flex flex-col sm:flex-row gap-2 w-full max-w-xs mb-4">
+          <div className="flex flex-col sm:flex-row gap-2 w-full mb-4">
             <Input
               type="email"
               placeholder="Enter your email"
@@ -60,7 +60,7 @@ const Footer = () => {
               Subscribe
             </Button>
           </div>
-          <p className="text-text-small font-body text-gray-500 max-w-xs">
+          <p className="text-text-small font-body text-gray-500 max-w-xs md:max-w-none">
             By subscribing you agree to with our{' '}
             <Link to="/privacy-policy" className="underline hover:text-primary">
               Privacy Policy
@@ -71,11 +71,11 @@ const Footer = () => {
 
         {/* Column 2 & 3: Links */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left lg:col-span-2">
-          <h4 className="text-h6-mobile md:text-h6-desktop font-heading mb-6 text-foreground">
+          <h4 className="text-h6-mobile md:text-h6-desktop font-heading mb-6 text-foreground md:text-left">
             Links
           </h4>
-          <div className="grid grid-cols-2 gap-x-8 gap-y-2">
-            <ul className="space-y-2">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-2 w-full">
+            <ul className="space-y-2 md:text-left">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <Link
@@ -87,7 +87,7 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-            <ul className="space-y-2">
+            <ul className="space-y-2 md:text-left">
               {secondaryNavLinks.map((link) => (
                 <li key={link.name}>
                   <Link
@@ -104,10 +104,10 @@ const Footer = () => {
 
         {/* Column 4: Follow Us */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
-          <h4 className="text-h6-mobile md:text-h6-desktop font-heading mb-6 text-foreground">
+          <h4 className="text-h6-mobile md:text-h6-desktop font-heading mb-6 text-foreground md:text-left">
             Follow Us
           </h4>
-          <ul className="space-y-3">
+          <ul className="space-y-3 md:text-left">
             {socialLinks.map((social) => (
               <li key={social.name}>
                 <a
