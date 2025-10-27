@@ -6,7 +6,8 @@ import OurProgramsSection from '@/components/OurProgramsSection';
 import ImpactByNumbersSection from '@/components/ImpactByNumbersSection';
 import StudentStoriesSection from '@/components/StudentStoriesSection';
 import CallToActionSection from '@/components/CallToActionSection';
-import NewsletterSection from '@/components/NewsletterSection'; // Import the new component
+import NewsletterSection from '@/components/NewsletterSection';
+import FAQSection from '@/components/FAQSection'; // Import the new component
 
 const Index = () => {
   return (
@@ -67,6 +68,9 @@ const Index = () => {
 
       {/* Newsletter Section */}
       <NewsletterSection />
+
+      {/* FAQ Section */}
+      <FAQSection />
     </>
   );
 };
