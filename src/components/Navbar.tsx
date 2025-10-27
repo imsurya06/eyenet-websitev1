@@ -10,11 +10,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
-  DropdownMenuLabel, // Import DropdownMenuLabel
+  DropdownMenuLabel,
 } from '@/components/ui/dropdown-menu';
-import { Menu, ChevronDown, Tablet, Activity, Laptop } from 'lucide-react';
+import { Menu, ChevronDown } from 'lucide-react'; // Keep Menu and ChevronDown if used directly
+import * as LucideIcons from 'lucide-react'; // Import all Lucide icons for type resolution
 import { useIsMobile } from '@/hooks/use-mobile';
-import CourseDropdownMenuItem from './CourseDropdownMenuItem';
+import CourseDropdownMenuItem from './CourseDropdownMenuItem.tsx'; // Explicitly add .tsx extension
 
 const navItems = [
   { type: 'link', name: 'Home', href: '/' },
@@ -83,9 +84,9 @@ const Navbar = () => {
                           <ChevronDown className="ml-1 h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-80 p-4 bg-muted" align="start"> {/* Added bg-muted and align="start" */}
+                      <DropdownMenuContent className="w-80 p-4 bg-muted" align="start">
                         {item.heading && (
-                          <DropdownMenuLabel className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground"> {/* Used DropdownMenuLabel */}
+                          <DropdownMenuLabel className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">
                             {item.heading}
                           </DropdownMenuLabel>
                         )}
