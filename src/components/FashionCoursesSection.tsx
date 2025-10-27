@@ -8,7 +8,7 @@ import { ArrowRight } from 'lucide-react';
 const FashionCoursesSection = () => {
   const courses = [
     {
-      image: '/images/img1.png', // Using previously uploaded image
+      image: '/images/img1.png', // Updated to use img1.png
       tag: 'Course',
       title: 'Diploma in Fashion Designing',
       description: 'A Diploma in Fashion Designing is a specialized program designed to equip students with the skills and Details...',
@@ -16,7 +16,7 @@ const FashionCoursesSection = () => {
       enrollLink: '/admissions',
     },
     {
-      image: '/images/img2.png', // Using previously uploaded image
+      image: '/images/img2.png', // Updated to use img2.png
       tag: 'Course',
       title: 'Diploma in Dress Making (Female)',
       description: 'A six-month Diploma in Female Dress Making is an accelerated program designed to provide. Details...',
@@ -24,7 +24,7 @@ const FashionCoursesSection = () => {
       enrollLink: '/admissions',
     },
     {
-      image: '/images/img3.png', // Using previously uploaded image
+      image: '/images/img3.png', // Updated to use img3.png
       tag: 'Course',
       title: 'Diploma in Dress Making (Child)',
       description: 'A six-month Diploma in Kids Dress Making is a focused program designed to teach the specific Details...',
