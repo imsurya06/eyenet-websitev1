@@ -9,9 +9,12 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuLabel, // Import DropdownMenuLabel
 } from '@/components/ui/dropdown-menu';
-import { Menu, ChevronDown } from 'lucide-react';
+import { Menu, ChevronDown, Tablet, Activity, Laptop } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import CourseDropdownMenuItem from './CourseDropdownMenuItem';
 
 const navItems = [
   { type: 'link', name: 'Home', href: '/' },
@@ -20,11 +23,17 @@ const navItems = [
   {
     type: 'dropdown',
     name: 'Courses',
+    heading: 'courses',
     links: [
-      { name: 'All Courses', href: '/courses' },
-      { name: 'Fashion Design', href: '/courses/fashion-design' },
-      { name: 'Interior Design', href: '/courses/interior-design' },
+      { name: 'Fashion design Courses', description: 'Professional certification for creative professionals', href: '/courses/fashion-design', icon: 'Tablet' },
+      { name: 'Graphic design', description: 'Digital and print design curriculum', href: '/courses/graphic-design', icon: 'Activity' },
+      { name: 'Computer courses', description: 'Digital and print design curriculum', href: '/courses/computer-courses', icon: 'Laptop' },
     ],
+    footer: {
+      text: 'Start your design journey',
+      linkText: 'Apply now',
+      linkHref: '/admissions'
+    }
   },
   {
     type: 'dropdown',
@@ -74,12 +83,34 @@ const Navbar = () => {
                           <ChevronDown className="ml-1 h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        {item.links.map((link) => (
-                          <DropdownMenuItem key={link.name} asChild>
-                            <Link to={link.href}>{link.name}</Link>
-                          </DropdownMenuItem>
-                        ))}
+                      <DropdownMenuContent className="w-80 p-4 bg-muted" align="start"> {/* Added bg-muted and align="start" */}
+                        {item.heading && (
+                          <DropdownMenuLabel className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground"> {/* Used DropdownMenuLabel */}
+                            {item.heading}
+                          </DropdownMenuLabel>
+                        )}
+                        <div className="grid gap-1">
+                          {item.links.map((link) => (
+                            <CourseDropdownMenuItem
+                              key={link.name}
+                              href={link.href}
+                              title={link.name}
+                              description={link.description}
+                              icon={link.icon as keyof typeof LucideIcons}
+                            />
+                          ))}
+                        </div>
+                        {item.footer && (
+                          <>
+                            <DropdownMenuSeparator className="my-2" />
+                            <div className="px-3 py-2 text-sm">
+                              {item.footer.text}{' '}
+                              <Link to={item.footer.linkHref} className="text-primary hover:underline font-medium">
+                                {item.footer.linkText}
+                              </Link>
+                            </div>
+                          </>
+                        )}
                       </DropdownMenuContent>
                     </DropdownMenu>
                   )
