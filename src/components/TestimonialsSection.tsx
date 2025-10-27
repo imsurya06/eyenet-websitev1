@@ -71,9 +71,9 @@ const TestimonialsSection = () => {
         {/* Right Section: Testimonial Cards */}
         <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-muted p-6 rounded-lg shadow-sm flex flex-col justify-between">
+            <div key={index} className="bg-muted p-6 rounded-lg shadow-sm flex flex-col justify-between items-center text-center md:items-start md:text-left"> {/* Added items-center and text-center for mobile */}
               <div className="mb-4">
-                <div className="flex items-center mb-3">
+                <div className="flex items-center mb-3 justify-center md:justify-start"> {/* Added justify-center for mobile */}
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                   ))}
@@ -82,11 +82,11 @@ const TestimonialsSection = () => {
                   "{testimonial.quote}"
                 </p>
               </div>
-              <div className="flex items-center mt-4">
+              <div className="flex flex-col items-center md:flex-row md:items-center mt-4"> {/* Adjusted for mobile centering */}
                 <img
                   src={testimonial.avatar}
                   alt={testimonial.name}
-                  className="h-10 w-10 rounded-full mr-3 object-cover"
+                  className="h-10 w-10 rounded-full mb-2 md:mb-0 md:mr-3 object-cover"
                 />
                 <div>
                   <p className="text-text-medium font-body font-semibold text-foreground leading-none">
