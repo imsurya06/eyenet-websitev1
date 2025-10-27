@@ -21,13 +21,13 @@ interface EnrollmentSuccessDialogProps {
 const EnrollmentSuccessDialog: React.FC<EnrollmentSuccessDialogProps> = ({ show, courseName, onClose }) => {
   return (
     <Dialog open={show} onOpenChange={onClose}>
-      <DialogContent className="max-w-md p-8 md:p-10 text-center flex flex-col items-center space-y-6">
+      <DialogContent className="max-w-md p-8 md:p-10 text-center flex flex-col items-center space-y-6" hideCloseButton> {/* Added hideCloseButton prop */}
         <DialogHeader className="flex flex-col items-center space-y-4">
           <CheckCircle className="h-16 w-16 text-green-500 mx-auto" />
           <DialogTitle className="text-h4-mobile md:text-h4-desktop font-heading text-foreground">
             Congratulations!
           </DialogTitle>
-          <DialogDescription className="text-text-medium font-body text-gray-700 text-center"> {/* Added text-center here */}
+          <DialogDescription className="text-text-medium font-body text-gray-700 text-center">
             You have enrolled for <span className="font-semibold text-primary">{courseName}</span>. Let's start your career with us.
           </DialogDescription>
         </DialogHeader>
