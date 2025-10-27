@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label';
 
 const Contact = () => {
   return (
-    <section className="py-12 md:py-16 lg:py-20 px-3 md:px-8 lg:px-[80px] bg-background text-foreground min-h-[calc(100vh-12rem)] flex items-center">
+    <section className="py-12 md:py-16 lg:py-20 px-6 md:px-8 lg:px-[80px] bg-background text-foreground min-h-[calc(100vh-12rem)] flex items-center">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start w-full">
         {/* Left Section: Contact Form and Text */}
         <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
