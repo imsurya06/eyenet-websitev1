@@ -106,7 +106,7 @@ const Admissions = () => {
                   </Link>
                 </Label>
               </div>
-              <Button type="submit" className="w-full h-12 px-6 py-2 text-text-regular bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button type="submit" className="w-full h-12 px-6 py-2 text-text-regular bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 ease-in-out hover:scale-[1.02]">
                 Enroll
               </Button>
             </form>
