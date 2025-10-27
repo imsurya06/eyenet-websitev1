@@ -10,7 +10,7 @@ const AboutHeroSection = () => {
         <div className="mb-12 md:mb-16 lg:mb-20 grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
             <h1 className="text-h1-mobile md:text-h1-desktop font-heading text-foreground leading-tight">
-              Eyenet a Educational Academy {/* Removed <br /> here */}
+              Eyenet a <br /> Educational Academy {/* Added <br /> here */}
             </h1>
           </div>
           <div className="flex items-end justify-start lg:justify-end">
