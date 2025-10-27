@@ -27,7 +27,7 @@ const navItems = [
     heading: 'courses',
     links: [
       { name: 'Fashion design Courses', description: 'Professional certification for creative professionals', href: '/courses/fashion-design', icon: 'Tablet' },
-      { name: 'Graphic design', description: 'Digital and print design curriculum', href: '/courses/graphic-design', icon: 'Activity' },
+      // Removed 'Graphic design' course link
       { name: 'Computer courses', description: 'Digital and print design curriculum', href: '/courses/computer-courses', icon: 'Laptop' },
     ],
     footer: {

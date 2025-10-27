@@ -11,12 +11,7 @@ const OurProgramsSection = () => {
       description: 'Learn essential computer programs from basics to advanced.',
       href: '/courses/fashion-design',
     },
-    {
-      image: '/images/graphic-design.png',
-      title: 'Graphic design',
-      description: 'Master digital and print design skills for professional success.',
-      href: '/courses/graphic-design',
-    },
+    // Removed 'Graphic design' program card
     {
       image: '/images/computer-courses.png',
       title: 'Computer Courses',
