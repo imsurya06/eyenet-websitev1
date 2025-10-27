@@ -40,13 +40,11 @@ const CourseDropdownMenuItem = React.forwardRef<
             ?
           </div>
         )}
-        <div className="grid gap-1 min-h-10"> {/* Added min-h-10 here */}
+        <div className="grid gap-1 min-h-10">
           <p className="text-sm font-medium leading-none">{title}</p>
-          {description && (
-            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-              {description}
-            </p>
-          )}
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {description || '\u00A0'} {/* Always render, use non-breaking space if no description */}
+          </p>
           {children}
         </div>
       </Link>
