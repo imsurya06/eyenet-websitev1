@@ -152,7 +152,7 @@ const Navbar = () => {
                         <Button
                           variant="ghost"
                           className={cn(
-                            "text-regular font-normal transition-colors hover:text-primary",
+                            "text-regular font-normal transition-colors hover:text-primary focus-visible:outline-none", // Added focus-visible:outline-none
                             (item.name === 'Courses' && (isCoursesPathActive || coursesOpen)) && "text-primary",
                             (item.name === 'Explore' && (isExplorePathActive || exploreOpen)) && "text-primary"
                           )}
