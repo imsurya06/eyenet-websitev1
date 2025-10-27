@@ -21,7 +21,7 @@ const ImpactByNumbersSection = () => {
 
       <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-10">
         {/* Video Player */}
-        <div className="w-full lg:w-1/2 max-w-2xl aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-lg mx-auto"> {/* Added mx-auto here */}
+        <div className="w-full lg:w-1/2 aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-lg"> {/* Removed max-w-2xl and mx-auto */}
           <video
             src="/videos/impact-video.mp4"
             controls
@@ -34,7 +34,7 @@ const ImpactByNumbersSection = () => {
         </div>
 
         {/* Statistics */}
-        <div className="w-full lg:w-1/2 flex flex-col items-center text-center space-y-8">
+        <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-8"> {/* Adjusted alignment for lg screens */}
           {stats.map((stat, index) => (
             <div key={index}>
               <p className="text-h2-mobile md:text-h2-desktop font-heading text-foreground mb-1">
