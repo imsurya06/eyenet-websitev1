@@ -61,7 +61,7 @@ const Navbar = () => {
   const coursesTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const exploreTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleDropdownOpen = (dropdownName: 'Courses' | 'Explore') => {
+  const handleOpen = (dropdownName: 'Courses' | 'Explore') => {
     if (dropdownName === 'Courses') {
       if (coursesTimeoutRef.current) {
         clearTimeout(coursesTimeoutRef.current);
@@ -77,7 +77,7 @@ const Navbar = () => {
     }
   };
 
-  const handleDropdownClose = (dropdownName: 'Courses' | 'Explore') => {
+  const handleClose = (dropdownName: 'Courses' | 'Explore') => {
     if (dropdownName === 'Courses') {
       coursesTimeoutRef.current = setTimeout(() => {
         setCoursesOpen(false);
@@ -87,6 +87,22 @@ const Navbar = () => {
         setExploreOpen(false);
       }, 150); // 150ms delay
     }
+  };
+
+  const handleOpenChange = (dropdownName: 'Courses' | 'Explore', openState: boolean) => {
+    // This handles closing via escape key or clicking outside.
+    // If Radix wants to close it, we should respect that immediately and clear any pending hover close timers.
+    if (!openState) {
+      if (dropdownName === 'Courses') {
+        if (coursesTimeoutRef.current) clearTimeout(coursesTimeoutRef.current);
+        setCoursesOpen(false);
+      } else if (dropdownName === 'Explore') {
+        if (exploreTimeoutRef.current) clearTimeout(exploreTimeoutRef.current);
+        setExploreOpen(false);
+      }
+    }
+    // If Radix wants to open (e.g., keyboard interaction), we also respect it.
+    // Our onMouseEnter will also set it to true, so this is fine.
   };
 
   return (
@@ -113,72 +129,57 @@ const Navbar = () => {
                       {item.name}
                     </Link>
                   ) : (
-                    <div
+                    <DropdownMenu
                       key={item.name}
-                      onMouseEnter={() => handleDropdownOpen(item.name as 'Courses' | 'Explore')}
-                      onMouseLeave={() => handleDropdownClose(item.name as 'Courses' | 'Explore')}
+                      open={item.name === 'Courses' ? coursesOpen : exploreOpen}
+                      onOpenChange={(openState) => handleOpenChange(item.name as 'Courses' | 'Explore', openState)}
                     >
-                      <DropdownMenu
-                        open={item.name === 'Courses' ? coursesOpen : exploreOpen}
-                        onOpenChange={(openState) => {
-                          // This handles closing via escape key or clicking outside.
-                          // If Radix wants to close it, we should respect that immediately.
-                          if (!openState) {
-                            if (item.name === 'Courses') {
-                              if (coursesTimeoutRef.current) clearTimeout(coursesTimeoutRef.current);
-                              setCoursesOpen(false);
-                            } else if (item.name === 'Explore') {
-                              if (exploreTimeoutRef.current) clearTimeout(exploreTimeoutRef.current);
-                              setExploreOpen(false);
-                            }
-                          }
-                          // If Radix wants to open (e.g., keyboard interaction), we also respect it.
-                          // Our onMouseEnter will also set it to true, so this is fine.
-                        }}
-                      >
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            variant="ghost"
-                            className="text-sm font-medium transition-colors hover:text-primary data-[state=open]:text-primary"
-                          >
-                            {item.name}
-                            <ChevronDown className="ml-1 h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent
-                          className="w-80 p-4 bg-muted data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 duration-300"
-                          align="start"
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          className="text-sm font-medium transition-colors hover:text-primary data-[state=open]:text-primary"
+                          onMouseEnter={() => handleOpen(item.name as 'Courses' | 'Explore')}
+                          onMouseLeave={() => handleClose(item.name as 'Courses' | 'Explore')}
                         >
-                          {item.heading && (
-                            <DropdownMenuLabel className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">
-                              {item.heading}
-                            </DropdownMenuLabel>
-                          )}
-                          <div className="grid gap-1">
-                            {item.links.map((link) => (
-                              <CourseDropdownMenuItem
-                                key={link.name}
-                                href={link.href}
-                                title={link.name}
-                                description={link.description}
-                                icon={link.icon as keyof typeof LucideIcons}
-                              />
-                            ))}
-                          </div>
-                          {item.footer && (
-                            <>
-                              <DropdownMenuSeparator className="my-2" />
-                              <div className="px-3 py-2 text-sm">
-                                {item.footer.text}{' '}
-                                <Link to={item.footer.linkHref} className="text-primary hover:underline font-medium">
-                                  {item.footer.linkText}
-                                </Link>
-                              </div>
-                            </>
-                          )}
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </div>
+                          {item.name}
+                          <ChevronDown className="ml-1 h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent
+                        className="w-80 p-4 bg-muted data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 duration-300"
+                        align="start"
+                        onMouseEnter={() => handleOpen(item.name as 'Courses' | 'Explore')}
+                        onMouseLeave={() => handleClose(item.name as 'Courses' | 'Explore')}
+                      >
+                        {item.heading && (
+                          <DropdownMenuLabel className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">
+                            {item.heading}
+                          </DropdownMenuLabel>
+                        )}
+                        <div className="grid gap-1">
+                          {item.links.map((link) => (
+                            <CourseDropdownMenuItem
+                              key={link.name}
+                              href={link.href}
+                              title={link.name}
+                              description={link.description}
+                              icon={link.icon as keyof typeof LucideIcons}
+                            />
+                          ))}
+                        </div>
+                        {item.footer && (
+                          <>
+                            <DropdownMenuSeparator className="my-2" />
+                            <div className="px-3 py-2 text-sm">
+                              {item.footer.text}{' '}
+                              <Link to={item.footer.linkHref} className="text-primary hover:underline font-medium">
+                                {item.footer.linkText}
+                              </Link>
+                            </div>
+                          </>
+                        )}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   )
                 ))}
               </div>
