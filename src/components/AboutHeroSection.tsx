@@ -9,7 +9,7 @@ const AboutHeroSection = () => {
         {/* Main Title and Subtitle */}
         <div className="mb-12 md:mb-16 lg:mb-20 grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
-            <h1 className="text-h1-mobile md:text-h1-desktop font-heading text-primary leading-tight">
+            <h1 className="text-h1-mobile md:text-h1-desktop font-heading text-foreground leading-tight">
               Eyenet a <br /> Educational Academy
             </h1>
           </div>
@@ -33,7 +33,7 @@ const AboutHeroSection = () => {
 
           {/* Right Image and Text */}
           <div className="flex flex-col gap-8">
-            <div className="w-full h-[250px] md:h-[300px] overflow-hidden rounded-lg shadow-lg">
+            <div className="w-full h-[350px] md:h-[450px] overflow-hidden rounded-lg shadow-lg">
               <img
                 src="/images/about-image-2.png"
                 alt="Fashion model in light green attire"
