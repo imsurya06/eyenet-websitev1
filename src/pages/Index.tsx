@@ -4,13 +4,21 @@ import { Button } from '@/components/ui/button';
 
 const Index = () => {
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-center bg-background px-4 py-8 md:py-0">
+    <div className="relative min-h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-center px-4 py-8 md:py-16 lg:py-24 md:px-8 lg:px-16 bg-background">
+      {/* Mobile Background Image with Overlay */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat md:hidden"
+        style={{ backgroundImage: 'url(/images/hero-model.png)' }}
+      >
+        <div className="absolute inset-0 bg-black/50"></div> {/* Overlay for readability */}
+      </div>
+
       {/* Left Section: Text Content */}
-      <div className="flex-1 text-center md:text-left max-w-2xl md:mr-12 mb-8 md:mb-0">
-        <h1 className="text-h1-mobile md:text-h1-desktop font-heading mb-4 text-foreground">
+      <div className="relative z-10 flex-1 text-center md:text-left max-w-2xl md:mr-12 mb-8 md:mb-0">
+        <h1 className="text-h1-mobile md:text-h1-desktop font-heading mb-4 text-white md:text-foreground">
           Design your future with creative excellence
         </h1>
-        <p className="text-text-medium font-body text-gray-600 mb-8">
+        <p className="text-text-medium font-body mb-8 text-white md:text-gray-600">
           Transform your passion into a professional career. Our institute offers
           comprehensive design education that bridges creativity with industry
           expertise.
@@ -25,8 +33,8 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Right Section: Image */}
-      <div className="flex-1 flex justify-center md:justify-end">
+      {/* Right Section: Image (Desktop Only) */}
+      <div className="hidden md:flex flex-1 justify-center md:justify-end relative z-10">
         <img
           src="/images/hero-model.png"
           alt="Fashion model illustration"
