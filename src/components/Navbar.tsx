@@ -122,7 +122,7 @@ const Navbar = () => {
                     <Link
                       key={item.name}
                       to={item.href}
-                      className="text-sm font-medium transition-colors hover:text-primary px-4 py-2 rounded-md"
+                      className="text-regular font-medium transition-colors hover:text-primary px-4 py-2 rounded-md"
                     >
                       {item.name}
                     </Link>
@@ -135,7 +135,7 @@ const Navbar = () => {
                       <DropdownMenuTrigger asChild>
                         <Button
                           variant="ghost"
-                          className="text-sm font-medium transition-colors hover:text-primary data-[state=open]:text-primary"
+                          className="text-regular font-medium transition-colors hover:text-primary data-[state=open]:text-primary"
                           onMouseEnter={() => handleOpen(item.name as 'Courses' | 'Explore')}
                           onMouseLeave={() => handleClose(item.name as 'Courses' | 'Explore')}
                         >
