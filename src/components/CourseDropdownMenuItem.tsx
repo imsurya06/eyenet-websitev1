@@ -1,0 +1,53 @@
+"use client";
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { cn } from '@/lib/utils';
+import * as LucideIcons from 'lucide-react';
+
+interface CourseDropdownMenuItemProps extends React.ComponentPropsWithoutRef<typeof Link> {
+  href: string;
+  title: string;
+  description?: string;
+  icon?: keyof typeof LucideIcons;
+}
+
+const CourseDropdownMenuItem = React.forwardRef<
+  HTMLAnchorElement,
+  CourseDropdownMenuItemProps
+>(({ className, title, children, href, description, icon, ...props }, ref) => {
+  const IconComponent = icon ? LucideIcons[icon] : null;
+
+  return (
+    <DropdownMenuItem asChild>
+      <Link
+        ref={ref}
+        to={href}
+        className={cn(
+          "flex items-start gap-3 rounded-md p-3 text-left text-sm transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+          className
+        )}
+        {...props}
+      >
+        {IconComponent && (
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
+            <IconComponent className="h-5 w-5" />
+          </div>
+        )}
+        <div className="grid gap-1">
+          <p className="text-sm font-medium leading-none">{title}</p>
+          {description && (
+            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+              {description}
+            </p>
+          )}
+          {children}
+        </div>
+      </Link>
+    </DropdownMenuItem>
+  );
+});
+CourseDropdownMenuItem.displayName = "CourseDropdownMenuItem";
+
+export default CourseDropdownMenuItem;
