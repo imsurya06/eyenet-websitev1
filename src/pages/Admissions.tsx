@@ -85,10 +85,15 @@ const Admissions = () => {
                     <SelectValue placeholder="Select a program" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="fashion-design">Fashion Design</SelectItem>
-                    <SelectItem value="graphic-design">Graphic Design</SelectItem>
-                    <SelectItem value="computer-courses">Computer Courses</SelectItem>
-                    <SelectItem value="interior-design">Interior Design</SelectItem>
+                    <SelectItem value="diploma-fashion-designing">Diploma in Fashion Designing</SelectItem>
+                    <SelectItem value="diploma-dress-making-female">Diploma in Dress Making (Female)</SelectItem>
+                    <SelectItem value="diploma-dress-making-kids">Diploma in Dress Making (kids)</SelectItem>
+                    <SelectItem value="chudithar-making">Chudithar Making</SelectItem>
+                    <SelectItem value="blouse-making">Blouse Making</SelectItem>
+                    <SelectItem value="drafting-pattern-making">Drafting & Pattern Making</SelectItem>
+                    <SelectItem value="aaei-making-course">Aaei Making Course</SelectItem>
+                    <SelectItem value="fashion-illustration-course">Fashion Illustration Course</SelectItem>
+                    <SelectItem value="fabric-painting-course">Fabric Painting Course</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
