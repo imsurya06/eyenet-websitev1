@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 
 const Index = () => {
   return (
-    <div className="relative min-h-[calc(100vh-4rem)] flex flex-col md:flex-row items-center justify-center px-4 py-8 md:py-16 lg:py-24 md:px-8 lg:px-16 bg-background">
+    <div className="relative min-h-[calc(100vh-6rem)] flex flex-col md:flex-row items-center justify-center px-4 py-8 md:py-16 lg:py-24 md:px-8 lg:px-16 bg-background">
       {/* Mobile Background Image with Overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat md:hidden"
@@ -24,7 +24,7 @@ const Index = () => {
           expertise.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-          <Button asChild className="px-6 py-3 text-text-regular">
+          <Button asChild className="px-6 py-3 text-text-regular text-white">
             <Link to="/courses">Explore courses</Link>
           </Button>
           <Button variant="outline" asChild className="px-6 py-3 text-text-regular border-primary text-primary hover:bg-primary hover:text-primary-foreground">
