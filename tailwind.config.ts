@@ -62,6 +62,12 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        eyenet: {
+          purple: "#6A0572", // Approximated from logo
+          "red-dark": "#A00000", // Approximated from "Courses" link
+          "red-light": "#CC0000", // Approximated from "Apply" button
+          grey: "#666666", // Approximated from "EDUCATIONAL ACADEMY"
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
