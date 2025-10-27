@@ -56,9 +56,10 @@ const navItems = [
 
 const Navbar = () => {
   const isMobile = useIsMobile();
-  const location = useLocation(); // Use useLocation hook
+  const location = useLocation();
   const [coursesOpen, setCoursesOpen] = React.useState(false);
   const [exploreOpen, setExploreOpen] = React.useState(false);
+  const [isSheetOpen, setIsSheetOpen] = React.useState(false); // State for mobile sheet
 
   const coursesTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const exploreTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -76,7 +77,7 @@ const Navbar = () => {
 
   const handleClose = (dropdownName: 'Courses' | 'Explore') => {
     const timeoutRef = dropdownName === 'Courses' ? coursesTimeoutRef : exploreTimeoutRef;
-    const setOpenState = dropdownName === 'Courses' ? setOpenState : setExploreOpen;
+    const setOpenState = dropdownName === 'Courses' ? setCoursesOpen : setExploreOpen;
 
     timeoutRef.current = setTimeout(() => {
       setOpenState(false);
@@ -216,7 +217,7 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isMobile && (
-          <Sheet>
+          <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu className="h-6 w-6" />
@@ -230,6 +231,7 @@ const Navbar = () => {
                     <NavLink
                       key={item.name}
                       to={item.href}
+                      onClick={() => setIsSheetOpen(false)} {/* Close sheet on link click */}
                       className={({ isActive }) =>
                         cn(
                           "text-lg font-normal hover:text-primary",
@@ -256,6 +258,7 @@ const Navbar = () => {
                           <NavLink
                             key={link.name}
                             to={link.href}
+                            onClick={() => setIsSheetOpen(false)} {/* Close sheet on link click */}
                             className={({ isActive }) =>
                               cn(
                                 "text-base hover:text-primary",
@@ -271,9 +274,9 @@ const Navbar = () => {
                   )
                 ))}
                 <Button variant="outline" asChild className="mt-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                  <Link to="/contact">Contact</Link>
+                  <Link to="/contact" onClick={() => setIsSheetOpen(false)}>Contact</Link>
                 </Button>
-                <Button variant="default" className="mt-2">
+                <Button variant="default" className="mt-2" onClick={() => setIsSheetOpen(false)}>
                   Apply
                 </Button>
               </nav>
