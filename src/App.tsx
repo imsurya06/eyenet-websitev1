@@ -15,7 +15,8 @@ import Explore from "./pages/Explore";
 import StudentsZone from "./pages/StudentsZone";
 import Infrastructure from "./pages/Infrastructure";
 import NewsEvents from "./pages/NewsEvents";
-import Footer from "./components/Footer"; // Import the new Footer component
+import FashionDesignCourses from "./pages/FashionDesignCourses"; // Import the new page
+import Footer from "./components/Footer";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/admissions" element={<Admissions />} />
           <Route path="/courses" element={<Courses />} />
+          <Route path="/courses/fashion-design" element={<FashionDesignCourses />} /> {/* Add the new route here */}
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/explore/students-zone" element={<StudentsZone />} />
@@ -42,7 +44,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <Footer /> {/* Add the Footer component here */}
+        <Footer />
         <MadeWithDyad />
       </BrowserRouter>
     </TooltipProvider>
