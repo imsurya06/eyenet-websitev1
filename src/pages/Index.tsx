@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import WhyChooseUsSection from '@/components/WhyChooseUsSection';
 import OurProgramsSection from '@/components/OurProgramsSection';
-import ImpactByNumbersSection from '@/components/ImpactByNumbersSection'; // Import the new component
+import ImpactByNumbersSection from '@/components/ImpactByNumbersSection';
+import StudentStoriesSection from '@/components/StudentStoriesSection'; // Import the new component
 
 const Index = () => {
   return (
@@ -55,6 +56,9 @@ const Index = () => {
 
       {/* Impact By Numbers Section */}
       <ImpactByNumbersSection />
+
+      {/* Student Stories Section */}
+      <StudentStoriesSection />
     </>
   );
 };
