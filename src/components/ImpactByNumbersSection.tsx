@@ -1,6 +1,8 @@
 import React from 'react';
 
 const ImpactByNumbersSection = () => {
+  console.log("ImpactByNumbersSection is rendering."); // Added for debugging
+
   const stats = [
     { value: '25+', label: 'Years of Experience' },
     { value: '85%', label: 'Student satisfaction' },
