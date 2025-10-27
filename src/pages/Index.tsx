@@ -38,7 +38,7 @@ const Index = () => {
         <img
           src="/images/hero-model.png"
           alt="Fashion model illustration"
-          className="max-w-full h-auto md:max-w-lg lg:max-w-xl object-cover"
+          className="max-w-full h-auto md:max-w-md lg:max-w-lg object-cover"
         />
       </div>
     </div>
