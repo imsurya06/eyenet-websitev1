@@ -19,7 +19,7 @@ const ImpactByNumbersSection = () => {
         Transforming creative potential into professional success stories.
       </p>
 
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-10 max-w-5xl mx-auto"> {/* Added max-w-5xl and mx-auto here */}
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-10 max-w-3xl mx-auto"> {/* Changed max-w-5xl to max-w-3xl */}
         {/* Video Player */}
         <div className="w-full lg:w-1/2 aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-lg">
           <video
