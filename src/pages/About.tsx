@@ -7,18 +7,33 @@ import FounderDirectorSection from '@/components/FounderDirectorSection';
 import ImageGallerySection from '@/components/ImageGallerySection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import LocationSection from '@/components/LocationSection';
-import ContactUsSection from '@/components/ContactUsSection'; // Import the new ContactUsSection
+import ContactUsSection from '@/components/ContactUsSection';
+import AnimateOnScroll from '@/components/AnimateOnScroll'; // Import AnimateOnScroll
 
 const About = () => {
   return (
     <>
-      <AboutHeroSection />
-      <WhyChooseUsSection />
-      <FounderDirectorSection />
-      <ImageGallerySection />
-      <TestimonialsSection />
-      <LocationSection />
-      <ContactUsSection /> {/* Add the ContactUsSection here */}
+      <AnimateOnScroll isHero={true} delay={200}>
+        <AboutHeroSection />
+      </AnimateOnScroll>
+      <AnimateOnScroll>
+        <WhyChooseUsSection />
+      </AnimateOnScroll>
+      <AnimateOnScroll>
+        <FounderDirectorSection />
+      </AnimateOnScroll>
+      <AnimateOnScroll>
+        <ImageGallerySection />
+      </AnimateOnScroll>
+      <AnimateOnScroll>
+        <TestimonialsSection />
+      </AnimateOnScroll>
+      <AnimateOnScroll>
+        <LocationSection />
+      </AnimateOnScroll>
+      <AnimateOnScroll>
+        <ContactUsSection />
+      </AnimateOnScroll>
     </>
   );
 };
