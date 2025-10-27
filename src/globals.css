@@ -126,6 +126,12 @@
   }
 }
 
+@layer components {
+  .hide-close-button > button[data-radix-dialog-close] {
+    display: none !important;
+  }
+}
+
 @keyframes shake {
   0%, 100% { transform: translateX(0) rotate(0deg); }
   10% { transform: translateX(-5px) rotate(-4deg); }
