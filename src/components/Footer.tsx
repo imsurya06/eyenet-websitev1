@@ -47,7 +47,7 @@ const Footer = () => {
           <Link to="/" className="mb-6">
             <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-10" />
           </Link>
-          <p className="text-text-regular font-body text-gray-600 mb-4 max-w-xs md:max-w-none">
+          <p className="text-text-regular font-body text-gray-600 mb-4">
             Join our newsletter to stay up to date on features and releases.
           </p>
           <div className="flex flex-col sm:flex-row gap-2 w-full mb-4">
@@ -60,7 +60,7 @@ const Footer = () => {
               Subscribe
             </Button>
           </div>
-          <p className="text-text-small font-body text-gray-500 max-w-xs md:max-w-none">
+          <p className="text-text-small font-body text-gray-500">
             By subscribing you agree to with our{' '}
             <Link to="/privacy-policy" className="underline hover:text-primary">
               Privacy Policy
