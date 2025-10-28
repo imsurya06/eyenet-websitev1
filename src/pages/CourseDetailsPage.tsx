@@ -2,28 +2,52 @@
 
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import AnimateOnScroll from '@/components/AnimateOnScroll'; // Import AnimateOnScroll
+import AnimateOnScroll from '@/components/AnimateOnScroll';
+import { allCourses } from '@/data/courses'; // Import allCourses
 
 const CourseDetailsPage = () => {
   const { slug } = useParams<{ slug: string }>();
+  const course = allCourses.find(c => c.id === slug);
+
+  if (!course) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+        <AnimateOnScroll isHero={true} delay={500}>
+          <h1 className="text-h1-mobile md:text-h1-desktop font-heading mb-4 text-foreground text-center">
+            Course Not Found
+          </h1>
+        </AnimateOnScroll>
+        <AnimateOnScroll isHero={true} delay={600}>
+          <p className="text-text-medium font-body text-gray-600 text-center">
+            The course you are looking for does not exist.
+          </p>
+        </AnimateOnScroll>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
-      <AnimateOnScroll isHero={true} delay={500}> {/* Apply hero animation */}
+      <AnimateOnScroll isHero={true} delay={500}>
         <h1 className="text-h1-mobile md:text-h1-desktop font-heading mb-4 text-foreground text-center">
-          Course Details
+          {course.title}
         </h1>
       </AnimateOnScroll>
       <AnimateOnScroll isHero={true} delay={600}>
         <p className="text-text-medium font-body text-gray-600 text-center">
-          Details for: <span className="font-semibold text-primary">{slug?.replace(/-/g, ' ')}</span>
+          Category: <span className="font-semibold text-primary">{course.category}</span>
         </p>
       </AnimateOnScroll>
       <AnimateOnScroll isHero={true} delay={700}>
-        <p className="text-text-regular font-body text-gray-500 mt-4">
-          This page will be designed later to show specific course information.
+        <p className="text-text-regular font-body text-gray-500 mt-4 max-w-2xl text-center">
+          {course.description.replace('Details...', '')}
         </p>
       </AnimateOnScroll>
+      {course.image && (
+        <AnimateOnScroll isHero={true} delay={800} className="mt-8 w-full max-w-xl rounded-lg overflow-hidden shadow-lg">
+          <img src={course.image} alt={course.title} className="w-full h-auto object-cover" />
+        </AnimateOnScroll>
+      )}
     </div>
   );
 };

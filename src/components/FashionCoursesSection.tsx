@@ -5,34 +5,15 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import AnimateOnScroll from './AnimateOnScroll';
+import { allCourses } from '@/data/courses'; // Import allCourses
 
 const FashionCoursesSection = () => {
-  const courses = [
-    {
-      image: '/images/img1.png', // Updated to use img1.png
-      tag: 'Course',
-      title: 'Diploma in Fashion Designing',
-      description: 'A Diploma in Fashion Designing is a specialized program designed to equip students with the skills and Details...',
-      brochureLink: '/brochures/Course-details-v1.pdf', // Updated to the new PDF path
-      enrollLink: '/admissions',
-    },
-    {
-      image: '/images/img2.png', // Updated to use img2.png
-      tag: 'Course',
-      title: 'Diploma in Dress Making (Female)',
-      description: 'A six-month Diploma in Female Dress Making is an accelerated program designed to provide. Details...',
-      brochureLink: '#', // Placeholder
-      enrollLink: '/admissions',
-    },
-    {
-      image: '/images/img3.png', // Updated to use img3.png
-      tag: 'Course',
-      title: 'Diploma in Dress Making (Child)',
-      description: 'A six-month Diploma in Kids Dress Making is a focused program designed to teach the specific Details...',
-      brochureLink: '#', // Placeholder
-      enrollLink: '/admissions',
-    },
-  ];
+  const courses = allCourses.filter(course => 
+    course.category === 'fashion' && 
+    (course.id === 'diploma-in-fashion-designing' || 
+     course.id === 'diploma-in-dress-making-female' || 
+     course.id === 'diploma-in-dress-making-child')
+  );
 
   return (
     <section className="py-10 px-3 md:px-8 lg:px-[80px] bg-background text-foreground">
@@ -50,7 +31,7 @@ const FashionCoursesSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {courses.map((course, index) => (
-            <AnimateOnScroll key={index} delay={700 + index * 100}>
+            <AnimateOnScroll key={course.id} delay={700 + index * 100}>
               <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-col">
                 <div className="w-full h-48 overflow-hidden">
                   <img
@@ -64,13 +45,13 @@ const FashionCoursesSection = () => {
                     {course.tag} / Offline
                   </span>
                   <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[4.9rem] overflow-hidden"> {/* Added h-[4.9rem] overflow-hidden */}
-                    <Link to={`/courses/fashion-design/${course.title.toLowerCase().replace(/\s+/g, '-')}`} className="hover:underline">
+                    <Link to={`/courses/fashion-design/${course.id}`} className="hover:underline">
                       {course.title}
                     </Link>
                   </h3>
                   <p className="text-text-regular font-body text-gray-600 mb-6 h-[6.4rem] overflow-hidden">
                     {course.description.split('Details...')[0]}
-                    <Link to={`/courses/fashion-design/${course.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-primary hover:underline ml-1">
+                    <Link to={`/courses/fashion-design/${course.id}`} className="text-primary hover:underline ml-1">
                       Details...
                     </Link>
                   </p>

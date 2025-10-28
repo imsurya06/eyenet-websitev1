@@ -5,41 +5,22 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import AnimateOnScroll from './AnimateOnScroll';
+import { allCourses } from '@/data/courses'; // Import allCourses
 
 const AdditionalFashionCoursesSection = () => {
-  const courses = [
-    {
-      image: '/images/img4.png', // Updated to use img4.png
-      tag: 'Course',
-      title: 'Chudithar Making',
-      description: 'A Churithar Making Course is a specialized program designed to teach the skills required to Details...',
-      brochureLink: '#', // Placeholder
-      enrollLink: '/admissions',
-    },
-    {
-      image: '/images/img5.png', // Updated to use img5.png
-      tag: 'Course',
-      title: 'Blouse Making',
-      description: 'A Blouse Making Course is a specialized program designed to teach the skills and Details...',
-      brochureLink: '#', // Placeholder
-      enrollLink: '/admissions',
-    },
-    {
-      image: '/images/img6.png', // Updated to use img6.png
-      tag: 'Course',
-      title: 'Drafting & Pattern Making',
-      description: 'A Drafting & Pattern Making Course is a specialized program designed to teach the Details...',
-      brochureLink: '#', // Placeholder
-      enrollLink: '/admissions',
-    },
-  ];
+  const courses = allCourses.filter(course => 
+    course.category === 'fashion' && 
+    (course.id === 'chudithar-making' || 
+     course.id === 'blouse-making' || 
+     course.id === 'drafting-pattern-making')
+  );
 
   return (
     <section className="py-10 px-3 md:px-8 lg:px-[80px] bg-background text-foreground">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {courses.map((course, index) => (
-            <AnimateOnScroll key={index} delay={100 + index * 150}>
+            <AnimateOnScroll key={course.id} delay={100 + index * 150}>
               <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-col">
                 <div className="w-full h-48 overflow-hidden">
                   <img
@@ -53,13 +34,13 @@ const AdditionalFashionCoursesSection = () => {
                     {course.tag} / Offline
                   </span>
                   <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[4.9rem] overflow-hidden"> {/* Added h-[4.9rem] overflow-hidden */}
-                    <Link to={`/courses/fashion-design/${course.title.toLowerCase().replace(/\s+/g, '-')}`} className="hover:underline">
+                    <Link to={`/courses/fashion-design/${course.id}`} className="hover:underline">
                       {course.title}
                     </Link>
                   </h3>
                   <p className="text-text-regular font-body text-gray-600 mb-6 h-[6.4rem] overflow-hidden">
                     {course.description.split('Details...')[0]}
-                    <Link to={`/courses/fashion-design/${course.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-primary hover:underline ml-1">
+                    <Link to={`/courses/fashion-design/${course.id}`} className="text-primary hover:underline ml-1">
                       Details...
                     </Link>
                   </p>

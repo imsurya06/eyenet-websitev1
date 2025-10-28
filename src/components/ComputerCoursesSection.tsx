@@ -5,42 +5,16 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import AnimateOnScroll from './AnimateOnScroll';
+import { allCourses } from '@/data/courses'; // Import allCourses
 
 const ComputerCoursesSection = () => {
-  const courses = [
-    {
-      image: '/images/img001.png', // Updated image path
-      tag: 'Course',
-      title: 'Computer Basics & Applications',
-      description: 'Computer concepts, Windows, Networking principles, Microsoft office, C, C++ Programming. Details...',
-      brochureLink: '#', // Placeholder
-      enrollLink: '/admissions',
-    },
-    {
-      image: '/images/img002.png', // Updated image path
-      tag: 'Course',
-      title: 'Web Designing',
-      description: 'Computer Basics, MS-front Page, Dreamweaver, HTML, Gif animation, Photoshop. Details...',
-      brochureLink: '#', // Placeholder
-      enrollLink: '/admissions',
-    },
-    {
-      image: '/images/img003.png', // Updated image path
-      tag: 'Course',
-      title: 'Photoshop Mastery',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros. Details...',
-      brochureLink: '#', // Placeholder
-      enrollLink: '/admissions',
-    },
-    {
-      image: '/images/img004.png', // Updated image path
-      tag: 'Course',
-      title: 'Computer Application & Programming',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros. Details...',
-      brochureLink: '#', // Placeholder
-      enrollLink: '/admissions',
-    },
-  ];
+  const courses = allCourses.filter(course => 
+    course.category === 'computer' && 
+    (course.id === 'computer-basics-applications' || 
+     course.id === 'web-designing' || 
+     course.id === 'photoshop-mastery' || 
+     course.id === 'computer-application-programming')
+  );
 
   return (
     <section className="py-10 px-3 md:px-8 lg:px-[80px] bg-background text-foreground">
@@ -58,7 +32,7 @@ const ComputerCoursesSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {courses.map((course, index) => (
-            <AnimateOnScroll key={index} delay={700 + index * 100}>
+            <AnimateOnScroll key={course.id} delay={700 + index * 100}>
               <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-col">
                 <div className="w-full h-48 overflow-hidden">
                   <img
@@ -72,13 +46,13 @@ const ComputerCoursesSection = () => {
                     {course.tag} / Offline
                   </span>
                   <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[4.9rem] overflow-hidden"> {/* Added h-[4.9rem] overflow-hidden */}
-                    <Link to={`/courses/computer-courses/${course.title.toLowerCase().replace(/\s+/g, '-')}`} className="hover:underline">
+                    <Link to={`/courses/computer-courses/${course.id}`} className="hover:underline">
                       {course.title}
                     </Link>
                   </h3>
                   <p className="text-text-regular font-body text-gray-600 mb-6 h-[6.4rem] overflow-hidden">
                     {course.description.split('Details...')[0]}
-                    <Link to={`/courses/computer-courses/${course.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-primary hover:underline ml-1">
+                    <Link to={`/courses/computer-courses/${course.id}`} className="text-primary hover:underline ml-1">
                       Details...
                     </Link>
                   </p>
