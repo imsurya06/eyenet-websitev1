@@ -10,10 +10,11 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { Filter, Image, HardDrive } from 'lucide-react'; // Using Image for Fashion, HardDrive for Computer
+import { Filter, Image, HardDrive, ListChecks } from 'lucide-react'; // Added ListChecks for 'All Courses'
 import { cn } from '@/lib/utils';
 
 const filterItems = [
+  { name: 'All Courses', href: '/admin-dashboard/courses', icon: ListChecks }, // New 'All Courses' option
   { name: 'Fashion designing', href: '/admin-dashboard/courses?category=fashion', icon: Image },
   { name: 'Computer course', href: '/admin-dashboard/courses?category=computer', icon: HardDrive },
 ];
