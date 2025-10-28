@@ -12,28 +12,28 @@ import {
   DropdownMenuLabel,
 } from '@/components/ui/dropdown-menu';
 import { Menu, ChevronDown } from 'lucide-react';
-import * as LucideIcons from 'lucide-react';
+import * as LucideIcons from 'lucide-react'; // Import all Lucide icons
 import { useIsMobile } from '@/hooks/use-mobile';
 import CourseDropdownMenuItem from './CourseDropdownMenuItem.tsx';
-import AdminMenu from './AdminMenu'; // Import the new AdminMenu component
-import { cn } from '@/lib/utils'; // Import cn utility
+import AdminMenu from './AdminMenu';
+import { cn } from '@/lib/utils';
 
 const navItems = [
-  { type: 'link', name: 'Home', href: '/' },
-  { type: 'link', name: 'About', href: '/about' },
-  { type: 'link', name: 'Admissions', href: '/admissions' },
+  { type: 'link', name: 'Home', to: '/' }, // Changed href to to
+  { type: 'link', name: 'About', to: '/about' }, // Changed href to to
+  { type: 'link', name: 'Admissions', to: '/admissions' }, // Changed href to to
   {
     type: 'dropdown',
     name: 'Courses',
     heading: 'courses',
     links: [
-      { name: 'Fashion design Courses', description: 'Professional certification for creative professionals', href: '/courses/fashion-design', icon: 'Tablet' },
-      { name: 'Computer courses', description: 'Digital and print design curriculum', href: '/courses/computer-courses', icon: 'Laptop' },
+      { name: 'Fashion design Courses', description: 'Professional certification for creative professionals', to: '/courses/fashion-design', icon: LucideIcons.Tablet }, // Changed href to to, passed icon component
+      { name: 'Computer courses', description: 'Digital and print design curriculum', to: '/courses/computer-courses', icon: LucideIcons.Laptop }, // Changed href to to, passed icon component
     ],
     footer: {
       text: 'Start your design journey',
       linkText: 'Apply now',
-      linkHref: '/admissions'
+      linkTo: '/admissions' // Changed linkHref to linkTo
     }
   },
   {
@@ -41,15 +41,15 @@ const navItems = [
     name: 'Explore',
     heading: 'Explore',
     links: [
-      { name: 'Students Zone', description: 'Discover student life and resources', href: '/explore/students-zone', icon: 'PersonStanding' },
-      { name: 'Infrastructure', description: 'Explore our facilities and campus', href: '/explore/infrastructure', icon: 'Home' },
-      { name: 'Gallery', description: 'View our creative works and events', href: '/explore/gallery', icon: 'LayoutGrid' },
-      { name: 'News & Events', description: 'Stay updated with the latest happenings', href: '/explore/news-events', icon: 'CalendarDays' },
+      { name: 'Students Zone', description: 'Discover student life and resources', to: '/explore/students-zone', icon: LucideIcons.PersonStanding }, // Changed href to to, passed icon component
+      { name: 'Infrastructure', description: 'Explore our facilities and campus', to: '/explore/infrastructure', icon: LucideIcons.Home }, // Changed href to to, passed icon component
+      { name: 'Gallery', description: 'View our creative works and events', to: '/explore/gallery', icon: LucideIcons.LayoutGrid }, // Changed href to to, passed icon component
+      { name: 'News & Events', description: 'Stay updated with the latest happenings', to: '/explore/news-events', icon: LucideIcons.CalendarDays }, // Changed href to to, passed icon component
     ],
     footer: {
       text: 'Start your design journey',
       linkText: 'Apply now',
-      linkHref: '/admissions'
+      linkTo: '/admissions' // Changed linkHref to linkTo
     }
   },
 ];
@@ -59,7 +59,7 @@ const Navbar = () => {
   const location = useLocation();
   const [coursesOpen, setCoursesOpen] = React.useState(false);
   const [exploreOpen, setExploreOpen] = React.useState(false);
-  const [isSheetOpen, setIsSheetOpen] = React.useState(false); // State for mobile sheet
+  const [isSheetOpen, setIsSheetOpen] = React.useState(false);
 
   const coursesCloseTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const exploreCloseTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -78,12 +78,12 @@ const Navbar = () => {
     }
     closeTimeoutRef.current = setTimeout(() => {
       setOpen(false);
-    }, 150); // Delay closing
+    }, 150);
   };
 
   // Determine if a dropdown's sub-links are active
-  const isDropdownPathActive = (links: { href: string }[]) => {
-    return links.some(link => location.pathname.startsWith(link.href));
+  const isDropdownPathActive = (links: { to: string }[]) => { // Changed href to to
+    return links.some(link => location.pathname.startsWith(link.to)); // Changed href to to
   };
 
   const coursesItem = navItems.find(item => item.name === 'Courses' && item.type === 'dropdown');
@@ -110,7 +110,7 @@ const Navbar = () => {
                   item.type === 'link' ? (
                     <NavLink
                       key={item.name}
-                      to={item.href}
+                      to={item.to} // Using 'to'
                       className={({ isActive }) =>
                         cn(
                           "text-regular font-normal transition-colors hover:text-primary px-4 py-2 rounded-md",
@@ -125,9 +125,7 @@ const Navbar = () => {
                       key={item.name}
                       open={item.name === 'Courses' ? coursesOpen : exploreOpen}
                       onOpenChange={(newOpenState) => {
-                        // This onOpenChange is primarily for click events or accessibility
-                        // For hover, we'll use onMouseEnter/onMouseLeave on trigger/content
-                        if (!newOpenState) { // If Radix wants to close it (e.g., click outside)
+                        if (!newOpenState) {
                           if (item.name === 'Courses') handleClose(setCoursesOpen, coursesCloseTimeoutRef);
                           else handleClose(setExploreOpen, exploreCloseTimeoutRef);
                         }
@@ -177,10 +175,10 @@ const Navbar = () => {
                           {item.links.map((link) => (
                             <CourseDropdownMenuItem
                               key={link.name}
-                              href={link.href}
+                              to={link.to} // Using 'to'
                               title={link.name}
                               description={link.description}
-                              icon={link.icon as keyof typeof LucideIcons}
+                              icon={link.icon} // Passing icon component directly
                             />
                           ))}
                         </div>
@@ -189,7 +187,7 @@ const Navbar = () => {
                             <DropdownMenuSeparator className="my-2" />
                             <div className="px-3 py-2 text-sm">
                               {item.footer.text}{' '}
-                              <Link to={item.footer.linkHref} className="text-primary hover:underline font-normal">
+                              <Link to={item.footer.linkTo} className="text-primary hover:underline font-normal"> {/* Using linkTo */}
                                 {item.footer.linkText}
                               </Link>
                             </div>
@@ -210,7 +208,7 @@ const Navbar = () => {
               <Button variant="default" className="hover:animate-shake">
                 Apply
               </Button>
-              <AdminMenu /> {/* Add the AdminMenu here */}
+              <AdminMenu />
             </div>
           </>
         )}
@@ -228,10 +226,9 @@ const Navbar = () => {
               <nav className="flex flex-col gap-4 pt-6">
                 {navItems.map((item) => (
                   item.type === 'link' ? (
-                    // Close sheet on link click
                     <NavLink
                       key={item.name}
-                      to={item.href}
+                      to={item.to} // Using 'to'
                       onClick={() => setIsSheetOpen(false)}
                       className={({ isActive }) =>
                         cn(
@@ -256,10 +253,9 @@ const Navbar = () => {
                       </span>
                       <div className="ml-4 flex flex-col gap-2">
                         {item.links.map((link) => (
-                          // Close sheet on link click
                           <NavLink
                             key={link.name}
-                            to={link.href}
+                            to={link.to} // Using 'to'
                             onClick={() => setIsSheetOpen(false)}
                             className={({ isActive }) =>
                               cn(
@@ -281,7 +277,7 @@ const Navbar = () => {
                 <Button variant="default" className="mt-2 hover:animate-shake" onClick={() => setIsSheetOpen(false)}>
                   Apply
                 </Button>
-                <AdminMenu className="mt-2" /> {/* Add AdminMenu to mobile nav as well */}
+                <AdminMenu className="mt-2" />
               </nav>
             </SheetContent>
           </Sheet>
