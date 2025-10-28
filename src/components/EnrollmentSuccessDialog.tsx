@@ -22,7 +22,7 @@ interface EnrollmentSuccessDialogProps {
 const EnrollmentSuccessDialog: React.FC<EnrollmentSuccessDialogProps> = ({ show, courseName, onClose }) => {
   return (
     <Dialog open={show} onOpenChange={onClose}>
-      <DialogContent className={cn("max-w-md p-8 md:p-10 text-center flex flex-col items-center space-y-6", "hide-close-button")}> {/* Added hide-close-button class */}
+      <DialogContent className={cn("max-w-md p-8 md:p-10 text-center flex flex-col items-center space-y-6")} hideCloseButton={true}> {/* Added hideCloseButton={true} */}
         <DialogHeader className="flex flex-col items-center space-y-4">
           <CheckCircle className="h-16 w-16 text-green-500 mx-auto" />
           <DialogTitle className="text-h4-mobile md:text-h4-desktop font-heading text-foreground">
