@@ -63,24 +63,32 @@ const Navbar = () => {
   const coursesTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const exploreTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleOpen = (dropdownName: 'Courses' | 'Explore') => {
-    const timeoutRef = dropdownName === 'Courses' ? coursesTimeoutRef : exploreTimeoutRef;
+  const setDropdownOpen = (dropdownName: 'Courses' | 'Explore', isOpen: boolean) => {
     const setOpenState = dropdownName === 'Courses' ? setCoursesOpen : setExploreOpen;
+    const timeoutRef = dropdownName === 'Courses' ? coursesTimeoutRef : exploreTimeoutRef;
 
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
-    setOpenState(true);
+
+    if (isOpen) {
+      setOpenState(true);
+    } else {
+      timeoutRef.current = setTimeout(() => {
+        setOpenState(false);
+      }, 150); // Delay for closing on hover-off or click-outside
+    }
   };
 
-  const handleClose = (dropdownName: 'Courses' | 'Explore') => {
-    const timeoutRef = dropdownName === 'Courses' ? coursesTimeoutRef : exploreTimeoutRef;
-    const setOpenState = dropdownName === 'Courses' ? setCoursesOpen : setExploreOpen;
+  // This function handles changes from Radix UI (e.g., click, escape key, click outside)
+  const handleRadixOpenChange = (dropdownName: 'Courses' | 'Explore', newOpenState: boolean) => {
+    setDropdownOpen(dropdownName, newOpenState);
+  };
 
-    timeoutRef.current = setTimeout(() => {
-      setOpenState(false);
-    }, 150); // Delay for closing
+  // This function handles hover events
+  const handleHover = (dropdownName: 'Courses' | 'Explore', isEntering: boolean) => {
+    setDropdownOpen(dropdownName, isEntering);
   };
 
   // Determine if a dropdown's sub-links are active
@@ -126,25 +134,19 @@ const Navbar = () => {
                     <DropdownMenu
                       key={item.name}
                       open={item.name === 'Courses' ? coursesOpen : exploreOpen}
-                      onOpenChange={(newOpenState) => {
-                        // Only update our state if Radix is trying to close it,
-                        // otherwise let our hover handlers manage opening.
-                        if (!newOpenState) {
-                          handleClose(item.name as 'Courses' | 'Explore');
-                        }
-                      }}
+                      onOpenChange={(newOpenState) => handleRadixOpenChange(item.name as 'Courses' | 'Explore', newOpenState)}
                     >
                       <DropdownMenuTrigger asChild>
                         <Button
                           variant="ghost"
                           className={cn(
                             "font-normal transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 h-auto px-4 py-2",
-                            "!text-medium", // Changed to !text-medium
+                            "!text-medium",
                             (item.name === 'Courses' && (isCoursesPathActive || coursesOpen)) && "text-primary",
                             (item.name === 'Explore' && (isExplorePathActive || exploreOpen)) && "text-primary"
                           )}
-                          onMouseEnter={() => handleOpen(item.name as 'Courses' | 'Explore')}
-                          onMouseLeave={() => handleClose(item.name as 'Courses' | 'Explore')}
+                          onMouseEnter={() => handleHover(item.name as 'Courses' | 'Explore', true)}
+                          onMouseLeave={() => handleHover(item.name as 'Courses' | 'Explore', false)}
                         >
                           {item.name}
                           <ChevronDown className="ml-1 h-4 w-4" />
@@ -153,8 +155,8 @@ const Navbar = () => {
                       <DropdownMenuContent
                         className="w-80 p-4 bg-muted data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 duration-300"
                         align="start"
-                        onMouseEnter={() => handleOpen(item.name as 'Courses' | 'Explore')}
-                        onMouseLeave={() => handleClose(item.name as 'Courses' | 'Explore')}
+                        onMouseEnter={() => handleHover(item.name as 'Courses' | 'Explore', true)}
+                        onMouseLeave={() => handleHover(item.name as 'Courses' | 'Explore', false)}
                       >
                         {item.heading && (
                           <DropdownMenuLabel className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">
@@ -195,7 +197,7 @@ const Navbar = () => {
               <Button variant="outline" asChild className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                 <Link to="/contact">Contact</Link>
               </Button>
-              <Button variant="default" className="hover:animate-shake"> {/* This class will now work */}
+              <Button variant="default" className="hover:animate-shake">
                 Apply
               </Button>
             </div>
@@ -265,7 +267,7 @@ const Navbar = () => {
                 <Button variant="outline" asChild className="mt-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                   <Link to="/contact" onClick={() => setIsSheetOpen(false)}>Contact</Link>
                 </Button>
-                <Button variant="default" className="mt-2 hover:animate-shake" onClick={() => setIsSheetOpen(false)}> {/* This class will now work */}
+                <Button variant="default" className="mt-2 hover:animate-shake" onClick={() => setIsSheetOpen(false)}>
                   Apply
                 </Button>
               </nav>
