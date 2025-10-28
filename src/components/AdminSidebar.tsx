@@ -14,7 +14,7 @@ interface SidebarLink {
 }
 
 const sidebarNavItems: SidebarLink[] = [
-  { name: 'Courses', href: '/admin-dashboard/courses', icon: ListChecks, badge: 2 },
+  { name: 'Courses', href: '/admin-dashboard/courses', icon: ListChecks }, // Removed badge: 2
   { name: 'Image Gallery', href: '/admin-dashboard/gallery', icon: Image },
   { name: 'Infrastructure', href: '/admin-dashboard/infrastructure', icon: Home },
   { name: 'News & Events', href: '/admin-dashboard/news-events', icon: Newspaper },
