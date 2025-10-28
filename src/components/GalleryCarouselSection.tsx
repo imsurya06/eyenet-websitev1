@@ -47,7 +47,7 @@ const GalleryCarouselSection = () => {
             plugins={[plugin.current]}
             className="w-full"
             opts={{
-              loop: true, // Enable looping
+              loop: true,
             }}
           >
             <CarouselContent>

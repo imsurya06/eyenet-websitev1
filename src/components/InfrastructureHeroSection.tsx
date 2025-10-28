@@ -21,7 +21,7 @@ const InfrastructureHeroSection = () => {
     { src: '/images/pexels-yankrukov-8197513.jpg', alt: 'Professor in lecture hall' },
     { src: '/images/pexels-rdne-8499580.jpg', alt: 'Campus Building' },
     { src: '/images/pexels-pixabay-356065.jpg', alt: 'Library' },
-    { src: '/images/pexels-gabriel-manjarres-119584478-19064143.jpg', alt: 'Student in classroom' },
+    { src: '/images/pexels-gabriel-manjarres-1195844478-19064143.jpg', alt: 'Student in classroom' },
     { src: '/images/pexels-pixabay-256395.jpg', alt: 'Empty classroom' },
   ];
 
