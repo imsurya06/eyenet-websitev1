@@ -63,32 +63,47 @@ const Navbar = () => {
   const coursesTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const exploreTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const setDropdownOpen = (dropdownName: 'Courses' | 'Explore', isOpen: boolean) => {
-    const setOpenState = dropdownName === 'Courses' ? setCoursesOpen : setExploreOpen;
+  // Unified function to manage dropdown open state, considering source of change
+  const setDropdownOpenState = (dropdownName: 'Courses' | 'Explore', isOpen: boolean, source: 'hover' | 'click' | 'radix') => {
+    const setOpen = dropdownName === 'Courses' ? setCoursesOpen : setExploreOpen;
     const timeoutRef = dropdownName === 'Courses' ? coursesTimeoutRef : exploreTimeoutRef;
 
+    // Clear any existing timeout to prevent conflicts
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
 
     if (isOpen) {
-      setOpenState(true);
+      // If opening, set state immediately
+      setOpen(true);
     } else {
-      timeoutRef.current = setTimeout(() => {
-        setOpenState(false);
-      }, 150); // Delay for closing on hover-off or click-outside
+      // If closing, decide based on the source
+      if (source === 'radix' || source === 'click') {
+        // If Radix UI or a direct click initiated close, close immediately
+        setOpen(false);
+      } else if (source === 'hover') {
+        // If hover-off, apply a small delay before closing
+        timeoutRef.current = setTimeout(() => {
+          setOpen(false);
+        }, 150); // 150ms delay
+      }
     }
   };
 
-  // This function handles changes from Radix UI (e.g., click, escape key, click outside)
+  // Handler for Radix UI's onOpenChange (triggered by clicks, escape, outside clicks)
   const handleRadixOpenChange = (dropdownName: 'Courses' | 'Explore', newOpenState: boolean) => {
-    setDropdownOpen(dropdownName, newOpenState);
+    setDropdownOpenState(dropdownName, newOpenState, 'radix');
   };
 
-  // This function handles hover events
-  const handleHover = (dropdownName: 'Courses' | 'Explore', isEntering: boolean) => {
-    setDropdownOpen(dropdownName, isEntering);
+  // Handler for mouse entering the trigger or content
+  const handleMouseEnter = (dropdownName: 'Courses' | 'Explore') => {
+    setDropdownOpenState(dropdownName, true, 'hover');
+  };
+
+  // Handler for mouse leaving the trigger or content
+  const handleMouseLeave = (dropdownName: 'Courses' | 'Explore') => {
+    setDropdownOpenState(dropdownName, false, 'hover');
   };
 
   // Determine if a dropdown's sub-links are active
@@ -145,8 +160,8 @@ const Navbar = () => {
                             (item.name === 'Courses' && (isCoursesPathActive || coursesOpen)) && "text-primary",
                             (item.name === 'Explore' && (isExplorePathActive || exploreOpen)) && "text-primary"
                           )}
-                          onMouseEnter={() => handleHover(item.name as 'Courses' | 'Explore', true)}
-                          onMouseLeave={() => handleHover(item.name as 'Courses' | 'Explore', false)}
+                          onMouseEnter={() => handleMouseEnter(item.name as 'Courses' | 'Explore')}
+                          onMouseLeave={() => handleMouseLeave(item.name as 'Courses' | 'Explore')}
                         >
                           {item.name}
                           <ChevronDown className="ml-1 h-4 w-4" />
@@ -155,8 +170,8 @@ const Navbar = () => {
                       <DropdownMenuContent
                         className="w-80 p-4 bg-muted data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 duration-300"
                         align="start"
-                        onMouseEnter={() => handleHover(item.name as 'Courses' | 'Explore', true)}
-                        onMouseLeave={() => handleHover(item.name as 'Courses' | 'Explore', false)}
+                        onMouseEnter={() => handleMouseEnter(item.name as 'Courses' | 'Explore')}
+                        onMouseLeave={() => handleMouseLeave(item.name as 'Courses' | 'Explore')}
                       >
                         {item.heading && (
                           <DropdownMenuLabel className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">
