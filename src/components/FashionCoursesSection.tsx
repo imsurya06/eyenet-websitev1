@@ -13,7 +13,7 @@ const FashionCoursesSection = () => {
       tag: 'Course',
       title: 'Diploma in Fashion Designing',
       description: 'A Diploma in Fashion Designing is a specialized program designed to equip students with the skills and Details...',
-      brochureLink: '#', // Placeholder
+      brochureLink: '/brochures/Course details v1.pdf', // Updated to the new PDF path
       enrollLink: '/admissions',
     },
     {
@@ -75,9 +75,9 @@ const FashionCoursesSection = () => {
                     </Link>
                   </p>
                   <div className="flex flex-col items-center gap-2 mt-auto md:flex-row md:justify-between">
-                    <Link to={course.brochureLink} className="text-text-small font-body text-primary hover:underline whitespace-nowrap w-full text-center md:w-auto md:text-left">
+                    <a href={course.brochureLink} download className="text-text-small font-body text-primary hover:underline whitespace-nowrap w-full text-center md:w-auto md:text-left"> {/* Added download attribute */}
                       Download Brochure
-                    </Link>
+                    </a>
                     <Button asChild className="bg-primary hover:bg-primary/90 px-4 py-2 text-text-small flex-shrink-0 w-full md:w-auto transition-all duration-300 ease-in-out hover:scale-[1.02]">
                       <Link to={course.enrollLink} className="text-white">
                         Enroll <ArrowRight className="ml-1 h-3 w-3 inline-block" />
