@@ -16,27 +16,27 @@ import AdminAddCourseDialog from './AdminAddCourseDialog';
 import AdminAddImageDialog from './AdminAddImageDialog';
 import AdminAddInfrastructureImageDialog from './AdminAddInfrastructureImageDialog';
 import AdminAddNewsEventDialog from './AdminAddNewsEventDialog';
+import AdminAddBlogDialog from './AdminAddBlogDialog'; // Import the new dialog component
 import { useCourses } from '@/context/CourseContext';
 import { useGalleryImages } from '@/context/GalleryImageContext';
 import { useInfrastructureImages } from '@/context/InfrastructureImageContext';
 import { useNewsEvents } from '@/context/NewsEventsContext';
+import { useBlogs } from '@/context/BlogContext'; // Import BlogContext
 import { toast } from 'sonner';
 
-const dropdownItems = [
-  { name: 'Blogs', href: '/admin-dashboard/blogs', icon: BookOpen },
-];
-
 const AdminAddDropdown = () => {
-  const { addCourse } = useCourses(); // Correctly call hook at top level
-  const { addGalleryImage } = useGalleryImages(); // Correctly call hook at top level
-  const { addInfrastructureImage } = useInfrastructureImages(); // Correctly call hook at top level
-  const { addNewsEvent } = useNewsEvents(); // Correctly call hook at top level
+  const { addCourse } = useCourses();
+  const { addGalleryImage } = useGalleryImages();
+  const { addInfrastructureImage } = useInfrastructureImages();
+  const { addNewsEvent } = useNewsEvents();
+  const { addBlog } = useBlogs(); // Use the addBlog function from context
 
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
   const [isAddCourseDialogOpen, setIsAddCourseDialogOpen] = React.useState(false);
   const [isAddImageDialogOpen, setIsAddImageDialogOpen] = React.useState(false);
   const [isAddInfrastructureImageDialogOpen, setIsAddInfrastructureImageDialogOpen] = React.useState(false);
   const [isAddNewsEventDialogOpen, setIsAddNewsEventDialogOpen] = React.useState(false);
+  const [isAddBlogDialogOpen, setIsAddBlogDialogOpen] = React.useState(false); // New state for blog dialog
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleOpenDropdown = () => {
@@ -73,6 +73,11 @@ const AdminAddDropdown = () => {
 
   const handleAddNewsEventClick = () => {
     setIsAddNewsEventDialogOpen(true);
+    setIsDropdownOpen(false);
+  };
+
+  const handleAddBlogClick = () => { // New handler for blog dialog
+    setIsAddBlogDialogOpen(true);
     setIsDropdownOpen(false);
   };
 
@@ -140,26 +145,16 @@ const AdminAddDropdown = () => {
           </DropdownMenuItem>
           <DropdownMenuSeparator className="my-1" />
 
-          {dropdownItems.map((item, index) => (
-            <React.Fragment key={item.name}>
-              <DropdownMenuItem asChild className="cursor-pointer">
-                <NavLink
-                  to={item.href}
-                  className={({ isActive }) =>
-                    cn(
-                      "flex items-center gap-2 px-2 py-2 text-text-regular font-body transition-colors hover:bg-accent hover:text-accent-foreground rounded-sm",
-                      isActive && "text-primary"
-                    )
-                  }
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  <item.icon className="h-4 w-4" />
-                  <span>{item.name}</span>
-                </NavLink>
-              </DropdownMenuItem>
-              {index < dropdownItems.length - 1 && <DropdownMenuSeparator className="my-1" />}
-            </React.Fragment>
-          ))}
+          {/* Updated "Blogs" item to open the dialog */}
+          <DropdownMenuItem asChild className="cursor-pointer">
+            <div
+              className="flex items-center gap-2 px-2 py-2 text-text-regular font-body transition-colors hover:bg-accent hover:text-accent-foreground rounded-sm"
+              onClick={handleAddBlogClick}
+            >
+              <BookOpen className="h-4 w-4" />
+              <span>Blogs</span>
+            </div>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
@@ -197,6 +192,15 @@ const AdminAddDropdown = () => {
         onSave={(newsEvent) => {
           addNewsEvent(newsEvent);
           toast.success(`News/Event "${newsEvent.title}" added successfully!`);
+        }}
+      />
+      <AdminAddBlogDialog
+        open={isAddBlogDialogOpen}
+        onOpenChange={setIsAddBlogDialogOpen}
+        editingBlog={null} // Always null when opened from "Add" dropdown
+        onSave={(blog) => {
+          addBlog(blog); // Use the addBlog function
+          toast.success(`Blog "${blog.title}" added successfully!`);
         }}
       />
     </>
