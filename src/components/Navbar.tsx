@@ -12,7 +12,7 @@ import {
   DropdownMenuLabel,
 } from '@/components/ui/dropdown-menu';
 import { Menu, ChevronDown } from 'lucide-react';
-import * as LucideIcons from 'lucide-react';
+import *s LucideIcons from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import CourseDropdownMenuItem from './CourseDropdownMenuItem.tsx';
 import { cn } from '@/lib/utils'; // Import cn utility
@@ -75,10 +75,11 @@ const Navbar = () => {
     }
 
     if (newOpenState) {
-      // If opening, set state immediately
+      // If Radix says it's opening (either by click or hover), open immediately
       setOpen(true);
     } else {
-      // If closing, apply a small delay to allow smooth transition from trigger to content
+      // If Radix says it's closing (e.g., mouse left, clicked outside, escape),
+      // apply a delay before actually closing. This allows moving from trigger to content.
       timeoutRef.current = setTimeout(() => {
         setOpen(false);
       }, 150); // 150ms delay
