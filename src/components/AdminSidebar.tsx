@@ -14,7 +14,7 @@ interface SidebarLink {
 }
 
 const sidebarNavItems: SidebarLink[] = [
-  { name: 'Courses', href: '/admin-dashboard/courses', icon: ListChecks }, // Removed badge: 2
+  { name: 'Courses', href: '/admin-dashboard/courses', icon: ListChecks },
   { name: 'Image Gallery', href: '/admin-dashboard/gallery', icon: Image },
   { name: 'Infrastructure', href: '/admin-dashboard/infrastructure', icon: Home },
   { name: 'News & Events', href: '/admin-dashboard/news-events', icon: Newspaper },
@@ -23,7 +23,7 @@ const sidebarNavItems: SidebarLink[] = [
 
 const AdminSidebar = () => {
   return (
-    <aside className="w-64 bg-background border-r border-border h-screen flex flex-col shadow-lg">
+    <aside className="fixed left-0 top-0 w-64 bg-background border-r border-border h-screen flex flex-col shadow-lg z-40"> {/* Added fixed, left-0, top-0, and z-40 */}
       {/* Logo */}
       <div className="p-6 border-b border-border flex justify-center">
         <Link to="/">
