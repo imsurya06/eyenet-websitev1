@@ -10,13 +10,13 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { Plus, Image, ListChecks, LayoutGrid, Newspaper, BookOpen } from 'lucide-react';
+import { Plus, ListChecks, LayoutGrid, Home, Newspaper, BookOpen } from 'lucide-react'; // Changed Image to Home
 import { cn } from '@/lib/utils';
 
 const dropdownItems = [
-  { name: 'Image', href: '/admin-dashboard/images', icon: Image },
   { name: 'Courses', href: '/admin-dashboard/courses', icon: ListChecks },
   { name: 'Gallery', href: '/admin-dashboard/gallery', icon: LayoutGrid },
+  { name: 'Infrastructure', href: '/admin-dashboard/infrastructure', icon: Home }, // Changed name, href, and icon
   { name: 'News', href: '/admin-dashboard/news-events', icon: Newspaper },
   { name: 'Blogs', href: '/admin-dashboard/blogs', icon: BookOpen },
 ];
