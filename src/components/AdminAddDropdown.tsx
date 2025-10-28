@@ -15,27 +15,28 @@ import { cn } from '@/lib/utils';
 import AdminAddCourseDialog from './AdminAddCourseDialog';
 import AdminAddImageDialog from './AdminAddImageDialog';
 import AdminAddInfrastructureImageDialog from './AdminAddInfrastructureImageDialog';
-import AdminAddNewsEventDialog from './AdminAddNewsEventDialog'; // Import the new dialog component
+import AdminAddNewsEventDialog from './AdminAddNewsEventDialog';
 import { useCourses } from '@/context/CourseContext';
 import { useGalleryImages } from '@/context/GalleryImageContext';
 import { useInfrastructureImages } from '@/context/InfrastructureImageContext';
-import { useNewsEvents } from '@/context/NewsEventsContext'; // Import NewsEventsContext
+import { useNewsEvents } from '@/context/NewsEventsContext';
 import { toast } from 'sonner';
 
 const dropdownItems = [
-  // { name: 'Courses', href: '/admin-dashboard/courses', icon: ListChecks }, // This will now open the dialog
-  // { name: 'Gallery', href: '/admin-dashboard/gallery', icon: LayoutGrid }, // This will now open the dialog
-  // { name: 'Infrastructure', href: '/admin-dashboard/infrastructure', icon: Home }, // This will now open the dialog
-  // { name: 'News', href: '/admin-dashboard/news-events', icon: Newspaper }, // This will now open the dialog
   { name: 'Blogs', href: '/admin-dashboard/blogs', icon: BookOpen },
 ];
 
 const AdminAddDropdown = () => {
+  const { addCourse } = useCourses(); // Correctly call hook at top level
+  const { addGalleryImage } = useGalleryImages(); // Correctly call hook at top level
+  const { addInfrastructureImage } = useInfrastructureImages(); // Correctly call hook at top level
+  const { addNewsEvent } = useNewsEvents(); // Correctly call hook at top level
+
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
   const [isAddCourseDialogOpen, setIsAddCourseDialogOpen] = React.useState(false);
   const [isAddImageDialogOpen, setIsAddImageDialogOpen] = React.useState(false);
   const [isAddInfrastructureImageDialogOpen, setIsAddInfrastructureImageDialogOpen] = React.useState(false);
-  const [isAddNewsEventDialogOpen, setIsAddNewsEventDialogOpen] = React.useState(false); // New state for news/event dialog
+  const [isAddNewsEventDialogOpen, setIsAddNewsEventDialogOpen] = React.useState(false);
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleOpenDropdown = () => {
@@ -52,7 +53,7 @@ const AdminAddDropdown = () => {
     }
     closeTimeoutRef.current = setTimeout(() => {
       setIsDropdownOpen(false);
-    }, 150); // Delay closing
+    }, 150);
   };
 
   const handleAddCourseClick = () => {
@@ -70,7 +71,7 @@ const AdminAddDropdown = () => {
     setIsDropdownOpen(false);
   };
 
-  const handleAddNewsEventClick = () => { // New handler for news/event dialog
+  const handleAddNewsEventClick = () => {
     setIsAddNewsEventDialogOpen(true);
     setIsDropdownOpen(false);
   };
@@ -128,7 +129,6 @@ const AdminAddDropdown = () => {
           </DropdownMenuItem>
           <DropdownMenuSeparator className="my-1" />
 
-          {/* New "News & Events" item to open the dialog */}
           <DropdownMenuItem asChild className="cursor-pointer">
             <div
               className="flex items-center gap-2 px-2 py-2 text-text-regular font-body transition-colors hover:bg-accent hover:text-accent-foreground rounded-sm"
@@ -168,7 +168,6 @@ const AdminAddDropdown = () => {
         onOpenChange={setIsAddCourseDialogOpen}
         editingCourse={null}
         onSave={(course) => {
-          const { addCourse } = useCourses();
           addCourse(course);
           toast.success(`Course "${course.title}" added successfully!`);
         }}
@@ -178,7 +177,6 @@ const AdminAddDropdown = () => {
         onOpenChange={setIsAddImageDialogOpen}
         editingImage={null}
         onSave={(image) => {
-          const { addGalleryImage } = useGalleryImages();
           addGalleryImage(image);
           toast.success(`Image "${image.alt}" added to gallery!`);
         }}
@@ -188,7 +186,6 @@ const AdminAddDropdown = () => {
         onOpenChange={setIsAddInfrastructureImageDialogOpen}
         editingImage={null}
         onSave={(image) => {
-          const { addInfrastructureImage } = useInfrastructureImages();
           addInfrastructureImage(image);
           toast.success(`Infrastructure image "${image.alt}" added!`);
         }}
@@ -196,9 +193,8 @@ const AdminAddDropdown = () => {
       <AdminAddNewsEventDialog
         open={isAddNewsEventDialogOpen}
         onOpenChange={setIsAddNewsEventDialogOpen}
-        editingNewsEvent={null} // Always null when opened from "Add" dropdown
+        editingNewsEvent={null}
         onSave={(newsEvent) => {
-          const { addNewsEvent } = useNewsEvents(); // Get addNewsEvent from context
           addNewsEvent(newsEvent);
           toast.success(`News/Event "${newsEvent.title}" added successfully!`);
         }}
