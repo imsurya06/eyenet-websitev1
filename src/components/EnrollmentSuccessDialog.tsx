@@ -24,11 +24,7 @@ interface EnrollmentSuccessDialogProps {
 const EnrollmentSuccessDialog: React.FC<EnrollmentSuccessDialogProps> = ({ show, courseName, userName, onClose }) => {
   return (
     <Dialog open={show} onOpenChange={onClose}>
-      <DialogContent className={cn(
-        "fixed left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%] w-full", // Essential positioning
-        "max-w-md p-8 md:p-10 text-center flex flex-col items-center space-y-6 relative overflow-hidden", // Custom sizing and layout
-        "bg-background shadow-lg rounded-lg" // Essential visual styles
-      )}>
+      <DialogContent className={cn("max-w-md p-8 md:p-10 text-center flex flex-col items-center space-y-6 relative overflow-hidden")}> {/* Removed hideCloseButton={true} */}
         {show && <ConfettiOverlay show={show} />}
         <DialogHeader className="flex flex-col items-center space-y-4">
           <CheckCircle className="h-16 w-16 text-green-500 mx-auto" />
