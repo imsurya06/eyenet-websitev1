@@ -117,7 +117,7 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px] p-6 md:p-8">
+      <DialogContent className="sm:max-w-[500px] p-6 md:p-8 max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-h4-mobile md:text-h4-desktop font-heading text-foreground">
             Upload Course
