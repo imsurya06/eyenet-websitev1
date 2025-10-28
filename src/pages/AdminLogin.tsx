@@ -51,6 +51,8 @@ const AdminLogin = () => {
       values.mobile === ADMIN_MOBILE
     ) {
       toast.success("Login successful! Redirecting to admin dashboard...");
+      // Save username to local storage
+      localStorage.setItem('adminUsername', values.username);
       // Simulate successful login and redirect
       // In a real app, you'd set a token/session here
       setTimeout(() => {
