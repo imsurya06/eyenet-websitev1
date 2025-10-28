@@ -141,12 +141,12 @@ const AdminLogin = () => {
                 )}
               />
               <Button type="submit" className="w-full h-12 px-6 py-2 text-text-regular bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 ease-in-out hover:scale-[1.02]">
-                Sign-in as Admin
+                Login as Admin
               </Button>
             </form>
           </Form>
           <p className="text-text-small font-body text-gray-500 mt-6">
-            Sign-in only if you're an admin
+            Login only if you're an admin
           </p>
         </div>
       </AnimateOnScroll>
