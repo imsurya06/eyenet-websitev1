@@ -5,18 +5,13 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import AnimateOnScroll from './AnimateOnScroll';
-import { useCourses } from '@/context/CourseContext'; // Corrected import path
+import { useCourses } from '@/context/CourseContext';
 
 const ComputerCoursesSection = () => {
-  const { courses } = useCourses(); // Use the hook to get courses
+  const { courses } = useCourses();
 
-  const computerCourses = courses.filter(course => 
-    course.category === 'computer' && 
-    (course.id === 'computer-basics-applications' || 
-     course.id === 'web-designing' || 
-     course.id === 'photoshop-mastery' || 
-     course.id === 'computer-application-programming')
-  );
+  // Filter to display all computer courses
+  const computerCourses = courses.filter(course => course.category === 'computer');
 
   return (
     <section className="py-10 px-3 md:px-8 lg:px-[80px] bg-background text-foreground">
@@ -47,7 +42,7 @@ const ComputerCoursesSection = () => {
                   <span className="inline-block bg-muted text-text-small font-body text-gray-600 px-3 py-1 rounded-full mb-4 border border-input">
                     {course.tag} / Offline
                   </span>
-                  <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[4.9rem] overflow-hidden"> {/* Added h-[4.9rem] overflow-hidden */}
+                  <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[4.9rem] overflow-hidden">
                     <Link to={`/courses/computer-courses/${course.id}`} className="hover:underline">
                       {course.title}
                     </Link>

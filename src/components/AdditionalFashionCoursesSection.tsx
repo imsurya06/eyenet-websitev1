@@ -5,17 +5,13 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import AnimateOnScroll from './AnimateOnScroll';
-import { useCourses } from '@/context/CourseContext'; // Corrected import path
+import { useCourses } from '@/context/CourseContext';
 
 const AdditionalFashionCoursesSection = () => {
-  const { courses } = useCourses(); // Use the hook to get courses
+  const { courses } = useCourses();
 
-  const additionalFashionCourses = courses.filter(course => 
-    course.category === 'fashion' && 
-    (course.id === 'chudithar-making' || 
-     course.id === 'blouse-making' || 
-     course.id === 'drafting-pattern-making')
-  );
+  // Filter to display all fashion courses
+  const additionalFashionCourses = courses.filter(course => course.category === 'fashion');
 
   return (
     <section className="py-10 px-3 md:px-8 lg:px-[80px] bg-background text-foreground">
@@ -35,7 +31,7 @@ const AdditionalFashionCoursesSection = () => {
                   <span className="inline-block bg-muted text-text-small font-body text-gray-600 px-3 py-1 rounded-full mb-4 border border-input">
                     {course.tag} / Offline
                   </span>
-                  <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[4.9rem] overflow-hidden"> {/* Added h-[4.9rem] overflow-hidden */}
+                  <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[4.9rem] overflow-hidden">
                     <Link to={`/courses/fashion-design/${course.id}`} className="hover:underline">
                       {course.title}
                     </Link>
@@ -57,8 +53,7 @@ const AdditionalFashionCoursesSection = () => {
                     </Button>
                   </div>
                 </div>
-              </div>
-            </AnimateOnScroll>
+              </AnimateOnScroll>
           ))}
         </div>
       </div>

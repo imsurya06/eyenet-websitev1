@@ -5,17 +5,13 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import AnimateOnScroll from './AnimateOnScroll';
-import { useCourses } from '@/context/CourseContext'; // Corrected import path
+import { useCourses } from '@/context/CourseContext';
 
 const FashionCoursesSection = () => {
-  const { courses } = useCourses(); // Use the hook to get courses
+  const { courses } = useCourses();
 
-  const fashionCourses = courses.filter(course => 
-    course.category === 'fashion' && 
-    (course.id === 'diploma-in-fashion-designing' || 
-     course.id === 'diploma-in-dress-making-female' || 
-     course.id === 'diploma-in-dress-making-child')
-  );
+  // Filter to display all fashion courses
+  const fashionCourses = courses.filter(course => course.category === 'fashion');
 
   return (
     <section className="py-10 px-3 md:px-8 lg:px-[80px] bg-background text-foreground">
@@ -46,7 +42,7 @@ const FashionCoursesSection = () => {
                   <span className="inline-block bg-muted text-text-small font-body text-gray-600 px-3 py-1 rounded-full mb-4 border border-input">
                     {course.tag} / Offline
                   </span>
-                  <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[4.9rem] overflow-hidden"> {/* Added h-[4.9rem] overflow-hidden */}
+                  <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[4.9rem] overflow-hidden">
                     <Link to={`/courses/fashion-design/${course.id}`} className="hover:underline">
                       {course.title}
                     </Link>
@@ -58,7 +54,7 @@ const FashionCoursesSection = () => {
                     </Link>
                   </p>
                   <div className="flex flex-col items-center gap-2 mt-auto md:flex-row md:justify-between">
-                    <a href={course.brochureLink} download className="text-text-small font-body text-primary hover:underline whitespace-nowrap w-full text-center md:w-auto md:text-left"> {/* Added download attribute */}
+                    <a href={course.brochureLink} download className="text-text-small font-body text-primary hover:underline whitespace-nowrap w-full text-center md:w-auto md:text-left">
                       Download Brochure
                     </a>
                     <Button asChild className="bg-primary hover:bg-primary/90 px-4 py-2 text-text-small flex-shrink-0 w-full md:w-auto transition-all duration-300 ease-in-out hover:scale-[1.02]">
