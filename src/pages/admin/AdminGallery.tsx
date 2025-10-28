@@ -8,13 +8,12 @@ import AdminAddImageDialog from '@/components/AdminAddImageDialog'; // Import th
 import { useGalleryImages } from '@/context/GalleryImageContext';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
-import { Filter, Image, HardDrive, LayoutGrid, CalendarDays } from 'lucide-react';
+import { Filter, Image, LayoutGrid, CalendarDays } from 'lucide-react'; // Removed HardDrive icon
 import { cn } from '@/lib/utils';
 
 const filterItems = [
   { name: 'All Images', category: null, icon: LayoutGrid },
   { name: 'Fashion', category: 'fashion', icon: Image },
-  { name: 'Infrastructure', category: 'infrastructure', icon: HardDrive },
   { name: 'Events', category: 'event', icon: CalendarDays },
   { name: 'General', category: 'general', icon: LayoutGrid },
 ];

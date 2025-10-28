@@ -37,7 +37,7 @@ interface AdminAddImageDialogProps {
 // Zod schema for form validation
 const formSchema = z.object({
   imageAlt: z.string().min(2, { message: 'Image Alt Text must be at least 2 characters.' }),
-  imageCategory: z.enum(['fashion', 'infrastructure', 'event', 'general'], { message: 'Please select an image category.' }),
+  imageCategory: z.enum(['fashion', 'event', 'general'], { message: 'Please select an image category.' }), // Removed 'infrastructure'
   imageFile: z.any().refine(file => file instanceof File, { message: 'Image file is required.' }),
 });
 
@@ -132,14 +132,6 @@ const AdminAddImageDialog: React.FC<AdminAddImageDialogProps> = ({ open, onOpenC
                         </FormControl>
                         <FormLabel className="font-normal text-text-regular font-body text-foreground">
                           Fashion
-                        </FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-x-2 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="infrastructure" />
-                        </FormControl>
-                        <FormLabel className="font-normal text-text-regular font-body text-foreground">
-                          Infrastructure
                         </FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-2 space-y-0">
