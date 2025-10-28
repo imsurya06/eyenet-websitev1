@@ -54,7 +54,7 @@ const AdminLogin = () => {
       // Simulate successful login and redirect
       // In a real app, you'd set a token/session here
       setTimeout(() => {
-        navigate('/'); // Redirect to home for now, or a dedicated admin dashboard
+        navigate('/admin-dashboard'); // Redirect to the new admin dashboard
       }, 1500);
     } else {
       toast.error("Invalid credentials. Please try again.");

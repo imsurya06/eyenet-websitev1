@@ -18,7 +18,8 @@ import NewsEvents from "./pages/NewsEvents";
 import FashionDesignCourses from "./pages/FashionDesignCourses";
 import CourseDetailsPage from "./pages/CourseDetailsPage";
 import ComputerCourses from "./pages/ComputerCourses";
-import AdminLogin from "./pages/AdminLogin"; // Import the new AdminLogin page
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard"; // Import the new AdminDashboard page
 import Footer from "./components/Footer";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import ScrollToTop from "./components/ScrollToTop";
@@ -49,7 +50,8 @@ const App = () => (
           <Route path="/explore/gallery" element={<Gallery />} />
           <Route path="/explore/news-events" element={<NewsEvents />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/admin-login" element={<AdminLogin />} /> {/* Add the new route here */}
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} /> {/* Add the new route here */}
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
