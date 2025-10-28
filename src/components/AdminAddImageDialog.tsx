@@ -1,0 +1,207 @@
+"use client";
+
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { ImagePlus } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { useGalleryImages } from '@/context/GalleryImageContext';
+import { toast } from 'sonner';
+import { GalleryImage } from '@/data/galleryImages';
+
+interface AdminAddImageDialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+// Zod schema for form validation
+const formSchema = z.object({
+  imageAlt: z.string().min(2, { message: 'Image Alt Text must be at least 2 characters.' }),
+  imageCategory: z.enum(['fashion', 'infrastructure', 'event', 'general'], { message: 'Please select an image category.' }),
+  imageFile: z.any().refine(file => file instanceof File, { message: 'Image file is required.' }),
+});
+
+const AdminAddImageDialog: React.FC<AdminAddImageDialogProps> = ({ open, onOpenChange }) => {
+  const { addGalleryImage } = useGalleryImages();
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      imageAlt: '',
+      imageCategory: undefined,
+      imageFile: undefined,
+    },
+  });
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+      form.setValue('imageFile', file);
+      form.clearErrors('imageFile'); // Clear error when a file is selected
+    } else {
+      setImagePreview(null);
+      form.setValue('imageFile', undefined);
+    }
+  };
+
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    const imageUrl = values.imageFile ? `/images/${values.imageFile.name}` : '/public/placeholder.svg';
+
+    const newImage: GalleryImage = {
+      id: `gallery-image-${Date.now()}`,
+      src: imageUrl,
+      alt: values.imageAlt,
+      category: values.imageCategory,
+    };
+
+    addGalleryImage(newImage);
+    toast.success(`Image "${newImage.alt}" added to gallery!`);
+    form.reset();
+    setImagePreview(null);
+    onOpenChange(false);
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[500px] p-6 md:p-8 max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="text-h4-mobile md:text-h4-desktop font-heading text-foreground">
+            Upload Gallery Image
+          </DialogTitle>
+          <DialogDescription className="text-text-regular font-body text-gray-600">
+            Fill in the details to add a new image to the gallery.
+          </DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6 py-4">
+            <FormField
+              control={form.control}
+              name="imageAlt"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-text-regular font-body text-foreground">Image Alt Text:</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g., Fashion Show Event" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="imageCategory"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel className="text-text-regular font-body text-foreground">Image Category:</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-wrap gap-4"
+                    >
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="fashion" />
+                        </FormControl>
+                        <FormLabel className="font-normal text-text-regular font-body text-foreground">
+                          Fashion
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="infrastructure" />
+                        </FormControl>
+                        <FormLabel className="font-normal text-text-regular font-body text-foreground">
+                          Infrastructure
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="event" />
+                        </FormControl>
+                        <FormLabel className="font-normal text-text-regular font-body text-foreground">
+                          Event
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="general" />
+                        </FormControl>
+                        <FormLabel className="font-normal text-text-regular font-body text-foreground">
+                          General
+                        </FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormItem>
+              <FormLabel className="text-text-regular font-body text-foreground">Image File:</FormLabel>
+              <FormControl>
+                <Label htmlFor="image-upload" className="flex flex-col items-center justify-center w-full h-48 border border-input bg-muted rounded-md cursor-pointer hover:bg-accent transition-colors">
+                  {imagePreview ? (
+                    <img src={imagePreview} alt="Image Preview" className="h-full w-full object-cover rounded-md" />
+                  ) : (
+                    <>
+                      <ImagePlus className="h-8 w-8 mb-2 text-gray-500" />
+                      <span className="text-text-regular font-body text-gray-600">Upload image</span>
+                    </>
+                  )}
+                  <Input
+                    id="image-upload"
+                    type="file"
+                    className="sr-only"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                  />
+                </Label>
+              </FormControl>
+              {form.formState.errors.imageFile && <FormMessage>{form.formState.errors.imageFile.message?.toString()}</FormMessage>}
+              <p className="text-text-small text-red-500 mt-2">
+                <strong>Important:</strong> For the image to appear after adding, you must manually copy the selected image file (e.g., "{form.getValues('imageFile')?.name || 'your-image.png'}") into the `public/images` directory of your project.
+              </p>
+            </FormItem>
+
+            <DialogFooter className="mt-4">
+              <Button type="submit" className="w-full bg-primary hover:bg-primary/90 !text-white text-text-regular">
+                Add Image
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+export default AdminAddImageDialog;

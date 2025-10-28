@@ -12,11 +12,12 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Plus, ListChecks, LayoutGrid, Home, Newspaper, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import AdminAddCourseDialog from './AdminAddCourseDialog'; // Import the new dialog component
+import AdminAddCourseDialog from './AdminAddCourseDialog';
+import AdminAddImageDialog from './AdminAddImageDialog'; // Import the new dialog component
 
 const dropdownItems = [
   // { name: 'Courses', href: '/admin-dashboard/courses', icon: ListChecks }, // This will now open the dialog
-  { name: 'Gallery', href: '/admin-dashboard/gallery', icon: LayoutGrid },
+  // { name: 'Gallery', href: '/admin-dashboard/gallery', icon: LayoutGrid }, // This will now open the dialog
   { name: 'Infrastructure', href: '/admin-dashboard/infrastructure', icon: Home },
   { name: 'News', href: '/admin-dashboard/news-events', icon: Newspaper },
   { name: 'Blogs', href: '/admin-dashboard/blogs', icon: BookOpen },
@@ -25,6 +26,7 @@ const dropdownItems = [
 const AdminAddDropdown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
   const [isAddCourseDialogOpen, setIsAddCourseDialogOpen] = React.useState(false);
+  const [isAddImageDialogOpen, setIsAddImageDialogOpen] = React.useState(false); // New state for image dialog
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleOpenDropdown = () => {
@@ -49,12 +51,17 @@ const AdminAddDropdown = () => {
     setIsDropdownOpen(false); // Close the dropdown when opening the dialog
   };
 
+  const handleAddImageClick = () => { // New handler for image dialog
+    setIsAddImageDialogOpen(true);
+    setIsDropdownOpen(false); // Close the dropdown when opening the dialog
+  };
+
   return (
     <>
       <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
         <DropdownMenuTrigger asChild>
           <Button
-            className="bg-primary hover:bg-primary/90 px-6 py-3 text-text-regular rounded-full shadow-md transition-all duration-300 ease-in-out hover:scale-[1.02] !text-white" // Added !text-white
+            className="bg-primary hover:bg-primary/90 px-6 py-3 text-text-regular rounded-full shadow-md transition-all duration-300 ease-in-out hover:scale-[1.02] !text-white"
             onMouseEnter={handleOpenDropdown}
             onMouseLeave={handleCloseDropdown}
           >
@@ -81,6 +88,18 @@ const AdminAddDropdown = () => {
           </DropdownMenuItem>
           <DropdownMenuSeparator className="my-1" />
 
+          {/* New "Gallery" item to open the dialog */}
+          <DropdownMenuItem asChild className="cursor-pointer">
+            <div
+              className="flex items-center gap-2 px-2 py-2 text-text-regular font-body transition-colors hover:bg-accent hover:text-accent-foreground rounded-sm"
+              onClick={handleAddImageClick}
+            >
+              <LayoutGrid className="h-4 w-4" />
+              <span>Gallery</span>
+            </div>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator className="my-1" />
+
           {dropdownItems.map((item, index) => (
             <React.Fragment key={item.name}>
               <DropdownMenuItem asChild className="cursor-pointer">
@@ -92,7 +111,7 @@ const AdminAddDropdown = () => {
                       isActive && "text-primary"
                     )
                   }
-                  onClick={() => setIsDropdownOpen(false)} // Close dropdown on click
+                  onClick={() => setIsDropdownOpen(false)}
                 >
                   <item.icon className="h-4 w-4" />
                   <span>{item.name}</span>
@@ -107,6 +126,10 @@ const AdminAddDropdown = () => {
       <AdminAddCourseDialog
         open={isAddCourseDialogOpen}
         onOpenChange={setIsAddCourseDialogOpen}
+      />
+      <AdminAddImageDialog
+        open={isAddImageDialogOpen}
+        onOpenChange={setIsAddImageDialogOpen}
       />
     </>
   );
