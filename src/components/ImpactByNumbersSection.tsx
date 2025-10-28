@@ -4,17 +4,11 @@ import React from 'react';
 import AnimateOnScroll from './AnimateOnScroll';
 
 const ImpactByNumbersSection = () => {
-  console.log("ImpactByNumbersSection is rendering."); // Added for debugging
-
   const stats = [
     { value: '25+', label: 'Years of Experience' },
     { value: '85%', label: 'Student satisfaction' },
     { value: '75%', label: 'Industry recognition' },
   ];
-
-  const handleCanPlay = () => {
-    console.log("Video can play!");
-  };
 
   return (
     <section className="py-12 md:py-16 lg:py-20 px-3 md:px-8 lg:px-[80px] bg-background text-center">
@@ -37,14 +31,13 @@ const ImpactByNumbersSection = () => {
         <AnimateOnScroll delay={400} className="w-full lg:w-1/2">
           <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-lg">
             <video
-              src="/videos/Video_Generation_With_Animated_Logo.mp4"
               controls
               muted
               loop
               autoPlay
               className="w-full h-full object-cover"
-              onCanPlay={handleCanPlay} // Added this line
             >
+              <source src="/videos/Video_Generation_With_Animated_Logo.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
