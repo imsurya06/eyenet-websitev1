@@ -19,9 +19,10 @@ import {
 interface AdminInfrastructureImageCardProps {
   image: InfrastructureImage;
   onDelete: (id: string) => void;
+  onEdit: (image: InfrastructureImage) => void; // New prop for edit action
 }
 
-const AdminInfrastructureImageCard: React.FC<AdminInfrastructureImageCardProps> = ({ image, onDelete }) => {
+const AdminInfrastructureImageCard: React.FC<AdminInfrastructureImageCardProps> = ({ image, onDelete, onEdit }) => {
   return (
     <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-col">
       <div className="w-full h-48 overflow-hidden">
@@ -39,7 +40,12 @@ const AdminInfrastructureImageCard: React.FC<AdminInfrastructureImageCardProps> 
           {image.alt}
         </h3>
         <div className="flex items-center gap-2 mt-auto">
-          <Button variant="outline" size="sm" className="flex-1 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+          <Button
+            variant="outline"
+            size="sm"
+            className="flex-1 border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+            onClick={() => onEdit(image)} // Call onEdit with the current image
+          >
             <Pencil className="h-4 w-4 mr-2" /> Edit
           </Button>
           <AlertDialog>

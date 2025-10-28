@@ -7,6 +7,7 @@ interface InfrastructureImageContextType {
   infrastructureImages: InfrastructureImage[];
   addInfrastructureImage: (image: InfrastructureImage) => void;
   deleteInfrastructureImage: (id: string) => void;
+  updateInfrastructureImage: (updatedImage: InfrastructureImage) => void; // Added updateInfrastructureImage function
 }
 
 const InfrastructureImageContext = createContext<InfrastructureImageContextType | undefined>(undefined);
@@ -22,8 +23,14 @@ export const InfrastructureImageProvider: React.FC<{ children: ReactNode }> = ({
     setInfrastructureImages(prevImages => prevImages.filter(image => image.id !== id));
   };
 
+  const updateInfrastructureImage = (updatedImage: InfrastructureImage) => {
+    setInfrastructureImages(prevImages =>
+      prevImages.map(image => (image.id === updatedImage.id ? updatedImage : image))
+    );
+  };
+
   return (
-    <InfrastructureImageContext.Provider value={{ infrastructureImages, addInfrastructureImage, deleteInfrastructureImage }}>
+    <InfrastructureImageContext.Provider value={{ infrastructureImages, addInfrastructureImage, deleteInfrastructureImage, updateInfrastructureImage }}>
       {children}
     </InfrastructureImageContext.Provider>
   );

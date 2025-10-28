@@ -19,10 +19,11 @@ import {
 
 interface AdminCourseCardProps {
   course: Course;
-  onDelete: (id: string) => void; // New prop for delete action
+  onDelete: (id: string) => void;
+  onEdit: (course: Course) => void; // New prop for edit action
 }
 
-const AdminCourseCard: React.FC<AdminCourseCardProps> = ({ course, onDelete }) => {
+const AdminCourseCard: React.FC<AdminCourseCardProps> = ({ course, onDelete, onEdit }) => {
   return (
     <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-col">
       <div className="w-full h-48 overflow-hidden">
@@ -43,7 +44,12 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({ course, onDelete }) =
           {course.description.split('Details...')[0]}
         </p>
         <div className="flex items-center gap-2 mt-auto">
-          <Button variant="outline" size="sm" className="flex-1 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+          <Button
+            variant="outline"
+            size="sm"
+            className="flex-1 border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+            onClick={() => onEdit(course)} // Call onEdit with the current course
+          >
             <Pencil className="h-4 w-4 mr-2" /> Edit
           </Button>
           <AlertDialog>

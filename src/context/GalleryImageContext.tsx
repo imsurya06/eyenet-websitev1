@@ -7,6 +7,7 @@ interface GalleryImageContextType {
   galleryImages: GalleryImage[];
   addGalleryImage: (image: GalleryImage) => void;
   deleteGalleryImage: (id: string) => void;
+  updateGalleryImage: (updatedImage: GalleryImage) => void; // Added updateGalleryImage function
 }
 
 const GalleryImageContext = createContext<GalleryImageContextType | undefined>(undefined);
@@ -22,8 +23,14 @@ export const GalleryImageProvider: React.FC<{ children: ReactNode }> = ({ childr
     setGalleryImages(prevImages => prevImages.filter(image => image.id !== id));
   };
 
+  const updateGalleryImage = (updatedImage: GalleryImage) => {
+    setGalleryImages(prevImages =>
+      prevImages.map(image => (image.id === updatedImage.id ? updatedImage : image))
+    );
+  };
+
   return (
-    <GalleryImageContext.Provider value={{ galleryImages, addGalleryImage, deleteGalleryImage }}>
+    <GalleryImageContext.Provider value={{ galleryImages, addGalleryImage, deleteGalleryImage, updateGalleryImage }}>
       {children}
     </GalleryImageContext.Provider>
   );

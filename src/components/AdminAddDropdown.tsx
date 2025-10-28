@@ -10,11 +10,15 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { Plus, ListChecks, LayoutGrid, Home, Newspaper, BookOpen, Building2 } from 'lucide-react'; // Added Building2 for infrastructure
+import { Plus, ListChecks, LayoutGrid, Home, Newspaper, BookOpen, Building2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import AdminAddCourseDialog from './AdminAddCourseDialog';
 import AdminAddImageDialog from './AdminAddImageDialog';
-import AdminAddInfrastructureImageDialog from './AdminAddInfrastructureImageDialog'; // Import the new dialog component
+import AdminAddInfrastructureImageDialog from './AdminAddInfrastructureImageDialog';
+import { useCourses } from '@/context/CourseContext'; // Added import
+import { useGalleryImages } from '@/context/GalleryImageContext'; // Added import
+import { useInfrastructureImages } from '@/context/InfrastructureImageContext'; // Added import
+import { toast } from 'sonner'; // Added import
 
 const dropdownItems = [
   // { name: 'Courses', href: '/admin-dashboard/courses', icon: ListChecks }, // This will now open the dialog
@@ -28,7 +32,7 @@ const AdminAddDropdown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
   const [isAddCourseDialogOpen, setIsAddCourseDialogOpen] = React.useState(false);
   const [isAddImageDialogOpen, setIsAddImageDialogOpen] = React.useState(false);
-  const [isAddInfrastructureImageDialogOpen, setIsAddInfrastructureImageDialogOpen] = React.useState(false); // New state for infrastructure image dialog
+  const [isAddInfrastructureImageDialogOpen, setIsAddInfrastructureImageDialogOpen] = React.useState(false);
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleOpenDropdown = () => {
@@ -48,6 +52,7 @@ const AdminAddDropdown = () => {
     }, 150); // Delay closing
   };
 
+  // These handlers will be passed to the respective admin pages to open the dialogs in "add" mode
   const handleAddCourseClick = () => {
     setIsAddCourseDialogOpen(true);
     setIsDropdownOpen(false); // Close the dropdown when opening the dialog
@@ -58,7 +63,7 @@ const AdminAddDropdown = () => {
     setIsDropdownOpen(false); // Close the dropdown when opening the dialog
   };
 
-  const handleAddInfrastructureImageClick = () => { // New handler for infrastructure image dialog
+  const handleAddInfrastructureImageClick = () => {
     setIsAddInfrastructureImageDialogOpen(true);
     setIsDropdownOpen(false); // Close the dropdown when opening the dialog
   };
@@ -145,14 +150,35 @@ const AdminAddDropdown = () => {
       <AdminAddCourseDialog
         open={isAddCourseDialogOpen}
         onOpenChange={setIsAddCourseDialogOpen}
+        editingCourse={null} // Always null when opened from "Add" dropdown
+        onSave={(course) => {
+          // This onSave is for the "Add" button in the dropdown, so it always adds
+          const { addCourse } = useCourses(); // Get addCourse from context
+          addCourse(course);
+          toast.success(`Course "${course.title}" added successfully!`);
+        }}
       />
       <AdminAddImageDialog
         open={isAddImageDialogOpen}
         onOpenChange={setIsAddImageDialogOpen}
+        editingImage={null} // Always null when opened from "Add" dropdown
+        onSave={(image) => {
+          // This onSave is for the "Add" button in the dropdown, so it always adds
+          const { addGalleryImage } = useGalleryImages(); // Get addGalleryImage from context
+          addGalleryImage(image);
+          toast.success(`Image "${image.alt}" added to gallery!`);
+        }}
       />
       <AdminAddInfrastructureImageDialog
         open={isAddInfrastructureImageDialogOpen}
         onOpenChange={setIsAddInfrastructureImageDialogOpen}
+        editingImage={null} // Always null when opened from "Add" dropdown
+        onSave={(image) => {
+          // This onSave is for the "Add" button in the dropdown, so it always adds
+          const { addInfrastructureImage } = useInfrastructureImages(); // Get addInfrastructureImage from context
+          addInfrastructureImage(image);
+          toast.success(`Infrastructure image "${image.alt}" added!`);
+        }}
       />
     </>
   );

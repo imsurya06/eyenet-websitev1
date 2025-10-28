@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 import AdminHeader from '@/components/AdminHeader';
@@ -8,8 +8,9 @@ import AdminAddInfrastructureImageDialog from '@/components/AdminAddInfrastructu
 import { useInfrastructureImages } from '@/context/InfrastructureImageContext';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
-import { Filter, LayoutGrid, Monitor, BookOpen, Building2, MoreHorizontal } from 'lucide-react'; // Added Building2 for campus, Monitor for lab, BookOpen for library
+import { Filter, LayoutGrid, Monitor, BookOpen, Building2, MoreHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { InfrastructureImage } from '@/data/infrastructureImages'; // Import InfrastructureImage interface
 
 const filterItems = [
   { name: 'All Images', category: null, icon: LayoutGrid },
@@ -23,8 +24,9 @@ const filterItems = [
 const AdminInfrastructure = () => {
   const [searchParams] = useSearchParams();
   const categoryFilter = searchParams.get('category');
-  const { infrastructureImages, deleteInfrastructureImage } = useInfrastructureImages();
-  const [isAddImageDialogOpen, setIsAddImageDialogOpen] = React.useState(false);
+  const { infrastructureImages, deleteInfrastructureImage, addInfrastructureImage, updateInfrastructureImage } = useInfrastructureImages();
+  const [isAddImageDialogOpen, setIsAddImageDialogOpen] = useState(false);
+  const [editingImage, setEditingImage] = useState<InfrastructureImage | null>(null); // State to hold the image being edited
 
   const filteredImages = React.useMemo(() => {
     if (!categoryFilter) {
@@ -32,6 +34,26 @@ const AdminInfrastructure = () => {
     }
     return infrastructureImages.filter(image => image.category === categoryFilter);
   }, [categoryFilter, infrastructureImages]);
+
+  const handleAddImageClick = () => {
+    setEditingImage(null); // Ensure we're in "add" mode
+    setIsAddImageDialogOpen(true);
+  };
+
+  const handleEditImage = (image: InfrastructureImage) => {
+    setEditingImage(image); // Set the image to be edited
+    setIsAddImageDialogOpen(true);
+  };
+
+  const handleSaveImage = (image: InfrastructureImage) => {
+    if (editingImage) {
+      updateInfrastructureImage(image); // Update existing image
+    } else {
+      addInfrastructureImage(image); // Add new image
+    }
+    setIsAddImageDialogOpen(false); // Close dialog after saving
+    setEditingImage(null); // Reset editing state
+  };
 
   const [isFilterDropdownOpen, setIsFilterDropdownOpen] = React.useState(false);
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -120,7 +142,7 @@ const AdminInfrastructure = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {filteredImages.map((image, index) => (
               <AnimateOnScroll key={image.id} delay={200 + index * 50}>
-                <AdminInfrastructureImageCard image={image} onDelete={deleteInfrastructureImage} />
+                <AdminInfrastructureImageCard image={image} onDelete={deleteInfrastructureImage} onEdit={handleEditImage} />
               </AnimateOnScroll>
             ))}
           </div>
@@ -136,6 +158,8 @@ const AdminInfrastructure = () => {
       <AdminAddInfrastructureImageDialog
         open={isAddImageDialogOpen}
         onOpenChange={setIsAddImageDialogOpen}
+        editingImage={editingImage}
+        onSave={handleSaveImage}
       />
     </div>
   );

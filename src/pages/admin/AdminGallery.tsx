@@ -1,15 +1,16 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 import AdminHeader from '@/components/AdminHeader';
 import AdminGalleryImageCard from '@/components/AdminGalleryImageCard';
-import AdminAddImageDialog from '@/components/AdminAddImageDialog'; // Import the new dialog
+import AdminAddImageDialog from '@/components/AdminAddImageDialog'; // Import the modified dialog
 import { useGalleryImages } from '@/context/GalleryImageContext';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
-import { Filter, Image, LayoutGrid, CalendarDays } from 'lucide-react'; // Removed HardDrive icon
+import { Filter, Image, LayoutGrid, CalendarDays } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { GalleryImage } from '@/data/galleryImages'; // Import GalleryImage interface
 
 const filterItems = [
   { name: 'All Images', category: null, icon: LayoutGrid },
@@ -21,8 +22,9 @@ const filterItems = [
 const AdminGallery = () => {
   const [searchParams] = useSearchParams();
   const categoryFilter = searchParams.get('category');
-  const { galleryImages, deleteGalleryImage } = useGalleryImages();
-  const [isAddImageDialogOpen, setIsAddImageDialogOpen] = React.useState(false);
+  const { galleryImages, deleteGalleryImage, addGalleryImage, updateGalleryImage } = useGalleryImages();
+  const [isAddImageDialogOpen, setIsAddImageDialogOpen] = useState(false);
+  const [editingImage, setEditingImage] = useState<GalleryImage | null>(null); // State to hold the image being edited
 
   const filteredImages = React.useMemo(() => {
     if (!categoryFilter) {
@@ -30,6 +32,26 @@ const AdminGallery = () => {
     }
     return galleryImages.filter(image => image.category === categoryFilter);
   }, [categoryFilter, galleryImages]);
+
+  const handleAddImageClick = () => {
+    setEditingImage(null); // Ensure we're in "add" mode
+    setIsAddImageDialogOpen(true);
+  };
+
+  const handleEditImage = (image: GalleryImage) => {
+    setEditingImage(image); // Set the image to be edited
+    setIsAddImageDialogOpen(true);
+  };
+
+  const handleSaveImage = (image: GalleryImage) => {
+    if (editingImage) {
+      updateGalleryImage(image); // Update existing image
+    } else {
+      addGalleryImage(image); // Add new image
+    }
+    setIsAddImageDialogOpen(false); // Close dialog after saving
+    setEditingImage(null); // Reset editing state
+  };
 
   const [isFilterDropdownOpen, setIsFilterDropdownOpen] = React.useState(false);
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -118,7 +140,7 @@ const AdminGallery = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {filteredImages.map((image, index) => (
               <AnimateOnScroll key={image.id} delay={200 + index * 50}>
-                <AdminGalleryImageCard image={image} onDelete={deleteGalleryImage} />
+                <AdminGalleryImageCard image={image} onDelete={deleteGalleryImage} onEdit={handleEditImage} />
               </AnimateOnScroll>
             ))}
           </div>
@@ -134,6 +156,8 @@ const AdminGallery = () => {
       <AdminAddImageDialog
         open={isAddImageDialogOpen}
         onOpenChange={setIsAddImageDialogOpen}
+        editingImage={editingImage}
+        onSave={handleSaveImage}
       />
     </div>
   );

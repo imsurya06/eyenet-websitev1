@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -28,11 +28,13 @@ import {
 } from '@/components/ui/form';
 import { useCourses } from '@/context/CourseContext';
 import { toast } from 'sonner';
-import { Course } from '@/data/courses'; // Import Course interface
+import { Course } from '@/data/courses';
 
 interface AdminAddCourseDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  editingCourse: Course | null; // New prop for editing
+  onSave: (course: Course) => void; // New prop for saving (add or update)
 }
 
 // Zod schema for form validation
@@ -46,8 +48,7 @@ const formSchema = z.object({
   courseImage: z.any().optional(), // File object
 });
 
-const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpenChange }) => {
-  const { addCourse } = useCourses();
+const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpenChange, editingCourse, onSave }) => {
   const [brochureFileName, setBrochureFileName] = useState<string | null>(null);
   const [courseImagePreview, setCourseImagePreview] = useState<string | null>(null);
 
@@ -58,11 +59,41 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
       courseDescription: '',
       type: 'Course',
       courseMode: 'Offline',
-      courseGenre: undefined, // Must be explicitly set by user
+      courseGenre: undefined,
       brochureFile: undefined,
       courseImage: undefined,
     },
   });
+
+  useEffect(() => {
+    if (open && editingCourse) {
+      // Pre-fill form fields when editing an existing course
+      form.reset({
+        courseName: editingCourse.title,
+        courseDescription: editingCourse.description.replace(' Details...', ''),
+        type: editingCourse.tag as 'Course' | 'Others',
+        courseMode: editingCourse.enrollLink.includes('online') ? 'Online' : 'Offline', // Assuming enrollLink indicates mode
+        courseGenre: editingCourse.category,
+        brochureFile: undefined, // Files cannot be pre-filled for security reasons
+        courseImage: undefined, // Files cannot be pre-filled for security reasons
+      });
+      setBrochureFileName(editingCourse.brochureLink !== '#' ? editingCourse.brochureLink.split('/').pop() || null : null);
+      setCourseImagePreview(editingCourse.image !== '/placeholder.svg' ? editingCourse.image : null);
+    } else if (open && !editingCourse) {
+      // Reset form for adding a new course
+      form.reset({
+        courseName: '',
+        courseDescription: '',
+        type: 'Course',
+        courseMode: 'Offline',
+        courseGenre: undefined,
+        brochureFile: undefined,
+        courseImage: undefined,
+      });
+      setBrochureFileName(null);
+      setCourseImagePreview(null);
+    }
+  }, [open, editingCourse, form]);
 
   const handleBrochureChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -91,33 +122,27 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
   };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // In a real application, you would upload these files to a server/cloud storage
-    // and get a public URL. For this client-side app, we're simulating it.
-    // To see the image, you would manually need to place the selected image file
-    // into the `public/images` directory of your project.
-    const brochureLink = values.brochureFile ? `/brochures/${values.brochureFile.name}` : '#';
-    const imageUrl = values.courseImage ? `/images/${values.courseImage.name}` : '/placeholder.svg'; // Corrected placeholder path
+    const brochureLink = values.brochureFile ? `/brochures/${values.brochureFile.name}` : (editingCourse?.brochureLink || '#');
+    const imageUrl = values.courseImage ? `/images/${values.courseImage.name}` : (editingCourse?.image || '/placeholder.svg');
 
-    console.log("Generated Image URL for new course:", imageUrl); // Log the generated URL
-
-    const newCourse: Course = {
-      id: `new-course-${Date.now()}`, // Unique ID
+    const courseToSave: Course = {
+      id: editingCourse?.id || `new-course-${Date.now()}`,
       image: imageUrl,
       tag: values.type,
       title: values.courseName,
-      description: values.courseDescription + ' Details...', // Add 'Details...' for consistency
+      description: values.courseDescription + ' Details...',
       brochureLink: brochureLink,
-      enrollLink: '/admissions', // Default enroll link
+      enrollLink: '/admissions', // Default enroll link, can be made dynamic if needed
       category: values.courseGenre,
-      icon: values.courseGenre === 'fashion' ? ImagePlus : UploadCloud, // Assign a relevant icon
+      icon: values.courseGenre === 'fashion' ? ImagePlus : UploadCloud,
     };
 
-    addCourse(newCourse);
-    toast.success(`Course "${newCourse.title}" added successfully!`);
+    onSave(courseToSave); // Call the onSave prop
+    toast.success(`${editingCourse ? 'Course updated' : 'Course added'} successfully!`);
     form.reset();
     setBrochureFileName(null);
     setCourseImagePreview(null);
-    onOpenChange(false); // Close the dialog
+    onOpenChange(false);
   };
 
   return (
@@ -125,10 +150,10 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
       <DialogContent className="sm:max-w-[500px] p-6 md:p-8 max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-h4-mobile md:text-h4-desktop font-heading text-foreground">
-            Upload Course
+            {editingCourse ? 'Edit Course' : 'Upload Course'}
           </DialogTitle>
           <DialogDescription className="text-text-regular font-body text-gray-600">
-            Fill in the details to add a new course.
+            {editingCourse ? 'Update the details of this course.' : 'Fill in the details to add a new course.'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -310,8 +335,8 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
             </FormItem>
 
             <DialogFooter className="mt-4">
-              <Button type="submit" className="w-full bg-primary hover:bg-primary/90 !text-white text-text-regular"> {/* Changed to !text-white */}
-                Add Course
+              <Button type="submit" className="w-full bg-primary hover:bg-primary/90 !text-white text-text-regular">
+                {editingCourse ? 'Save Changes' : 'Add Course'}
               </Button>
             </DialogFooter>
           </form>

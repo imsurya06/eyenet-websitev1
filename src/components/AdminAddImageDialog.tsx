@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -32,17 +32,18 @@ import { GalleryImage } from '@/data/galleryImages';
 interface AdminAddImageDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  editingImage: GalleryImage | null; // New prop for editing
+  onSave: (image: GalleryImage) => void; // New prop for saving (add or update)
 }
 
 // Zod schema for form validation
 const formSchema = z.object({
   imageAlt: z.string().min(2, { message: 'Image Alt Text must be at least 2 characters.' }),
-  imageCategory: z.enum(['fashion', 'event', 'general'], { message: 'Please select an image category.' }), // Removed 'infrastructure'
-  imageFile: z.any().refine(file => file instanceof File, { message: 'Image file is required.' }),
+  imageCategory: z.enum(['fashion', 'event', 'general'], { message: 'Please select an image category.' }),
+  imageFile: z.any().optional(), // File object is optional for editing
 });
 
-const AdminAddImageDialog: React.FC<AdminAddImageDialogProps> = ({ open, onOpenChange }) => {
-  const { addGalleryImage } = useGalleryImages();
+const AdminAddImageDialog: React.FC<AdminAddImageDialogProps> = ({ open, onOpenChange, editingImage, onSave }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -53,6 +54,26 @@ const AdminAddImageDialog: React.FC<AdminAddImageDialogProps> = ({ open, onOpenC
       imageFile: undefined,
     },
   });
+
+  useEffect(() => {
+    if (open && editingImage) {
+      // Pre-fill form fields when editing an existing image
+      form.reset({
+        imageAlt: editingImage.alt,
+        imageCategory: editingImage.category,
+        imageFile: undefined, // Files cannot be pre-filled for security reasons
+      });
+      setImagePreview(editingImage.src !== '/public/placeholder.svg' ? editingImage.src : null);
+    } else if (open && !editingImage) {
+      // Reset form for adding a new image
+      form.reset({
+        imageAlt: '',
+        imageCategory: undefined,
+        imageFile: undefined,
+      });
+      setImagePreview(null);
+    }
+  }, [open, editingImage, form]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -71,17 +92,17 @@ const AdminAddImageDialog: React.FC<AdminAddImageDialogProps> = ({ open, onOpenC
   };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    const imageUrl = values.imageFile ? `/images/${values.imageFile.name}` : '/public/placeholder.svg';
+    const imageUrl = values.imageFile ? `/images/${values.imageFile.name}` : (editingImage?.src || '/public/placeholder.svg');
 
-    const newImage: GalleryImage = {
-      id: `gallery-image-${Date.now()}`,
+    const imageToSave: GalleryImage = {
+      id: editingImage?.id || `gallery-image-${Date.now()}`,
       src: imageUrl,
       alt: values.imageAlt,
       category: values.imageCategory,
     };
 
-    addGalleryImage(newImage);
-    toast.success(`Image "${newImage.alt}" added to gallery!`);
+    onSave(imageToSave); // Call the onSave prop
+    toast.success(`${editingImage ? 'Image updated' : 'Image added'} to gallery!`);
     form.reset();
     setImagePreview(null);
     onOpenChange(false);
@@ -92,10 +113,10 @@ const AdminAddImageDialog: React.FC<AdminAddImageDialogProps> = ({ open, onOpenC
       <DialogContent className="sm:max-w-[500px] p-6 md:p-8 max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-h4-mobile md:text-h4-desktop font-heading text-foreground">
-            Upload Gallery Image
+            {editingImage ? 'Edit Gallery Image' : 'Upload Gallery Image'}
           </DialogTitle>
           <DialogDescription className="text-text-regular font-body text-gray-600">
-            Fill in the details to add a new image to the gallery.
+            {editingImage ? 'Update the details of this gallery image.' : 'Fill in the details to add a new image to the gallery.'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -186,7 +207,7 @@ const AdminAddImageDialog: React.FC<AdminAddImageDialogProps> = ({ open, onOpenC
 
             <DialogFooter className="mt-4">
               <Button type="submit" className="w-full bg-primary hover:bg-primary/90 !text-white text-text-regular">
-                Add Image
+                {editingImage ? 'Save Changes' : 'Add Image'}
               </Button>
             </DialogFooter>
           </form>

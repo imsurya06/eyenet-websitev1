@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -32,17 +32,18 @@ import { InfrastructureImage } from '@/data/infrastructureImages';
 interface AdminAddInfrastructureImageDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  editingImage: InfrastructureImage | null; // New prop for editing
+  onSave: (image: InfrastructureImage) => void; // New prop for saving (add or update)
 }
 
 // Zod schema for form validation
 const formSchema = z.object({
   imageAlt: z.string().min(2, { message: 'Image Alt Text must be at least 2 characters.' }),
   imageCategory: z.enum(['lab', 'classroom', 'library', 'campus', 'other'], { message: 'Please select an image category.' }),
-  imageFile: z.any().refine(file => file instanceof File, { message: 'Image file is required.' }),
+  imageFile: z.any().optional(), // File object is optional for editing
 });
 
-const AdminAddInfrastructureImageDialog: React.FC<AdminAddInfrastructureImageDialogProps> = ({ open, onOpenChange }) => {
-  const { addInfrastructureImage } = useInfrastructureImages();
+const AdminAddInfrastructureImageDialog: React.FC<AdminAddInfrastructureImageDialogProps> = ({ open, onOpenChange, editingImage, onSave }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -53,6 +54,26 @@ const AdminAddInfrastructureImageDialog: React.FC<AdminAddInfrastructureImageDia
       imageFile: undefined,
     },
   });
+
+  useEffect(() => {
+    if (open && editingImage) {
+      // Pre-fill form fields when editing an existing image
+      form.reset({
+        imageAlt: editingImage.alt,
+        imageCategory: editingImage.category,
+        imageFile: undefined, // Files cannot be pre-filled for security reasons
+      });
+      setImagePreview(editingImage.src !== '/public/placeholder.svg' ? editingImage.src : null);
+    } else if (open && !editingImage) {
+      // Reset form for adding a new image
+      form.reset({
+        imageAlt: '',
+        imageCategory: undefined,
+        imageFile: undefined,
+      });
+      setImagePreview(null);
+    }
+  }, [open, editingImage, form]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -71,17 +92,17 @@ const AdminAddInfrastructureImageDialog: React.FC<AdminAddInfrastructureImageDia
   };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    const imageUrl = values.imageFile ? `/images/${values.imageFile.name}` : '/public/placeholder.svg';
+    const imageUrl = values.imageFile ? `/images/${values.imageFile.name}` : (editingImage?.src || '/public/placeholder.svg');
 
-    const newImage: InfrastructureImage = {
-      id: `infra-image-${Date.now()}`,
+    const imageToSave: InfrastructureImage = {
+      id: editingImage?.id || `infra-image-${Date.now()}`,
       src: imageUrl,
       alt: values.imageAlt,
       category: values.imageCategory,
     };
 
-    addInfrastructureImage(newImage);
-    toast.success(`Infrastructure image "${newImage.alt}" added!`);
+    onSave(imageToSave); // Call the onSave prop
+    toast.success(`${editingImage ? 'Image updated' : 'Image added'} to infrastructure!`);
     form.reset();
     setImagePreview(null);
     onOpenChange(false);
@@ -92,10 +113,10 @@ const AdminAddInfrastructureImageDialog: React.FC<AdminAddInfrastructureImageDia
       <DialogContent className="sm:max-w-[500px] p-6 md:p-8 max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-h4-mobile md:text-h4-desktop font-heading text-foreground">
-            Upload Infrastructure Image
+            {editingImage ? 'Edit Infrastructure Image' : 'Upload Infrastructure Image'}
           </DialogTitle>
           <DialogDescription className="text-text-regular font-body text-gray-600">
-            Fill in the details to add a new image to the infrastructure gallery.
+            {editingImage ? 'Update the details of this infrastructure image.' : 'Fill in the details to add a new image to the infrastructure gallery.'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -202,7 +223,7 @@ const AdminAddInfrastructureImageDialog: React.FC<AdminAddInfrastructureImageDia
 
             <DialogFooter className="mt-4">
               <Button type="submit" className="w-full bg-primary hover:bg-primary/90 !text-white text-text-regular">
-                Add Image
+                {editingImage ? 'Save Changes' : 'Add Image'}
               </Button>
             </DialogFooter>
           </form>
