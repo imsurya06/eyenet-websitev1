@@ -53,7 +53,8 @@ const AdditionalFashionCoursesSection = () => {
                     </Button>
                   </div>
                 </div>
-              </AnimateOnScroll>
+              </div>
+            </AnimateOnScroll>
           ))}
         </div>
       </div>
