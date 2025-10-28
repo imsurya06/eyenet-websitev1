@@ -25,7 +25,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import ConfettiOverlay from '@/components/ConfettiOverlay';
 import EnrollmentSuccessDialog from '@/components/EnrollmentSuccessDialog'; // Import the new dialog
 
 const formSchema = z.object({
@@ -39,7 +38,6 @@ const formSchema = z.object({
 });
 
 const Admissions = () => {
-  const [showConfetti, setShowConfetti] = React.useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = React.useState(false);
   const [enrolledCourseName, setEnrolledCourseName] = React.useState('');
   const [enrolledUserName, setEnrolledUserName] = React.useState(''); // New state for user name
@@ -60,11 +58,7 @@ const Admissions = () => {
     // Simulate API call or form submission
     setEnrolledCourseName(values.program);
     setEnrolledUserName(values.name); // Set the user's name
-    setShowConfetti(true);
     setShowSuccessDialog(true);
-    
-    // Hide confetti after 3 seconds
-    setTimeout(() => setShowConfetti(false), 3000); 
     
     form.reset(); // Reset form fields after submission
   };
@@ -232,11 +226,10 @@ const Admissions = () => {
           </div>
         </AnimateOnScroll>
       </div>
-      <ConfettiOverlay show={showConfetti} />
       <EnrollmentSuccessDialog
         show={showSuccessDialog}
         courseName={enrolledCourseName}
-        userName={enrolledUserName} // Pass the user name here
+        userName={enrolledUserName}
         onClose={handleCloseSuccessDialog}
       />
     </section>

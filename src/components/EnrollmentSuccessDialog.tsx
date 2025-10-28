@@ -11,19 +11,21 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { cn } from '@/lib/utils'; // Import cn for combining class names
+import { cn } from '@/lib/utils';
+import ConfettiOverlay from './ConfettiOverlay'; // Import ConfettiOverlay
 
 interface EnrollmentSuccessDialogProps {
   show: boolean;
   courseName: string;
-  userName: string; // Added userName prop
+  userName: string;
   onClose: () => void;
 }
 
 const EnrollmentSuccessDialog: React.FC<EnrollmentSuccessDialogProps> = ({ show, courseName, userName, onClose }) => {
   return (
     <Dialog open={show} onOpenChange={onClose}>
-      <DialogContent className={cn("max-w-md p-8 md:p-10 text-center flex flex-col items-center space-y-6")} hideCloseButton={true}>
+      <DialogContent className={cn("max-w-md p-8 md:p-10 text-center flex flex-col items-center space-y-6 relative overflow-hidden")} hideCloseButton={true}> {/* Added relative and overflow-hidden */}
+        {show && <ConfettiOverlay show={show} />} {/* Render ConfettiOverlay here */}
         <DialogHeader className="flex flex-col items-center space-y-4">
           <CheckCircle className="h-16 w-16 text-green-500 mx-auto" />
           <DialogTitle className="text-h4-mobile md:text-h4-desktop font-heading text-foreground">

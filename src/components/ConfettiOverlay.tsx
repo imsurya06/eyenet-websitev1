@@ -45,7 +45,7 @@ const ConfettiOverlay: React.FC<ConfettiOverlayProps> = ({ show, duration = 3000
   ));
 
   return (
-    <div className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden">
+    <div className="absolute inset-0 z-[9999] pointer-events-none overflow-hidden"> {/* Changed to absolute */}
       {confettiPieces}
     </div>
   );
