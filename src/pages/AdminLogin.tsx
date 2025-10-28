@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { toast } from 'sonner'; // Using sonner for toasts
+import { useAuth } from '@/context/AuthContext'; // Import useAuth
 
 // Define the schema for the login form
 const formSchema = z.object({
@@ -28,6 +29,7 @@ const formSchema = z.object({
 
 const AdminLogin = () => {
   const navigate = useNavigate();
+  const { setAdminUsername } = useAuth(); // Use the setAdminUsername from context
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -51,6 +53,7 @@ const AdminLogin = () => {
       values.mobile === ADMIN_MOBILE
     ) {
       toast.success("Login successful! Redirecting to admin dashboard...");
+      setAdminUsername(values.username); // Store the username in context
       // Simulate successful login and redirect
       // In a real app, you'd set a token/session here
       setTimeout(() => {
