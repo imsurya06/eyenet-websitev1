@@ -31,7 +31,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ pageTitle }) => {
         </p>
       </AnimateOnScroll>
       <AnimateOnScroll delay={200}>
-        <Button className="bg-primary hover:bg-primary/90 text-white px-6 py-3 text-text-regular rounded-full shadow-md transition-all duration-300 ease-in-out hover:scale-[1.02]">
+        <Button className="bg-primary hover:bg-primary/90 px-6 py-3 text-text-regular rounded-full shadow-md transition-all duration-300 ease-in-out hover:scale-[1.02] !text-white">
           Add <Plus className="ml-2 h-4 w-4" />
         </Button>
       </AnimateOnScroll>
