@@ -21,7 +21,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({ pageTitle }) => {
   }, []);
 
   return (
-    <div className="sticky top-0 z-50 bg-background border-b border-border p-6 md:p-8 lg:p-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div className="sticky top-0 z-50 bg-background border-b border-border p-4 md:p-6 lg:p-8 flex flex-col sm:flex-row items-center justify-between gap-4">
       <AnimateOnScroll delay={100} className="flex flex-col items-center sm:items-start text-center sm:text-left">
         <h2 className="text-h3-mobile md:text-h3-desktop font-heading text-foreground mb-1">
           {username || 'Admin User'}
