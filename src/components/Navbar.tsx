@@ -12,7 +12,7 @@ import {
   DropdownMenuLabel,
 } from '@/components/ui/dropdown-menu';
 import { Menu, ChevronDown } from 'lucide-react';
-import * as LucideIcons from 'lucide-react'; // Corrected: changed '*s' to '* as'
+import * as LucideIcons from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import CourseDropdownMenuItem from './CourseDropdownMenuItem.tsx';
 import { cn } from '@/lib/utils'; // Import cn utility
@@ -60,30 +60,10 @@ const Navbar = () => {
   const [exploreOpen, setExploreOpen] = React.useState(false);
   const [isSheetOpen, setIsSheetOpen] = React.useState(false); // State for mobile sheet
 
-  const coursesTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-  const exploreTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // This function handles all open/close changes from Radix UI (clicks, hovers, escape, outside clicks)
+  // This function now simply sets the state, as Radix UI will handle the delays
   const handleDropdownOpenChange = (dropdownName: 'Courses' | 'Explore', newOpenState: boolean) => {
     const setOpen = dropdownName === 'Courses' ? setCoursesOpen : setExploreOpen;
-    const timeoutRef = dropdownName === 'Courses' ? coursesTimeoutRef : exploreTimeoutRef;
-
-    // Clear any existing timeout to prevent conflicts
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
-    }
-
-    if (newOpenState) {
-      // If Radix says it's opening (either by click or hover), open immediately
-      setOpen(true);
-    } else {
-      // If Radix says it's closing (e.g., mouse left, clicked outside, escape),
-      // apply a delay before actually closing. This allows moving from trigger to content.
-      timeoutRef.current = setTimeout(() => {
-        setOpen(false);
-      }, 150); // 150ms delay
-    }
+    setOpen(newOpenState);
   };
 
   // Determine if a dropdown's sub-links are active
@@ -130,6 +110,8 @@ const Navbar = () => {
                       key={item.name}
                       open={item.name === 'Courses' ? coursesOpen : exploreOpen}
                       onOpenChange={(newOpenState) => handleDropdownOpenChange(item.name as 'Courses' | 'Explore', newOpenState)}
+                      openDelay={0} // Open immediately on hover
+                      closeDelay={150} // Delay closing to allow moving cursor to content
                     >
                       <DropdownMenuTrigger asChild>
                         <Button
