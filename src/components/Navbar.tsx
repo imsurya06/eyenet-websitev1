@@ -139,9 +139,9 @@ const Navbar = () => {
                           variant="ghost"
                           className={cn(
                             "font-normal transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 h-auto px-4 py-2",
+                            "!text-regular", // Added !text-regular to force the font size
                             (item.name === 'Courses' && (isCoursesPathActive || coursesOpen)) && "text-primary",
-                            (item.name === 'Explore' && (isExplorePathActive || exploreOpen)) && "text-primary",
-                            "!text-regular" // Moved to the end for highest precedence
+                            (item.name === 'Explore' && (isExplorePathActive || exploreOpen)) && "text-primary"
                           )}
                           onMouseEnter={() => handleOpen(item.name as 'Courses' | 'Explore')}
                           onMouseLeave={() => handleClose(item.name as 'Courses' | 'Explore')}
@@ -192,10 +192,10 @@ const Navbar = () => {
 
             {/* Buttons - Right aligned */}
             <div className="hidden md:flex items-center space-x-4">
-              <Button variant="outline" asChild className="border-primary text-primary hover:bg-primary hover:text-primary-foreground text-regular">
+              <Button variant="outline" asChild className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                 <Link to="/contact">Contact</Link>
               </Button>
-              <Button variant="default" className="hover:animate-shake text-regular">
+              <Button variant="default" className="hover:animate-shake"> {/* This class will now work */}
                 Apply
               </Button>
             </div>
@@ -265,7 +265,7 @@ const Navbar = () => {
                 <Button variant="outline" asChild className="mt-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                   <Link to="/contact" onClick={() => setIsSheetOpen(false)}>Contact</Link>
                 </Button>
-                <Button variant="default" className="mt-2 hover:animate-shake" onClick={() => setIsSheetOpen(false)}>
+                <Button variant="default" className="mt-2 hover:animate-shake" onClick={() => setIsSheetOpen(false)}> {/* This class will now work */}
                   Apply
                 </Button>
               </nav>
