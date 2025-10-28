@@ -28,7 +28,7 @@ const Index = () => {
         {/* Left Section: Text Content */}
         <AnimateOnScroll isHero={true} delay={500} className="relative z-10 text-center md:text-left max-w-2xl md:mr-12 md:mb-0 md:flex-1"> {/* Changed flex-1 to md:flex-1 */}
           <h1 className="text-h1-mobile md:text-h1-desktop font-heading mb-4 text-white md:text-foreground">
-            Design your future with creative excellence
+            Design your <br className="hidden md:block" /> future with creative excellence
           </h1>
           <p className="text-text-medium font-body mb-8 text-white md:text-gray-600">
             Transform your passion into a professional career. Our institute offers
