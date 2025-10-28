@@ -6,6 +6,7 @@ import { initialCourses, Course } from '@/data/courses';
 interface CourseContextType {
   courses: Course[];
   deleteCourse: (id: string) => void;
+  addCourse: (course: Course) => void; // Added addCourse function
 }
 
 const CourseContext = createContext<CourseContextType | undefined>(undefined);
@@ -17,8 +18,12 @@ export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     setCourses(prevCourses => prevCourses.filter(course => course.id !== id));
   };
 
+  const addCourse = (course: Course) => {
+    setCourses(prevCourses => [...prevCourses, course]);
+  };
+
   return (
-    <CourseContext.Provider value={{ courses, deleteCourse }}>
+    <CourseContext.Provider value={{ courses, deleteCourse, addCourse }}>
       {children}
     </CourseContext.Provider>
   );
