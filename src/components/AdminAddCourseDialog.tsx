@@ -91,9 +91,12 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
   };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Simulate file upload and get URLs
+    // In a real application, you would upload these files to a server/cloud storage
+    // and get a public URL. For this client-side app, we're simulating it.
+    // To see the image, you would manually need to place the selected image file
+    // into the `public/images` directory of your project.
     const brochureLink = values.brochureFile ? `/brochures/${values.brochureFile.name}` : '#';
-    const imageUrl = values.courseImage ? `/images/${values.courseImage.name}` : '/public/placeholder.svg'; // Use a placeholder if no image
+    const imageUrl = values.courseImage ? `/images/${values.courseImage.name}` : '/placeholder.svg'; // Corrected placeholder path
 
     const newCourse: Course = {
       id: `new-course-${Date.now()}`, // Unique ID
