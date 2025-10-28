@@ -35,7 +35,7 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.5rem;
+    --radius: 4px; /* Changed from 0.5rem to 4px to make rounded-md resolve to 2px */
 
     --sidebar-background: 0 0% 98%;
 
