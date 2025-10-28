@@ -138,7 +138,8 @@ const Navbar = () => {
                         <Button
                           variant="ghost"
                           className={cn(
-                            "text-regular font-normal transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 h-auto px-4 py-2", // Added h-auto and px-4 py-2
+                            "font-normal transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 h-auto px-4 py-2",
+                            "!text-regular", // Added !text-regular to force the font size
                             (item.name === 'Courses' && (isCoursesPathActive || coursesOpen)) && "text-primary",
                             (item.name === 'Explore' && (isExplorePathActive || exploreOpen)) && "text-primary"
                           )}
