@@ -30,7 +30,7 @@ const EnrollmentSuccessDialog: React.FC<EnrollmentSuccessDialogProps> = ({ show,
             Congratulations!
           </DialogTitle>
           <DialogDescription className="text-text-medium font-body text-gray-700 text-center">
-            Welcome <span className="font-semibold text-primary">{userName}</span>! You have enrolled for <span className="font-semibold text-primary">{courseName}</span>. Let's start your career with us.
+            Welcome <span className="font-semibold">{userName}</span>! You have enrolled for <span className="font-semibold">{courseName}</span>. Let's start your career with us.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex justify-center">
