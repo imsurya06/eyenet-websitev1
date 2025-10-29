@@ -23,8 +23,9 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
-import { Blog } from '@/data/blogs'; // Import Blog interface
-import AnimateOnScroll from './AnimateOnScroll'; // Added missing import
+import { Blog } from '@/data/blogs';
+import AnimateOnScroll from './AnimateOnScroll';
+import { supabase } from '@/lib/supabaseClient'; // Import Supabase client
 
 // Zod schema for form validation
 const formSchema = z.object({
@@ -66,8 +67,39 @@ const StudentWriteBlogSection = () => {
     }
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log("Client-side validation passed:", values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    let imageUrl: string | undefined = undefined;
+
+    // Upload image file if a new one is selected
+    if (values.imageFile) {
+      const file = values.imageFile;
+      const filePath = `blogs/${Date.now()}-${file.name}`; // Store in a 'blogs' subfolder
+      try {
+        const { error: uploadError } = await supabase.storage.from('images').upload(filePath, file);
+        if (uploadError) {
+          console.error("Supabase upload error:", uploadError);
+          toast.error(`Failed to upload image: ${uploadError.message}`);
+          return;
+        }
+        const { data: publicUrlData } = supabase.storage.from('images').getPublicUrl(filePath);
+        imageUrl = publicUrlData.publicUrl;
+      } catch (error: any) {
+        console.error("Caught upload error in StudentWriteBlogSection:", error);
+        toast.error(`An unexpected error occurred during image upload: ${error.message || 'Please try again.'}`);
+        return;
+      }
+    }
+
+    const blogToSave: Blog = {
+      id: `student-blog-${Date.now()}`, // Unique ID for student blogs
+      title: values.title,
+      author: values.author,
+      date: format(values.date, 'yyyy-MM-dd'),
+      content: values.content,
+      image: imageUrl, // Use the uploaded image URL
+    };
+
+    addBlog(blogToSave);
     toast.success("Blog post submitted for review!");
     form.reset();
     setImagePreview(null);
@@ -89,8 +121,8 @@ const StudentWriteBlogSection = () => {
 
         <AnimateOnScroll delay={300}>
           <div className="bg-white p-8 md:p-10 rounded-lg shadow-md border border-gray-200">
-            <Form {...form}> {/* Form context provider */}
-              <form onSubmit={form.handleSubmit(onSubmit)} action="https://formspree.io/f/myzbeqer" method="POST" className="grid gap-6"> {/* Actual HTML form */}
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6">
                 <FormField
                   control={form.control}
                   name="title"
@@ -98,7 +130,7 @@ const StudentWriteBlogSection = () => {
                     <FormItem>
                       <FormLabel className="text-text-regular font-body text-foreground">Blog Title:</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your amazing blog title" {...field} name="title" required />
+                        <Input placeholder="Your amazing blog title" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -111,7 +143,7 @@ const StudentWriteBlogSection = () => {
                     <FormItem>
                       <FormLabel className="text-text-regular font-body text-foreground">Your Name:</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g., Jane Doe" {...field} name="author" required />
+                        <Input placeholder="e.g., Jane Doe" {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -151,9 +183,6 @@ const StudentWriteBlogSection = () => {
                           />
                         </PopoverContent>
                       </Popover>
-                      {field.value && (
-                        <input type="hidden" name="date" value={format(field.value, 'yyyy-MM-dd')} />
-                      )}
                       <FormMessage />
                     </FormItem>
                   )}
@@ -165,7 +194,7 @@ const StudentWriteBlogSection = () => {
                     <FormItem>
                       <FormLabel className="text-text-regular font-body text-foreground">Blog Content:</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="Write your blog post here..." rows={10} {...field} name="content" required />
+                        <Textarea placeholder="Write your blog post here..." rows={10} {...field} required />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -190,14 +219,10 @@ const StudentWriteBlogSection = () => {
                         className="sr-only"
                         accept="image/*"
                         onChange={handleImageChange}
-                        name="imageFile"
                       />
                     </Label>
                   </FormControl>
                   {form.formState.errors.imageFile && <FormMessage>{form.formState.errors.imageFile.message?.toString()}</FormMessage>}
-                  <p className="text-text-small text-red-500 mt-2">
-                    <strong>Important:</strong> For the image to appear after adding, you must manually copy the selected image file (e.g., "{form.getValues('imageFile')?.name || 'your-image.png'}") into the `public/images` directory of your project.
-                  </p>
                 </FormItem>
 
                 <Button type="submit" className="w-full bg-primary hover:bg-primary/90 !text-white text-text-regular mt-4">
