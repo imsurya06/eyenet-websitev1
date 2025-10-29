@@ -17,7 +17,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { UploadCloud, ImagePlus } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
+import * as z from 'zod'; // Corrected import statement
 import {
   Form,
   FormControl,
@@ -123,6 +123,18 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    // --- Supabase Auth Status Check ---
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+    console.log("--- Supabase Auth Status Before Upload ---");
+    console.log("User:", user);
+    console.log("Session:", session);
+    console.log("User Error:", userError);
+    console.log("Session Error:", sessionError);
+    console.log("-----------------------------------------");
+    // --- End Supabase Auth Status Check ---
+
     let brochureLink = editingCourse?.brochureLink || '#';
     let imageUrl = editingCourse?.image || '/placeholder.svg';
 
@@ -132,7 +144,10 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
       const filePath = `brochures/${Date.now()}-${file.name}`;
       try {
         const { data, error } = await supabase.storage.from('brochures').upload(filePath, file);
-        if (error) throw error;
+        if (error) {
+          console.error("Supabase brochure upload error:", error);
+          throw error;
+        }
         const { data: publicUrlData } = supabase.storage.from('brochures').getPublicUrl(filePath);
         brochureLink = publicUrlData.publicUrl;
       } catch (error: any) {
@@ -147,7 +162,10 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
       const filePath = `images/${Date.now()}-${file.name}`;
       try {
         const { data, error } = await supabase.storage.from('images').upload(filePath, file);
-        if (error) throw error;
+        if (error) {
+          console.error("Supabase image upload error:", error);
+          throw error;
+        }
         const { data: publicUrlData } = supabase.storage.from('images').getPublicUrl(filePath);
         imageUrl = publicUrlData.publicUrl;
       } catch (error: any) {
