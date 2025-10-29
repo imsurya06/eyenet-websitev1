@@ -29,6 +29,7 @@ import {
 import { useCourses } from '@/context/CourseContext';
 import { toast } from 'sonner';
 import { Course } from '@/data/courses';
+import { supabase } from '@/lib/supabaseClient'; // Import Supabase client
 
 interface AdminAddCourseDialogProps {
   open: boolean;
@@ -121,9 +122,39 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
     }
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    const brochureLink = values.brochureFile ? `/brochures/${values.brochureFile.name}` : (editingCourse?.brochureLink || '#');
-    const imageUrl = values.courseImage ? `/images/${values.courseImage.name}` : (editingCourse?.image || '/placeholder.svg');
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    let brochureLink = editingCourse?.brochureLink || '#';
+    let imageUrl = editingCourse?.image || '/placeholder.svg';
+
+    // Upload brochure file if a new one is selected
+    if (values.brochureFile) {
+      const file = values.brochureFile;
+      const filePath = `brochures/${Date.now()}-${file.name}`;
+      try {
+        const { data, error } = await supabase.storage.from('brochures').upload(filePath, file);
+        if (error) throw error;
+        const { data: publicUrlData } = supabase.storage.from('brochures').getPublicUrl(filePath);
+        brochureLink = publicUrlData.publicUrl;
+      } catch (error: any) {
+        toast.error(`Failed to upload brochure: ${error.message}`);
+        return;
+      }
+    }
+
+    // Upload course image if a new one is selected
+    if (values.courseImage) {
+      const file = values.courseImage;
+      const filePath = `images/${Date.now()}-${file.name}`;
+      try {
+        const { data, error } = await supabase.storage.from('images').upload(filePath, file);
+        if (error) throw error;
+        const { data: publicUrlData } = supabase.storage.from('images').getPublicUrl(filePath);
+        imageUrl = publicUrlData.publicUrl;
+      } catch (error: any) {
+        toast.error(`Failed to upload course image: ${error.message}`);
+        return;
+      }
+    }
 
     const courseToSave: Course = {
       id: editingCourse?.id || `new-course-${Date.now()}`,
@@ -329,9 +360,6 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
                 </Label>
               </FormControl>
               {form.formState.errors.courseImage && <FormMessage>{form.formState.errors.courseImage.message?.toString()}</FormMessage>}
-              <p className="text-text-small text-red-500 mt-2">
-                <strong>Important:</strong> For the image to appear after adding, you must manually copy the selected image file (e.g., "{form.getValues('courseImage')?.name || 'your-image.png'}") into the `public/images` directory of your project.
-              </p>
             </FormItem>
 
             <DialogFooter className="mt-4">

@@ -28,6 +28,7 @@ import {
 import { useGalleryImages } from '@/context/GalleryImageContext';
 import { toast } from 'sonner';
 import { GalleryImage } from '@/data/galleryImages';
+import { supabase } from '@/lib/supabaseClient'; // Import Supabase client
 
 interface AdminAddImageDialogProps {
   open: boolean;
@@ -91,8 +92,23 @@ const AdminAddImageDialog: React.FC<AdminAddImageDialogProps> = ({ open, onOpenC
     }
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    const imageUrl = values.imageFile ? `/images/${values.imageFile.name}` : (editingImage?.src || '/public/placeholder.svg');
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    let imageUrl = editingImage?.src || '/public/placeholder.svg';
+
+    // Upload image file if a new one is selected
+    if (values.imageFile) {
+      const file = values.imageFile;
+      const filePath = `images/${Date.now()}-${file.name}`;
+      try {
+        const { data, error } = await supabase.storage.from('images').upload(filePath, file);
+        if (error) throw error;
+        const { data: publicUrlData } = supabase.storage.from('images').getPublicUrl(filePath);
+        imageUrl = publicUrlData.publicUrl;
+      } catch (error: any) {
+        toast.error(`Failed to upload image: ${error.message}`);
+        return;
+      }
+    }
 
     const imageToSave: GalleryImage = {
       id: editingImage?.id || `gallery-image-${Date.now()}`,
@@ -200,9 +216,6 @@ const AdminAddImageDialog: React.FC<AdminAddImageDialogProps> = ({ open, onOpenC
                 </Label>
               </FormControl>
               {form.formState.errors.imageFile && <FormMessage>{form.formState.errors.imageFile.message?.toString()}</FormMessage>}
-              <p className="text-text-small text-red-500 mt-2">
-                <strong>Important:</strong> For the image to appear after adding, you must manually copy the selected image file (e.g., "{form.getValues('imageFile')?.name || 'your-image.png'}") into the `public/images` directory of your project.
-              </p>
             </FormItem>
 
             <DialogFooter className="mt-4">
