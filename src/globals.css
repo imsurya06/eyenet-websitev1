@@ -173,5 +173,5 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shine-diagonal 3s ease-in-out infinite; /* Apply the animation */
+  animation: shine-diagonal 10s ease-in-out infinite; /* Apply the animation */
 }
