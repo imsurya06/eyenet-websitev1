@@ -42,8 +42,8 @@ const StudentTestimonialForm = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      // Explicitly cast values to ensure type compatibility
-      await addTestimonial(values as Omit<Testimonial, 'id' | 'created_at'>);
+      // Explicitly cast values to ensure type compatibility, excluding 'approved' as it's set in context
+      await addTestimonial(values as Omit<Testimonial, 'id' | 'created_at' | 'approved'>);
       form.reset(); // Reset form after successful submission
     } catch (error) {
       // Error handling is already in context, but can add more specific here if needed

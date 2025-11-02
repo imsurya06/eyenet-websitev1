@@ -9,12 +9,15 @@ export interface Testimonial {
   name: string;
   rating: number;
   quote: string;
+  approved: boolean; // Added approved status
   created_at: string;
 }
 
 interface TestimonialContextType {
   testimonials: Testimonial[];
-  addTestimonial: (testimonial: Omit<Testimonial, 'id' | 'created_at'>) => Promise<void>;
+  addTestimonial: (testimonial: Omit<Testimonial, 'id' | 'created_at' | 'approved'>) => Promise<void>;
+  updateTestimonial: (updatedTestimonial: Testimonial) => Promise<void>; // Added update function
+  deleteTestimonial: (id: string) => Promise<void>; // Added delete function
   loading: boolean;
 }
 
@@ -44,10 +47,11 @@ export const TestimonialProvider: React.FC<{ children: ReactNode }> = ({ childre
     fetchTestimonials();
   }, []);
 
-  const addTestimonial = async (newTestimonial: Omit<Testimonial, 'id' | 'created_at'>) => {
+  const addTestimonial = async (newTestimonial: Omit<Testimonial, 'id' | 'created_at' | 'approved'>) => {
+    const testimonialToInsert = { ...newTestimonial, approved: false }; // Default to not approved
     const { data, error } = await supabase
       .from('testimonials')
-      .insert([newTestimonial])
+      .insert([testimonialToInsert])
       .select();
 
     if (error) {
@@ -59,8 +63,41 @@ export const TestimonialProvider: React.FC<{ children: ReactNode }> = ({ childre
     }
   };
 
+  const updateTestimonial = async (updatedTestimonial: Testimonial) => {
+    const { data, error } = await supabase
+      .from('testimonials')
+      .update(updatedTestimonial)
+      .eq('id', updatedTestimonial.id)
+      .select();
+
+    if (error) {
+      console.error('Error updating testimonial:', error);
+      toast.error(`Failed to update testimonial: ${error.message}`);
+    } else if (data && data.length > 0) {
+      setTestimonials(prev =>
+        prev.map(t => (t.id === updatedTestimonial.id ? data[0] : t))
+      );
+      toast.success('Testimonial updated successfully!');
+    }
+  };
+
+  const deleteTestimonial = async (id: string) => {
+    const { error } = await supabase
+      .from('testimonials')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error('Error deleting testimonial:', error);
+      toast.error(`Failed to delete testimonial: ${error.message}`);
+    } else {
+      setTestimonials(prev => prev.filter(t => t.id !== id));
+      toast.success('Testimonial deleted successfully!');
+    }
+  };
+
   return (
-    <TestimonialContext.Provider value={{ testimonials, addTestimonial, loading }}>
+    <TestimonialContext.Provider value={{ testimonials, addTestimonial, updateTestimonial, deleteTestimonial, loading }}>
       {children}
     </TestimonialContext.Provider>
   );
