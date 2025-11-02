@@ -38,7 +38,7 @@ const ImpactByNumbersSection = () => {
               poster="/public/placeholder.svg"
               className="w-full h-full object-cover"
             >
-              <source src="/videos/Video_Generation_With_Animated_Logo.mp4" type="video/mp4" />
+              <source src="/videos/impact-video.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
