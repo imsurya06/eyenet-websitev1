@@ -28,7 +28,6 @@ import AdminBlogs from "./pages/admin/AdminBlogs";
 import AdminImages from "./pages/admin/AdminImages"; // Import the new AdminImages page
 import Blogs from "./pages/Blogs";
 import Footer from "./components/Footer";
-import { MadeWithDyad } from "@/components/made-with-dyad";
 import ScrollToTop from "./components/ScrollToTop";
 import { CourseProvider } from "./context/CourseContext";
 import { GalleryImageProvider } from "./context/GalleryImageContext";
@@ -110,7 +109,6 @@ const App = () => {
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                     <ConditionalFooter />
-                    <MadeWithDyad />
                   </BlogProvider>
                 </NewsEventsProvider>
               </InfrastructureImageProvider>
