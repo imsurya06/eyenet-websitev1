@@ -165,7 +165,8 @@
     135deg, /* Diagonal gradient from top-left to bottom-right */
     hsl(var(--primary)) 0%,
     hsl(var(--primary)) 20%,
-    hsl(0 0% 90%) 50%, /* Silver highlight */
+    white 40%, /* White peak */
+    hsl(0 0% 90%) 60%, /* Transition to silver */
     hsl(var(--primary)) 80%,
     hsl(var(--primary)) 100%
   );
