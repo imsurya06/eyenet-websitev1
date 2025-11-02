@@ -163,11 +163,11 @@
 .text-shine {
   background-image: linear-gradient(
     135deg, /* Diagonal gradient from top-left to bottom-right */
-    hsl(0 0% 10%) 0%, /* Dark grey/black */
-    hsl(0 0% 10%) 20%, /* Dark grey/black */
+    hsl(var(--primary)) 0%,
+    hsl(var(--primary)) 20%,
     hsl(0 0% 90%) 50%, /* Silver highlight */
-    hsl(0 0% 10%) 80%, /* Dark grey/black */
-    hsl(0 0% 10%) 100% /* Dark grey/black */
+    hsl(var(--primary)) 80%,
+    hsl(var(--primary)) 100%
   );
   background-size: 400% 400%; /* Larger background to allow full diagonal animation */
   -webkit-background-clip: text;
