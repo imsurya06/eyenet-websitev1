@@ -28,7 +28,7 @@ const NewsEventsDisplaySection = () => {
         </AnimateOnScroll>
 
         {sortedNewsEvents.length > 0 ? (
-          <div className="flex flex-col gap-6 max-w-4xl mx-auto"> {/* Changed to flex-col for stacking, added max-w-4xl */}
+          <div className="flex flex-col gap-6 max-w-4xl mx-auto">
             {sortedNewsEvents.map((item, index) => {
               const CategoryIcon = item.category === 'news' ? Newspaper : CalendarDays;
               const formattedDate = new Date(item.date).toLocaleDateString('en-US', {
@@ -39,11 +39,11 @@ const NewsEventsDisplaySection = () => {
 
               return (
                 <AnimateOnScroll key={item.id} delay={300 + index * 100}>
-                  <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-col md:flex-row h-auto"> {/* Horizontal layout for card */}
+                  <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-col md:flex-row h-auto md:h-60"> {/* Fixed height for desktop, auto for mobile */}
                     {/* Image/Color Block */}
                     <div className={cn(
-                      "w-full md:w-48 h-48 md:h-auto flex-shrink-0 overflow-hidden",
-                      !item.image && "bg-primary" // Fallback background color if no image
+                      "w-full h-48 flex-shrink-0 overflow-hidden", // Mobile: full width, fixed height
+                      "md:w-2/5 md:h-full" // Desktop: 2/5 width, full height of card
                     )}>
                       {item.image && (
                         <img
@@ -54,7 +54,7 @@ const NewsEventsDisplaySection = () => {
                       )}
                     </div>
                     {/* Content */}
-                    <div className="p-4 flex flex-col flex-grow justify-center">
+                    <div className="p-4 flex flex-col flex-grow justify-between md:w-3/5 overflow-hidden"> {/* Content takes 3/5 width on desktop, flex-grow */}
                       <div className="flex items-center gap-2 mb-2">
                         <span className="inline-flex items-center bg-muted text-text-small font-body text-gray-600 px-3 py-1 rounded-full border border-input">
                           <CategoryIcon className="h-3 w-3 mr-1" />
