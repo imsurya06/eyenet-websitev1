@@ -11,17 +11,17 @@ const WhyChooseUsSection = () => {
   ];
 
   return (
-    <section className="py-16 md:py-20 lg:py-24 px-3 md:px-8 lg:px-[80px] bg-background text-center"> {/* Increased vertical padding */}
+    <section className="py-20 md:py-24 lg:py-32 px-3 md:px-8 lg:px-[80px] bg-background text-center"> {/* Increased vertical padding */}
       <AnimateOnScroll delay={100}>
-        <p className="text-text-regular font-body text-primary mb-16">Why Choose Us?</p> {/* Increased bottom margin */}
+        <p className="text-text-regular font-body text-primary mb-16">Why Choose Us?</p>
       </AnimateOnScroll>
 
-      <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-0 max-w-6xl mx-auto"> {/* Increased max-width */}
+      <div className="flex flex-col md:flex-row justify-center items-center gap-12 md:gap-16 max-w-7xl mx-auto"> {/* Increased max-width and gap */}
         {stats.map((stat, index) => (
           <React.Fragment key={index}>
             <AnimateOnScroll delay={200 + index * 100}>
               <div className="flex flex-col items-center px-8">
-                <p className="text-h2-mobile md:text-h2-desktop font-heading text-foreground mb-2">
+                <p className="text-h1-mobile md:text-h1-desktop font-heading text-foreground mb-2"> {/* Increased font size for values */}
                   {stat.value}
                 </p>
                 <p className="text-text-medium font-body text-gray-600">
