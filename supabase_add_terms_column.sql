@@ -1,0 +1,2 @@
+ALTER TABLE public.admissions
+ADD COLUMN terms BOOLEAN DEFAULT FALSE;
