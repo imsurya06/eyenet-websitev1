@@ -26,6 +26,7 @@ import AdminInfrastructure from "./pages/admin/AdminInfrastructure";
 import AdminNewsEvents from "./pages/admin/AdminNewsEvents";
 import AdminBlogs from "./pages/admin/AdminBlogs";
 import AdminImages from "./pages/admin/AdminImages"; // Import the new AdminImages page
+import AdminEnrollmentsMessages from "./pages/admin/AdminEnrollmentsMessages"; // Import the new AdminEnrollmentsMessages page
 import Blogs from "./pages/Blogs";
 import Footer from "./components/Footer";
 import { MadeWithDyad } from "@/components/made-with-dyad";
@@ -104,6 +105,7 @@ const App = () => {
                         <Route path="news-events" element={<AdminNewsEvents />} />
                         <Route path="blogs" element={<AdminBlogs />} />
                         <Route path="images" element={<AdminImages />} />
+                        <Route path="enrollments-messages" element={<AdminEnrollmentsMessages />} /> {/* New route */}
                       </Route>
 
                       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
