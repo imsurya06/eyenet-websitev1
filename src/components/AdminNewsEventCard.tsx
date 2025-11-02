@@ -15,7 +15,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { cn } from '@/lib/utils'; // Import cn for conditional class names
+import { cn } from '@/lib/utils';
 
 interface AdminNewsEventCardProps {
   newsEvent: NewsEvent;
@@ -33,23 +33,17 @@ const AdminNewsEventCard: React.FC<AdminNewsEventCardProps> = ({ newsEvent, onDe
   const CategoryIcon = newsEvent.category === 'news' ? Newspaper : CalendarDays;
 
   return (
-    <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-row h-60"> {/* Fixed height for the card */}
-      {/* Image/Color Block - now 1/3 width */}
-      <div className={cn(
-        "w-1/3 h-full flex-shrink-0 overflow-hidden",
-        !newsEvent.image && "bg-primary" // Fallback background color if no image
-      )}>
-        {newsEvent.image && (
-          <img
-            src={newsEvent.image}
-            alt={newsEvent.title}
-            className="w-full h-full object-cover object-center"
-          />
-        )}
+    <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-row h-60">
+      {/* Left Section: Fixed "Phone" Design (simulated with green background) */}
+      <div className="w-[120px] h-full flex-shrink-0 bg-green-600 relative flex items-center justify-center">
+        {/* This section is designed to mimic the phone image from your screenshot.
+            If you have a specific image asset for this phone, it would be placed here.
+            For now, it's a solid green background to match the general color scheme. */}
       </div>
-      {/* Content - now 2/3 width */}
-      <div className="p-4 flex flex-col flex-grow w-2/3 justify-between overflow-hidden">
-        <div className="flex items-center gap-2 mb-2">
+
+      {/* Right Section: Content */}
+      <div className="p-4 flex flex-col flex-grow justify-between overflow-hidden">
+        <div className="flex items-center justify-end gap-2 mb-2"> {/* Pushed to the right */}
           <span className="inline-flex items-center bg-muted text-text-small font-body text-gray-600 px-3 py-1 rounded-full border border-input">
             <CategoryIcon className="h-3 w-3 mr-1" />
             {newsEvent.category.charAt(0).toUpperCase() + newsEvent.category.slice(1)}
@@ -59,10 +53,10 @@ const AdminNewsEventCard: React.FC<AdminNewsEventCardProps> = ({ newsEvent, onDe
             {formattedDate}
           </span>
         </div>
-        <h3 className="text-h4-mobile md:text-h4-desktop font-heading mb-2 text-foreground line-clamp-1"> {/* Larger title, single line */}
+        <h3 className="text-h3-mobile md:text-h3-desktop font-heading mb-2 text-foreground line-clamp-1">
           {newsEvent.title}
         </h3>
-        <p className="text-text-regular font-body text-gray-600 mb-4 flex-grow overflow-hidden line-clamp-2"> {/* Two lines for description */}
+        <p className="text-text-regular font-body text-gray-600 mb-4 flex-grow overflow-hidden line-clamp-2">
           {newsEvent.description}
         </p>
         <div className="flex items-center gap-2 mt-auto">
