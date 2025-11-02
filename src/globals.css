@@ -152,3 +152,23 @@
     opacity: 0;
   }
 }
+
+/* Custom CSS for the shine effect */
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+  z-index: 1; /* Ensure content is above the shine */
+}
+
+.shine-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%; /* Start off-screen to the left */
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: skewX(-20deg); /* Angle the shine */
+  animation: shine 1.5s infinite linear;
+  z-index: 0; /* Ensure shine is behind text but above button background */
+}

@@ -113,7 +113,7 @@ export default {
             height: "0",
           },
         },
-        shake: { // Defined the shake keyframes here
+        shake: {
           "0%, 100%": { transform: "translateX(0) rotate(0deg)" },
           "10%": { transform: "translateX(-5px) rotate(-4deg)" },
           "20%": { transform: "translateX(5px) rotate(4deg)" },
@@ -125,17 +125,22 @@ export default {
           "80%": { transform: "translateX(5px) rotate(4deg)" },
           "90%": { transform: "translateX(-5px) rotate(-4deg)" },
         },
-        float: { // New float keyframes
+        float: {
           '0%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-10px)' },
           '100%': { transform: 'translateY(0px)' },
+        },
+        shine: { // New shine keyframe animation
+          '0%': { left: '-100%' },
+          '100%': { left: '100%' },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        shake: "shake 0.8s infinite", // Registered the shake animation with a duration and infinite loop
-        float: 'float 3s ease-in-out infinite', // Registered the float animation
+        shake: "shake 0.8s infinite",
+        float: 'float 3s ease-in-out infinite',
+        shine: 'shine 1.5s infinite linear', // Register the shine animation
       },
     },
   },
