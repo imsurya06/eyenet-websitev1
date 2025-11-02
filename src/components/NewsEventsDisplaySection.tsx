@@ -65,10 +65,10 @@ const NewsEventsDisplaySection = () => {
                           {formattedDate}
                         </span>
                       </div>
-                      <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground">
+                      <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground line-clamp-2">
                         {item.title}
                       </h3>
-                      <p className="text-text-regular font-body text-gray-600 flex-grow overflow-hidden">
+                      <p className="text-text-regular font-body text-gray-600 flex-grow overflow-hidden line-clamp-3">
                         {item.description}
                       </p>
                       {/* Optional: Add a "Read More" link if you have individual news/event pages */}

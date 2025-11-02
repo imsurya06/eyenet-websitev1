@@ -33,10 +33,10 @@ const AdminNewsEventCard: React.FC<AdminNewsEventCardProps> = ({ newsEvent, onDe
   const CategoryIcon = newsEvent.category === 'news' ? Newspaper : CalendarDays;
 
   return (
-    <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-col md:flex-row h-auto"> {/* Horizontal layout for card */}
+    <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-row h-60"> {/* Fixed height for the card */}
       {/* Image/Color Block */}
       <div className={cn(
-        "w-full md:w-48 h-48 md:h-auto flex-shrink-0 overflow-hidden",
+        "w-2/5 h-full flex-shrink-0 overflow-hidden", // Image takes 2/5 width, full height of card
         !newsEvent.image && "bg-primary" // Fallback background color if no image
       )}>
         {newsEvent.image && (
@@ -48,7 +48,7 @@ const AdminNewsEventCard: React.FC<AdminNewsEventCardProps> = ({ newsEvent, onDe
         )}
       </div>
       {/* Content */}
-      <div className="p-4 flex flex-col flex-grow justify-between">
+      <div className="p-4 flex flex-col flex-grow w-3/5 justify-between overflow-hidden"> {/* Content takes 3/5 width, flex-grow */}
         <div className="flex items-center gap-2 mb-2">
           <span className="inline-flex items-center bg-muted text-text-small font-body text-gray-600 px-3 py-1 rounded-full border border-input">
             <CategoryIcon className="h-3 w-3 mr-1" />
@@ -59,10 +59,10 @@ const AdminNewsEventCard: React.FC<AdminNewsEventCardProps> = ({ newsEvent, onDe
             {formattedDate}
           </span>
         </div>
-        <h3 className="text-h6-mobile md:text-h6-desktop font-heading mb-2 text-foreground">
+        <h3 className="text-h6-mobile md:text-h6-desktop font-heading mb-2 text-foreground line-clamp-2">
           {newsEvent.title}
         </h3>
-        <p className="text-text-regular font-body text-gray-600 mb-4 flex-grow overflow-hidden">
+        <p className="text-text-regular font-body text-gray-600 mb-4 flex-grow overflow-hidden line-clamp-3">
           {newsEvent.description}
         </p>
         <div className="flex items-center gap-2 mt-auto">
