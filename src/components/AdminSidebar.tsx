@@ -14,17 +14,17 @@ interface SidebarLink {
 }
 
 const sidebarNavItems: SidebarLink[] = [
+  { name: 'Notifications', href: '/admin-dashboard/enrollments-messages', icon: MessageSquareText }, // Renamed and moved to top
   { name: 'Courses', href: '/admin-dashboard/courses', icon: ListChecks },
   { name: 'Image Gallery', href: '/admin-dashboard/gallery', icon: Image },
   { name: 'Infrastructure', href: '/admin-dashboard/infrastructure', icon: Home },
   { name: 'News & Events', href: '/admin-dashboard/news-events', icon: Newspaper },
   { name: 'Blogs', href: '/admin-dashboard/blogs', icon: BookOpen },
-  { name: 'Enrollments & Messages', href: '/admin-dashboard/enrollments-messages', icon: MessageSquareText }, // New item
 ];
 
 const AdminSidebar = () => {
   return (
-    <aside className="fixed left-0 top-0 w-64 bg-background border-r border-border h-screen flex flex-col shadow-lg z-40"> {/* Added fixed, left-0, top-0, and z-40 */}
+    <aside className="fixed left-0 top-0 w-64 bg-background border-r border-border h-screen flex flex-col shadow-lg z-40">
       {/* Logo */}
       <div className="p-6 border-b border-border flex justify-center">
         <Link to="/">
