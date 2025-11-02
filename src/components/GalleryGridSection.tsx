@@ -33,7 +33,7 @@ const GalleryGridSection = () => {
               <img
                 src={image.src}
                 alt={image.alt}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-top"
               />
             </div>
           </AnimateOnScroll>

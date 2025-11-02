@@ -30,7 +30,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({ course, onDelete, onE
         <img
           src={course.image}
           alt={course.title}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-top"
         />
       </div>
       <div className="p-6 flex flex-col flex-grow">
