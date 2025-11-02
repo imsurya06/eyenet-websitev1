@@ -10,20 +10,20 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { Plus, ListChecks, LayoutGrid, Home, Newspaper, BookOpen, MessageSquareText } from 'lucide-react';
+import { Plus, ListChecks, LayoutGrid, Home, Newspaper, BookOpen, MessageSquareText } from 'lucide-react'; // Import MessageSquareText
 import { cn } from '@/lib/utils';
 import AdminAddCourseDialog from './AdminAddCourseDialog';
 import AdminAddImageDialog from './AdminAddImageDialog';
 import AdminAddInfrastructureImageDialog from './AdminAddInfrastructureImageDialog';
 import AdminAddNewsEventDialog from './AdminAddNewsEventDialog';
 import AdminAddBlogDialog from './AdminAddBlogDialog';
-import AdminAddTestimonialDialog from './AdminAddTestimonialDialog';
+import AdminAddTestimonialDialog from './AdminAddTestimonialDialog'; // Import the new dialog component
 import { useCourses } from '@/context/CourseContext';
 import { useGalleryImages } from '@/context/GalleryImageContext';
 import { useInfrastructureImages } from '@/context/InfrastructureImageContext';
 import { useNewsEvents } from '@/context/NewsEventsContext';
 import { useBlogs } from '@/context/BlogContext';
-import { useTestimonials } from '@/context/TestimonialContext';
+import { useTestimonials } from '@/context/TestimonialContext'; // Import TestimonialContext
 import { toast } from 'sonner';
 
 const AdminAddDropdown = () => {
@@ -32,7 +32,7 @@ const AdminAddDropdown = () => {
   const { addInfrastructureImage } = useInfrastructureImages();
   const { addNewsEvent } = useNewsEvents();
   const { addBlog } = useBlogs();
-  const { addTestimonial } = useTestimonials();
+  const { addTestimonial } = useTestimonials(); // Use the addTestimonial function from context
 
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
   const [isAddCourseDialogOpen, setIsAddCourseDialogOpen] = React.useState(false);
@@ -40,7 +40,7 @@ const AdminAddDropdown = () => {
   const [isAddInfrastructureImageDialogOpen, setIsAddInfrastructureImageDialogOpen] = React.useState(false);
   const [isAddNewsEventDialogOpen, setIsAddNewsEventDialogOpen] = React.useState(false);
   const [isAddBlogDialogOpen, setIsAddBlogDialogOpen] = React.useState(false);
-  const [isAddTestimonialDialogOpen, setIsAddTestimonialDialogOpen] = React.useState(false);
+  const [isAddTestimonialDialogOpen, setIsAddTestimonialDialogOpen] = React.useState(false); // New state for testimonial dialog
   const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleOpenDropdown = () => {
@@ -85,7 +85,7 @@ const AdminAddDropdown = () => {
     setIsDropdownOpen(false);
   };
 
-  const handleAddTestimonialClick = () => {
+  const handleAddTestimonialClick = () => { // New handler for testimonial dialog
     setIsAddTestimonialDialogOpen(true);
     setIsDropdownOpen(false);
   };
@@ -165,6 +165,7 @@ const AdminAddDropdown = () => {
           </DropdownMenuItem>
           <DropdownMenuSeparator className="my-1" />
 
+          {/* New "Testimonials" item to open the dialog */}
           <DropdownMenuItem asChild className="cursor-pointer">
             <div
               className="flex items-center gap-2 px-2 py-2 text-text-regular font-body transition-colors hover:bg-accent hover:text-accent-foreground rounded-sm"
@@ -225,7 +226,7 @@ const AdminAddDropdown = () => {
       <AdminAddTestimonialDialog
         open={isAddTestimonialDialogOpen}
         onOpenChange={setIsAddTestimonialDialogOpen}
-        editingTestimonial={null}
+        editingTestimonial={null} // Always null when opened from "Add" dropdown
         onSave={(testimonial) => {
           addTestimonial(testimonial);
           toast.success(`Testimonial from "${testimonial.name}" added successfully!`);
