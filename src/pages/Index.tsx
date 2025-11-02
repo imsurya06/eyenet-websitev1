@@ -26,8 +26,8 @@ const Index = () => {
         </div>
 
         {/* Left Section: Text Content */}
-        <AnimateOnScroll isHero={true} delay={100} className="relative z-10 text-center md:text-left max-w-2xl md:mr-12 md:mb-0 md:flex-1"> {/* Changed flex-1 to md:flex-1 */}
-          <h1 className="text-h1-mobile md:text-h1-desktop font-heading mb-4 text-white md:text-foreground md:text-shine">
+        <AnimateOnScroll isHero={true} delay={100} className="relative z-10 text-center md:text-left max-w-2xl md:mr-12 md:mb-0 md:flex-1">
+          <h1 className="text-h1-mobile md:text-h1-desktop font-heading mb-4 text-white md:text-shine">
             Design your <br className="hidden md:block" /> future with creative excellence
           </h1>
           <p className="text-text-medium font-body mb-8 text-white md:text-gray-600">
@@ -50,7 +50,7 @@ const Index = () => {
           <img
             src="/images/hero-model.png"
             alt="Fashion model illustration"
-            className="max-w-full h-auto md:max-w-md lg:max-w-lg object-cover rounded-lg shadow-2xl animate-float" // Added shadow and animate-float
+            className="max-w-full h-auto md:max-w-md lg:max-w-lg object-cover rounded-lg shadow-2xl animate-float"
           />
         </AnimateOnScroll>
       </div>
