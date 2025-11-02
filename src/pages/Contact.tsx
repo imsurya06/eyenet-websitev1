@@ -7,10 +7,75 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import AnimateOnScroll from '@/components/AnimateOnScroll'; // Import AnimateOnScroll
+import AnimateOnScroll from '@/components/AnimateOnScroll';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { supabase } from '@/lib/supabaseClient'; // Import Supabase client
+import { toast } from 'sonner'; // Import toast for notifications
+
+// Zod schema for form validation
+const formSchema = z.object({
+  name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
+  email: z.string().email({ message: 'Please enter a valid email address.' }),
+  message: z.string().min(10, { message: 'Message must be at least 10 characters.' }),
+  terms: z.boolean().refine((val) => val === true, {
+    message: 'You must accept the terms and conditions.',
+  }),
+});
 
 const Contact = () => {
   const googleMapsUrl = "https://www.google.com/maps/dir//Suguna+store,+Hamdhiya+towers+2nd+floor,+80+feet+road,+Jn,+Anna+Nagar,+Madurai,+Tamil+Nadu+625020/@9.9291093,78.1409982,15.78z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3b00c5072a46551f:0x3feb0d2a94af46bb!2m2!1d78.1485275!2d9.9215582?entry=ttu&g_ep=EgoyMDI1MTAyNi4wIKXMDSoASAFQAw%3D%3D";
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      message: '',
+      terms: false,
+    },
+  });
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const { data, error } = await supabase
+        .from('contact_submissions')
+        .insert([
+          {
+            name: values.name,
+            email: values.email,
+            message: values.message,
+            terms_accepted: values.terms,
+          },
+        ])
+        .select();
+
+      if (error) {
+        console.error('Supabase submission error:', error);
+        toast.error(`Submission failed: ${error.message}`);
+        return;
+      }
+
+      if (data && data.length > 0) {
+        toast.success('Your message has been sent successfully!');
+        form.reset(); // Reset form fields
+      } else {
+        toast.error('Submission failed: No data received.');
+      }
+    } catch (err: any) {
+      console.error('Unexpected submission error:', err);
+      toast.error(`An unexpected error occurred: ${err.message || 'Please try again.'}`);
+    }
+  };
 
   return (
     <section className="py-12 md:py-16 lg:py-20 px-6 md:px-8 lg:px-[80px] bg-background text-foreground min-h-[calc(100vh-12rem)] flex items-center">
@@ -32,58 +97,99 @@ const Contact = () => {
           </AnimateOnScroll>
 
           <AnimateOnScroll isHero={true} delay={800} className="space-y-6 w-full max-w-md">
-            <form action="https://formspree.io/f/myzbeqer" method="POST" className="space-y-6">
-              {/* Hidden input for Formspree redirect */}
-              <input type="hidden" name="_next" value={`${window.location.origin}/`} />
-              <div>
-                <Label htmlFor="name" className="text-text-regular font-body text-foreground mb-2 block text-left">
-                  Name
-                </Label>
-                <Input
-                  id="name"
-                  type="text"
-                  name="name" // Added name attribute
-                  placeholder=""
-                  className="h-12 px-4 py-2 text-text-regular border border-input bg-muted focus-visible:ring-ring focus-visible:ring-offset-background"
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-text-regular font-body text-foreground mb-2 block text-left">
+                        Name
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          id="name"
+                          type="text"
+                          placeholder=""
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              <div>
-                <Label htmlFor="email" className="text-text-regular font-body text-foreground mb-2 block text-left">
-                  Email
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  name="email" // Added name attribute
-                  placeholder=""
-                  className="h-12 px-4 py-2 text-text-regular border border-input bg-muted focus-visible:ring-ring focus-visible:ring-offset-background"
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-text-regular font-body text-foreground mb-2 block text-left">
+                        Email
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder=""
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              <div>
-                <Label htmlFor="message" className="text-text-regular font-body text-foreground mb-2 block text-left">
-                  Message
-                </Label>
-                <Textarea
-                  id="message"
-                  name="message" // Added name attribute
-                  placeholder="Type your message..."
-                  rows={6}
-                  className="px-4 py-3 text-text-regular border border-input bg-muted focus-visible:ring-ring focus-visible:ring-offset-background resize-none"
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-text-regular font-body text-foreground mb-2 block text-left">
+                        Message
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea
+                          id="message"
+                          placeholder="Type your message..."
+                          rows={6}
+                          className="resize-none"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              <div className="flex items-center space-x-2 justify-center lg:justify-start">
-                <Checkbox id="terms" name="terms" className="border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground" /> {/* Added name attribute */}
-                <Label htmlFor="terms" className="text-text-regular font-body text-gray-600">
-                  I accept the{' '}
-                  <Link to="/terms-of-service" className="underline hover:text-primary">
-                    Terms
-                  </Link>
-                </Label>
-              </div>
-              <Button type="submit" className="w-full h-12 px-6 py-2 text-text-regular bg-primary hover:bg-primary/90 text-primary-foreground">
-                Submit
-              </Button>
-            </form>
+                <FormField
+                  control={form.control}
+                  name="terms"
+                  render={({ field }) => (
+                    <FormItem className="flex items-center space-x-2 justify-center lg:justify-start">
+                      <FormControl>
+                        <Checkbox
+                          id="terms"
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          className="border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                        />
+                      </FormControl>
+                      <div className="grid gap-1.5 leading-none">
+                        <Label htmlFor="terms" className="text-text-regular font-body text-gray-600">
+                          I accept the{' '}
+                          <Link to="/terms-of-service" className="underline hover:text-primary">
+                            Terms
+                          </Link>
+                        </Label>
+                        <FormMessage />
+                      </div>
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="w-full h-12 px-6 py-2 text-text-regular bg-primary hover:bg-primary/90 text-primary-foreground">
+                  Submit
+                </Button>
+              </form>
+            </Form>
           </AnimateOnScroll>
         </div>
 

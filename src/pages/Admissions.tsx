@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,7 +26,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import ConfettiOverlay from '@/components/ConfettiOverlay';
-import EnrollmentSuccessDialog from '@/components/EnrollmentSuccessDialog'; // Import the new dialog
+import EnrollmentSuccessDialog from '@/components/EnrollmentSuccessDialog';
+import { supabase } from '@/lib/supabaseClient'; // Import Supabase client
+import { toast } from 'sonner'; // Import toast for notifications
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -39,8 +41,10 @@ const formSchema = z.object({
 });
 
 const Admissions = () => {
-  // Removed showConfetti, showSuccessDialog, enrolledCourseName, enrolledUserName states
-  // as they will not function with a direct form submission and page reload.
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [enrolledCourseName, setEnrolledCourseName] = useState('');
+  const [enrolledUserName, setEnrolledUserName] = useState('');
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -53,7 +57,47 @@ const Admissions = () => {
     },
   });
 
-  // Removed onSubmit function as Formspree handles the submission directly.
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const { data, error } = await supabase
+        .from('admissions')
+        .insert([
+          {
+            name: values.name,
+            email: values.email,
+            mobile: values.mobile,
+            program: values.program,
+            terms_accepted: values.terms,
+          },
+        ])
+        .select();
+
+      if (error) {
+        console.error('Supabase submission error:', error);
+        toast.error(`Enrollment failed: ${error.message}`);
+        return;
+      }
+
+      if (data && data.length > 0) {
+        setEnrolledCourseName(values.program);
+        setEnrolledUserName(values.name);
+        setShowConfetti(true);
+        setShowSuccessDialog(true);
+        form.reset(); // Reset form fields
+        toast.success('Enrollment successful!');
+      } else {
+        toast.error('Enrollment failed: No data received.');
+      }
+    } catch (err: any) {
+      console.error('Unexpected enrollment error:', err);
+      toast.error(`An unexpected error occurred: ${err.message || 'Please try again.'}`);
+    }
+  };
+
+  const handleCloseSuccessDialog = () => {
+    setShowSuccessDialog(false);
+    setShowConfetti(false);
+  };
 
   return (
     <section
@@ -75,17 +119,15 @@ const Admissions = () => {
 
         {/* Right Section: Enroll Now Form */}
         <AnimateOnScroll isHero={true} delay={700} className="w-full lg:w-1/2 flex justify-center">
-          <div className="bg-white p-8 md:p-10 lg:p-12 rounded-lg shadow-xl w-full text-center"> {/* Changed max-w-md lg:max-w-none to w-full, and text-center lg:text-left to text-center */}
+          <div className="bg-white p-8 md:p-10 lg:p-12 rounded-lg shadow-xl w-full text-center">
             <h2 className="text-h2-mobile md:text-h2-desktop font-heading mb-2 text-foreground">
               Enroll Now
             </h2>
             <p className="text-text-medium font-body text-gray-600 mb-8">
               Let's Start your design journey
             </p>
-            <Form {...form}> {/* Added Form wrapper here */}
-              <form action="https://formspree.io/f/myzbeqer" method="POST" className="space-y-6">
-                {/* Hidden input for Formspree redirect */}
-                <input type="hidden" name="_next" value={`${window.location.origin}/`} />
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
                   control={form.control}
                   name="name"
@@ -100,8 +142,7 @@ const Admissions = () => {
                           type="text"
                           placeholder=""
                           {...field}
-                          name="name" // Explicitly added name attribute
-                          required // Added required for basic HTML validation
+                          required
                         />
                       </FormControl>
                       <FormMessage />
@@ -122,8 +163,7 @@ const Admissions = () => {
                           type="email"
                           placeholder=""
                           {...field}
-                          name="email" // Explicitly added name attribute
-                          required // Added required for basic HTML validation
+                          required
                         />
                       </FormControl>
                       <FormMessage />
@@ -144,8 +184,7 @@ const Admissions = () => {
                           type="tel"
                           placeholder=""
                           {...field}
-                          name="mobile" // Explicitly added name attribute
-                          required // Added required for basic HTML validation
+                          required
                         />
                       </FormControl>
                       <FormMessage />
@@ -164,7 +203,6 @@ const Admissions = () => {
                         <FormControl>
                           <SelectTrigger
                             className="w-full h-12 px-4 py-2 text-text-regular border border-input bg-muted focus:ring-ring focus:ring-offset-background"
-                            // Removed name="program" and required from SelectTrigger
                           >
                             <SelectValue placeholder="Select a program" />
                           </SelectTrigger>
@@ -185,10 +223,6 @@ const Admissions = () => {
                           <SelectItem value="Computer Application & Programming">Computer Application & Programming</SelectItem>
                         </SelectContent>
                       </Select>
-                      {/* Hidden input to send the selected program value to Formspree */}
-                      {field.value && (
-                        <input type="hidden" name="program" value={field.value} />
-                      )}
                       <FormMessage />
                     </FormItem>
                   )}
@@ -203,8 +237,7 @@ const Admissions = () => {
                           checked={field.value}
                           onCheckedChange={field.onChange}
                           id="terms"
-                          name="terms" // Explicitly added name attribute
-                          required // Added required for basic HTML validation
+                          required
                           className="border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
                         />
                       </FormControl>
@@ -224,18 +257,17 @@ const Admissions = () => {
                   Enroll
                 </Button>
               </form>
-            </Form> {/* Closed Form wrapper here */}
+            </Form>
           </div>
         </AnimateOnScroll>
       </div>
-      {/* ConfettiOverlay and EnrollmentSuccessDialog are commented out as they won't function with page reload */}
-      {/* <ConfettiOverlay show={showConfetti} />
+      <ConfettiOverlay show={showConfetti} />
       <EnrollmentSuccessDialog
         show={showSuccessDialog}
         courseName={enrolledCourseName}
         userName={enrolledUserName}
         onClose={handleCloseSuccessDialog}
-      /> */}
+      />
     </section>
   );
 };
