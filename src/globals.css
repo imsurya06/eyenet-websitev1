@@ -161,5 +161,15 @@
 
 /* New utility class for text shining effect */
 .text-shine {
-  /* Removed background-image, background-clip, -webkit-background-clip, -webkit-text-fill-color, and animation */
+  background-image: linear-gradient(
+    135deg, /* Diagonal gradient from top-left to bottom-right */
+    hsl(var(--primary)) 0%,
+    hsl(var(--primary)) 50%,
+    hsl(var(--primary)) 100%
+  );
+  background-size: 100% 100%; /* No animation, so background size can be normal */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* Removed animation property */
 }
