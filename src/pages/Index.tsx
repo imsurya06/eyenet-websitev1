@@ -71,7 +71,7 @@ const Index = () => {
       <CallToActionSection />
 
       {/* FAQ Section */}
-      <FAQSection />
+      <FAQSection id="faq-section" /> {/* Added id here */}
 
       {/* Location Section */}
       <LocationSection />

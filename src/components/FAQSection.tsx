@@ -4,7 +4,11 @@ import { Button } from '@/components/ui/button';
 import { PencilRuler, Clock, Monitor, ClipboardList, Briefcase, DollarSign } from 'lucide-react';
 import AnimateOnScroll from './AnimateOnScroll';
 
-const FAQSection = () => {
+interface FAQSectionProps {
+  id?: string; // Added id prop
+}
+
+const FAQSection: React.FC<FAQSectionProps> = ({ id }) => {
   const faqs = [
     {
       icon: PencilRuler,
@@ -39,7 +43,7 @@ const FAQSection = () => {
   ];
 
   return (
-    <section className="py-12 md:py-16 lg:py-20 px-3 md:px-8 lg:px-[80px] bg-background text-center">
+    <section id={id} className="py-12 md:py-16 lg:py-20 px-3 md:px-8 lg:px-[80px] bg-background text-center">
       <AnimateOnScroll delay={100}>
         <h2 className="text-h2-mobile md:text-h2-desktop font-heading mb-4 text-foreground">
           FAQs

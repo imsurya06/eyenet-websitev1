@@ -24,7 +24,7 @@ const Footer = () => {
     // Removed Photography link
     { name: 'Gallery', href: '/explore/gallery' },
     { name: 'News', href: '/explore/news-events' },
-    { name: 'FAQ', href: '/' }, // Redirected to home page
+    { name: 'FAQ', href: '/#faq-section' }, // Redirected to home page's FAQ section
     { name: 'Contact Us', href: '/contact' },
   ];
 
