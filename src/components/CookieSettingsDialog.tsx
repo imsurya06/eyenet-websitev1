@@ -52,7 +52,7 @@ const CookieSettingsDialog: React.FC<CookieSettingsDialogProps> = ({ open, onOpe
                 <Checkbox
                   id="essential-cookies"
                   checked={essentialChecked}
-                  onCheckedChange={setEssentialChecked}
+                  onCheckedChange={(checked) => setEssentialChecked(!!checked)} // Fixed: Cast to boolean
                   disabled // Essential cookies cannot be unchecked
                   className="border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
                 />
@@ -70,7 +70,7 @@ const CookieSettingsDialog: React.FC<CookieSettingsDialogProps> = ({ open, onOpe
                 <Checkbox
                   id="analytics-cookies"
                   checked={analyticsChecked}
-                  onCheckedChange={setAnalyticsChecked}
+                  onCheckedChange={(checked) => setAnalyticsChecked(!!checked)} // Fixed: Cast to boolean
                   className="border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
                 />
                 <Label htmlFor="analytics-cookies" className="text-text-regular font-body text-foreground">
@@ -87,7 +87,7 @@ const CookieSettingsDialog: React.FC<CookieSettingsDialogProps> = ({ open, onOpe
                 <Checkbox
                   id="marketing-cookies"
                   checked={marketingChecked}
-                  onCheckedChange={setMarketingChecked}
+                  onCheckedChange={(checked) => setMarketingChecked(!!checked)} // Fixed: Cast to boolean
                   className="border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
                 />
                 <Label htmlFor="marketing-cookies" className="text-text-regular font-body text-foreground">
