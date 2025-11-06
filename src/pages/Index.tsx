@@ -12,6 +12,7 @@ import FAQSection from '@/components/FAQSection';
 import LocationSection from '@/components/LocationSection'; // Import the new component
 // Removed ImageGallerySection from here
 import AnimateOnScroll from '@/components/AnimateOnScroll'; // Import the new component
+import LazyImage from '@/components/LazyImage'; // Import LazyImage
 
 const Index = () => {
   return (
@@ -47,7 +48,7 @@ const Index = () => {
 
         {/* Right Section: Image (Desktop Only) */}
         <AnimateOnScroll isHero={true} delay={200} className="hidden md:flex flex-1 justify-center md:justify-end relative z-10">
-          <img
+          <LazyImage
             src="/images/hero-model.png"
             alt="Fashion model illustration"
             className="max-w-full h-auto md:max-w-md lg:max-w-lg object-cover object-top rounded-lg shadow-2xl animate-float" // Added object-top

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import AnimateOnScroll from './AnimateOnScroll';
+import LazyImage from './LazyImage'; // Import LazyImage
 
 const GalleryGridSection = () => {
   const images = [
@@ -28,9 +29,9 @@ const GalleryGridSection = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {images.map((image, index) => (
-          <AnimateOnScroll key={index} delay={300 + index * 100}>
+          <AnimateOnScroll key={index} delay={300 + index * 75}> {/* Reduced delay increment */}
             <div className="w-full aspect-square overflow-hidden rounded-lg shadow-md drop-shadow-lg">
-              <img
+              <LazyImage
                 src={image.src}
                 alt={image.alt}
                 className="w-full h-full object-cover object-top"

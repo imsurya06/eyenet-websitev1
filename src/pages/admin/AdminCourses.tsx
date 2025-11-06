@@ -8,6 +8,7 @@ import AdminCourseCard from '@/components/AdminCourseCard';
 import AdminAddCourseDialog from '@/components/AdminAddCourseDialog'; // Import the modified dialog
 import { useCourses } from '@/context/CourseContext';
 import { Course } from '@/data/courses'; // Import Course interface
+import LazyImage from '@/components/LazyImage'; // Import LazyImage
 
 const AdminCourses = () => {
   const [searchParams] = useSearchParams();

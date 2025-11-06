@@ -2,6 +2,7 @@
 
 import React from 'react';
 import AnimateOnScroll from './AnimateOnScroll';
+import LazyImage from './LazyImage'; // Import LazyImage
 
 const FounderDirectorSection = () => {
   return (
@@ -9,7 +10,7 @@ const FounderDirectorSection = () => {
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
         {/* Left Section: Image */}
         <AnimateOnScroll delay={100} className="w-full h-[400px] md:h-[550px] overflow-hidden rounded-lg shadow-lg mx-auto lg:mx-0">
-          <img
+          <LazyImage
             src="/images/founder-director.png"
             alt="Founder & Director"
             className="w-full h-full object-cover"

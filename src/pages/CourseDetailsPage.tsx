@@ -4,6 +4,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 import { useCourses } from '@/context/CourseContext'; // Corrected import path
+import LazyImage from '@/components/LazyImage'; // Import LazyImage
 
 const CourseDetailsPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -46,7 +47,7 @@ const CourseDetailsPage = () => {
       </AnimateOnScroll>
       {course.image && (
         <AnimateOnScroll isHero={true} delay={800} className="mt-8 w-full max-w-xl rounded-lg overflow-hidden shadow-lg">
-          <img src={course.image} alt={course.title} className="w-full h-auto object-cover" />
+          <LazyImage src={course.image} alt={course.title} className="w-full h-auto object-cover" />
         </AnimateOnScroll>
       )}
     </div>

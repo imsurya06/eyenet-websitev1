@@ -6,6 +6,7 @@ import AdminBlogCard from '@/components/AdminBlogCard';
 import AdminAddBlogDialog from '@/components/AdminAddBlogDialog';
 import { useBlogs } from '@/context/BlogContext';
 import { Blog } from '@/data/blogs';
+import LazyImage from '@/components/LazyImage'; // Import LazyImage
 
 const AdminBlogs = () => {
   const { blogs, addBlog, deleteBlog, updateBlog } = useBlogs();

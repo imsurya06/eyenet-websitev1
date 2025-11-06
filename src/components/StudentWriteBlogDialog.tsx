@@ -33,6 +33,7 @@ import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { Blog } from '@/data/blogs';
 import { supabase } from '@/lib/supabaseClient'; // Import Supabase client
+import LazyImage from './LazyImage'; // Import LazyImage
 
 interface StudentWriteBlogDialogProps {
   open: boolean;
@@ -228,7 +229,7 @@ const StudentWriteBlogDialog: React.FC<StudentWriteBlogDialogProps> = ({ open, o
               <FormControl>
                 <Label htmlFor="blog-image-upload" className="flex flex-col items-center justify-center w-full h-48 border border-input bg-muted rounded-md cursor-pointer hover:bg-accent transition-colors">
                   {imagePreview ? (
-                    <img src={imagePreview} alt="Blog Post Preview" className="h-full w-full object-cover object-top rounded-md" />
+                    <LazyImage src={imagePreview} alt="Blog Post Preview" className="h-full w-full object-cover object-top rounded-md" />
                   ) : (
                     <>
                       <ImagePlus className="h-8 w-8 mb-2 text-gray-500" />

@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import LazyImage from './LazyImage'; // Import LazyImage
 
 const FashionDesignImageGrid = () => {
   const images = [
@@ -28,7 +29,7 @@ const FashionDesignImageGrid = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {images.map((image, index) => (
             <div key={index} className="w-full aspect-square overflow-hidden rounded-lg shadow-md drop-shadow-lg">
-              <img
+              <LazyImage
                 src={image.src}
                 alt={image.alt}
                 className="w-full h-full object-cover object-top"

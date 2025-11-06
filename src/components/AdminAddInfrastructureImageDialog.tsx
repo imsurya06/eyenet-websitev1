@@ -29,6 +29,7 @@ import { useInfrastructureImages } from '@/context/InfrastructureImageContext';
 import { toast } from 'sonner';
 import { InfrastructureImage } from '@/data/infrastructureImages';
 import { supabase } from '@/lib/supabaseClient'; // Import Supabase client
+import LazyImage from './LazyImage'; // Import LazyImage
 
 interface AdminAddInfrastructureImageDialogProps {
   open: boolean;
@@ -215,7 +216,7 @@ const AdminAddInfrastructureImageDialog: React.FC<AdminAddInfrastructureImageDia
               <FormControl>
                 <Label htmlFor="image-upload" className="flex flex-col items-center justify-center w-full h-48 border border-input bg-muted rounded-md cursor-pointer hover:bg-accent transition-colors">
                   {imagePreview ? (
-                    <img src={imagePreview} alt="Image Preview" className="h-full w-full object-cover object-center rounded-md" />
+                    <LazyImage src={imagePreview} alt="Image Preview" className="h-full w-full object-cover object-center rounded-md" />
                   ) : (
                     <>
                       <ImagePlus className="h-8 w-8 mb-2 text-gray-500" />

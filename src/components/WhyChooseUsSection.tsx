@@ -19,7 +19,7 @@ const WhyChooseUsSection = () => {
       <div className="flex flex-col md:flex-row justify-center items-center gap-12 md:gap-16 max-w-7xl mx-auto"> {/* Increased max-width and gap */}
         {stats.map((stat, index) => (
           <React.Fragment key={index}>
-            <AnimateOnScroll delay={200 + index * 100}>
+            <AnimateOnScroll delay={200 + index * 75}> {/* Reduced delay increment */}
               <div className="flex flex-col items-center px-8">
                 <p className="text-h1-mobile md:text-h1-desktop font-heading text-foreground mb-2"> {/* Increased font size for values */}
                   {stat.value}
@@ -30,7 +30,7 @@ const WhyChooseUsSection = () => {
               </div>
             </AnimateOnScroll>
             {index < stats.length - 1 && (
-              <AnimateOnScroll delay={250 + index * 100} className="hidden md:block">
+              <AnimateOnScroll delay={250 + index * 75} className="hidden md:block"> {/* Reduced delay increment */}
                 <div className="h-24 w-px bg-gray-300">{/* Vertical separator for desktop */}</div>
               </AnimateOnScroll>
             )}

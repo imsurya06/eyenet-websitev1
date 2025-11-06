@@ -2,6 +2,7 @@
 
 import React from 'react';
 import AnimateOnScroll from './AnimateOnScroll';
+import LazyImage from './LazyImage'; // Import LazyImage
 
 const AboutHeroSection = () => {
   return (
@@ -23,7 +24,7 @@ const AboutHeroSection = () => {
 
         {/* Main Hero Image */}
         <AnimateOnScroll isHero={true} delay={300} className="w-full h-[300px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-xl shadow-lg mb-12 md:mb-16 lg:mb-20">
-          <img
+          <LazyImage
             src="/images/about-image-1.png"
             alt="Fashion model in traditional attire"
             className="w-full h-full object-cover object-top"
@@ -63,7 +64,7 @@ const AboutHeroSection = () => {
 
           {/* Right Section: Secondary Image */}
           <AnimateOnScroll delay={700} className="w-full h-[350px] md:h-[450px] overflow-hidden rounded-xl shadow-lg mx-auto lg:mx-0">
-            <img
+            <LazyImage
               src="/images/about-image-2.png"
               alt="Fashion model in light green attire"
               className="w-full h-full object-cover object-top"

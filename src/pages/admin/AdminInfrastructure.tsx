@@ -11,6 +11,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Filter, LayoutGrid, Monitor, BookOpen, Building2, MoreHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { InfrastructureImage } from '@/data/infrastructureImages'; // Import InfrastructureImage interface
+import LazyImage from '@/components/LazyImage'; // Import LazyImage
 
 const filterItems = [
   { name: 'All Images', category: null, icon: LayoutGrid },

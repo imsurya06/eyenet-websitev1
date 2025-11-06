@@ -9,6 +9,7 @@ import TestimonialsSection from '@/components/TestimonialsSection';
 import LocationSection from '@/components/LocationSection';
 import ContactUsSection from '@/components/ContactUsSection';
 import AnimateOnScroll from '@/components/AnimateOnScroll'; // Import AnimateOnScroll
+import LazyImage from '@/components/LazyImage'; // Import LazyImage
 
 const About = () => {
   return (

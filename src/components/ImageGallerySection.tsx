@@ -4,6 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import AnimateOnScroll from './AnimateOnScroll';
+import LazyImage from './LazyImage'; // Import LazyImage
 
 const ImageGallerySection = () => {
   const images = [
@@ -32,41 +33,41 @@ const ImageGallerySection = () => {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-7xl mx-auto mb-16">
         {/* Image 1: Large left image */}
         <AnimateOnScroll delay={300} className="col-span-2 md:col-span-1 row-span-2 h-[400px] md:h-auto overflow-hidden rounded-lg shadow-md">
-          <img src={images[0].src} alt={images[0].alt} className="w-full h-full object-cover object-top" />
+          <LazyImage src={images[0].src} alt={images[0].alt} className="w-full h-full object-cover object-top" />
         </AnimateOnScroll>
 
         {/* Image 2: Top middle */}
-        <AnimateOnScroll delay={400} className="col-span-1 h-[192px] overflow-hidden rounded-lg shadow-md">
-          <img src={images[1].src} alt={images[1].alt} className="w-full h-full object-cover object-top" />
+        <AnimateOnScroll delay={375} className="col-span-1 h-[192px] overflow-hidden rounded-lg shadow-md"> {/* Adjusted delay */}
+          <LazyImage src={images[1].src} alt={images[1].alt} className="w-full h-full object-cover object-top" />
         </AnimateOnScroll>
 
         {/* Image 3: Large right image */}
-        <AnimateOnScroll delay={500} className="col-span-2 md:col-span-1 row-span-2 h-[400px] md:h-auto overflow-hidden rounded-lg shadow-md">
-          <img src={images[2].src} alt={images[2].alt} className="w-full h-full object-cover object-top" />
+        <AnimateOnScroll delay={450} className="col-span-2 md:col-span-1 row-span-2 h-[400px] md:h-auto overflow-hidden rounded-lg shadow-md"> {/* Adjusted delay */}
+          <LazyImage src={images[2].src} alt={images[2].alt} className="w-full h-full object-cover object-top" />
         </AnimateOnScroll>
 
         {/* Image 4: Bottom middle */}
-        <AnimateOnScroll delay={600} className="col-span-1 h-[192px] overflow-hidden rounded-lg shadow-md">
-          <img src={images[3].src} alt={images[3].alt} className="w-full h-full object-cover object-top" />
+        <AnimateOnScroll delay={525} className="col-span-1 h-[192px] overflow-hidden rounded-lg shadow-md"> {/* Adjusted delay */}
+          <LazyImage src={images[3].src} alt={images[3].alt} className="w-full h-full object-cover object-top" />
         </AnimateOnScroll>
 
         {/* Image 5: Bottom left */}
-        <AnimateOnScroll delay={700} className="col-span-1 h-[192px] overflow-hidden rounded-lg shadow-md">
-          <img src={images[4].src} alt={images[4].alt} className="w-full h-full object-cover object-top" />
+        <AnimateOnScroll delay={600} className="col-span-1 h-[192px] overflow-hidden rounded-lg shadow-md"> {/* Adjusted delay */}
+          <LazyImage src={images[4].src} alt={images[4].alt} className="w-full h-full object-cover object-top" />
         </AnimateOnScroll>
 
         {/* Image 6: Bottom right */}
-        <AnimateOnScroll delay={800} className="col-span-1 h-[192px] overflow-hidden rounded-lg shadow-md">
-          <img src={images[5].src} alt={images[5].alt} className="w-full h-full object-cover object-top" />
+        <AnimateOnScroll delay={675} className="col-span-1 h-[192px] overflow-hidden rounded-lg shadow-md"> {/* Adjusted delay */}
+          <LazyImage src={images[5].src} alt={images[5].alt} className="w-full h-full object-cover object-top" />
         </AnimateOnScroll>
 
         {/* Image 7: Far right (only visible on larger screens, or will wrap) */}
-        <AnimateOnScroll delay={900} className="col-span-2 md:col-span-1 h-[192px] overflow-hidden rounded-lg shadow-md">
-          <img src={images[6].src} alt={images[6].alt} className="w-full h-full object-cover object-top" />
+        <AnimateOnScroll delay={750} className="col-span-2 md:col-span-1 h-[192px] overflow-hidden rounded-lg shadow-md"> {/* Adjusted delay */}
+          <LazyImage src={images[6].src} alt={images[6].alt} className="w-full h-full object-cover object-top" />
         </AnimateOnScroll>
       </div>
 
-      <AnimateOnScroll delay={1000}>
+      <AnimateOnScroll delay={800}> {/* Adjusted delay */}
         <Button asChild variant="outline" className="px-6 py-3 text-text-regular border-primary text-primary hover:bg-primary hover:text-primary-foreground">
           <Link to="/gallery">View More</Link>
         </Button>

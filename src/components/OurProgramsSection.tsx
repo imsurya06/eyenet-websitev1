@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import AnimateOnScroll from './AnimateOnScroll';
+import LazyImage from './LazyImage'; // Import LazyImage
 
 const OurProgramsSection = () => {
   const programs = [
@@ -15,7 +16,7 @@ const OurProgramsSection = () => {
     {
       image: '/images/computer-courses.png',
       title: 'Computer Courses',
-      description: 'Create innovative spatial designs with advanced techniques.',
+      description: 'Digital and print design curriculum',
       href: '/courses/computer-courses',
     },
   ];
@@ -41,7 +42,7 @@ const OurProgramsSection = () => {
           <AnimateOnScroll key={index} delay={200 + index * 75}> {/* Reduced delay increment */}
             <div className="flex flex-col items-center max-w-sm"> {/* Added max-w-sm for consistent card width */}
               <div className="w-full h-48 md:h-64 overflow-hidden rounded-lg mb-6">
-                <img
+                <LazyImage
                   src={program.image}
                   alt={program.title}
                   className="w-full h-full object-cover object-center"

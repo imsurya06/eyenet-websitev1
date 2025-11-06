@@ -47,7 +47,7 @@ const ImpactByNumbersSection = () => {
         {/* Statistics */}
         <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left space-y-8">
           {stats.map((stat, index) => (
-            <AnimateOnScroll key={index} delay={500 + index * 100}>
+            <AnimateOnScroll key={index} delay={500 + index * 75}> {/* Reduced delay increment */}
               <div>
                 <p className="text-h2-mobile md:text-h2-desktop font-heading text-foreground mb-1">
                   {stat.value}

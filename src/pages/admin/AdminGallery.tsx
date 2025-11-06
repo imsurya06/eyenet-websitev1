@@ -11,6 +11,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Filter, Image, LayoutGrid, CalendarDays } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { GalleryImage } from '@/data/galleryImages'; // Import GalleryImage interface
+import LazyImage from '@/components/LazyImage'; // Import LazyImage
 
 const filterItems = [
   { name: 'All Images', category: null, icon: LayoutGrid },

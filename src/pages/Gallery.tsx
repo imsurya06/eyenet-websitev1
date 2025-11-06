@@ -3,6 +3,7 @@ import GalleryCarouselSection from '@/components/GalleryCarouselSection';
 import GalleryGridSection from '@/components/GalleryGridSection';
 import CallToActionSection from '@/components/CallToActionSection';
 import AnimateOnScroll from '@/components/AnimateOnScroll'; // Import AnimateOnScroll
+import LazyImage from '@/components/LazyImage'; // Import LazyImage
 
 const Gallery = () => {
   return (
@@ -27,12 +28,12 @@ const Gallery = () => {
             <div className="flex flex-col gap-6">
               <AnimateOnScroll isHero={true} delay={300}> {/* Reduced delay */}
                 <div className="w-full h-[400px] md:h-[550px] overflow-hidden rounded-lg shadow-md">
-                  <img src="/images/img1.png" alt="Traditional attire model 1" className="w-full h-full object-cover object-top" />
+                  <LazyImage src="/images/img1.png" alt="Traditional attire model 1" className="w-full h-full object-cover object-top" />
                 </div>
               </AnimateOnScroll>
               <AnimateOnScroll isHero={true} delay={400}> {/* Reduced delay */}
                 <div className="w-full h-[250px] overflow-hidden rounded-lg shadow-md">
-                  <img src="/images/img4.png" alt="Fashion show model 2" className="w-full h-full object-cover object-top" />
+                  <LazyImage src="/images/img4.png" alt="Fashion show model 2" className="w-full h-full object-cover object-top" />
                 </div>
               </AnimateOnScroll>
             </div>
@@ -41,12 +42,12 @@ const Gallery = () => {
             <div className="flex flex-col gap-6">
               <AnimateOnScroll isHero={true} delay={500}> {/* Reduced delay */}
                 <div className="w-full h-[250px] overflow-hidden rounded-lg shadow-md">
-                  <img src="/images/img2.png" alt="Fashion show model 1" className="w-full h-full object-cover object-top" />
+                  <LazyImage src="/images/img2.png" alt="Fashion show model 1" className="w-full h-full object-cover object-top" />
                 </div>
               </AnimateOnScroll>
               <AnimateOnScroll isHero={true} delay={600}> {/* Reduced delay */}
                 <div className="w-full h-[250px] overflow-hidden rounded-lg shadow-md">
-                  <img src="/images/img3.png" alt="Traditional attire model 2" className="w-full h-full object-cover object-top" />
+                  <LazyImage src="/images/img3.png" alt="Traditional attire model 2" className="w-full h-full object-cover object-top" />
                 </div>
               </AnimateOnScroll>
             </div>

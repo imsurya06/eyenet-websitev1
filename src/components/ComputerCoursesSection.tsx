@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import AnimateOnScroll from './AnimateOnScroll';
 import { useCourses } from '@/context/CourseContext';
+import LazyImage from './LazyImage'; // Import LazyImage
 
 const ComputerCoursesSection = () => {
   const { courses } = useCourses();
@@ -32,7 +33,7 @@ const ComputerCoursesSection = () => {
             <AnimateOnScroll key={course.id} delay={300 + index * 75}> {/* Reduced delay increment */}
               <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-col">
                 <div className="w-full h-48 overflow-hidden">
-                  <img
+                  <LazyImage
                     src={course.image}
                     alt={course.title}
                     className="w-full h-full object-cover object-top"

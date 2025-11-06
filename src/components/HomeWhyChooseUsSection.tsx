@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import AnimateOnScroll from './AnimateOnScroll';
+import LazyImage from './LazyImage'; // Import LazyImage
 
 const HomeWhyChooseUsSection = () => {
   const features = [
@@ -46,7 +47,7 @@ const HomeWhyChooseUsSection = () => {
           <AnimateOnScroll key={index} delay={200 + index * 75}> {/* Reduced delay increment */}
             <div className="flex flex-col items-center">
               <div className="w-full h-48 md:h-64 overflow-hidden rounded-lg mb-6">
-                <img
+                <LazyImage
                   src={feature.image}
                   alt={feature.title}
                   className="w-full h-full object-cover object-center"

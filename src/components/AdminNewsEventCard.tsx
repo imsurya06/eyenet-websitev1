@@ -15,6 +15,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import LazyImage from './LazyImage'; // Import LazyImage
 
 interface AdminNewsEventCardProps {
   newsEvent: NewsEvent;
@@ -35,7 +36,7 @@ const AdminNewsEventCard: React.FC<AdminNewsEventCardProps> = ({ newsEvent, onDe
     <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-col">
       {newsEvent.image && (
         <div className="w-full h-48 overflow-hidden">
-          <img
+          <LazyImage
             src={newsEvent.image}
             alt={newsEvent.title}
             className="w-full h-full object-cover object-top"
