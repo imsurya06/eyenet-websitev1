@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -61,7 +63,7 @@ const OurProgramsSection = () => {
       <AnimateOnScroll delay={100}>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button asChild variant="outline" className="px-6 py-3 text-text-regular border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-            <Link to="/courses">View Courses</Link>
+            <Link to="/courses/fashion-design">View Courses</Link>
           </Button>
           <Button asChild variant="ghost" className="px-6 py-3 text-text-regular text-primary hover:bg-transparent hover:text-primary/80">
             <Link to="/contact">

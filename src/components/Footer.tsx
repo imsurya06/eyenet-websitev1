@@ -17,14 +17,14 @@ const Footer = () => {
     { name: 'About', href: '/about' },
     { name: 'Admissions', href: '/admissions' },
     { name: 'Courses', href: '/courses' },
-    { name: 'Explore', href: '/explore' },
+    { name: 'Explore', href: '/explore/infrastructure' }, // Redirected to infrastructure
   ];
 
   const secondaryNavLinks = [
-    { name: 'Photography', href: '/courses/photography' }, // Assuming a photography course page
+    // Removed Photography link
     { name: 'Gallery', href: '/explore/gallery' },
     { name: 'News', href: '/explore/news-events' },
-    { name: 'FAQ', href: '/faq' }, // Assuming a dedicated FAQ page
+    { name: 'FAQ', href: '/' }, // Redirected to home page
     { name: 'Contact Us', href: '/contact' },
   ];
 
