@@ -46,6 +46,7 @@ const AdminLogin = () => {
       });
 
       if (error) {
+        console.error("Supabase login error:", error);
         toast.error(`Login failed: ${error.message}`);
         return;
       }
@@ -61,6 +62,7 @@ const AdminLogin = () => {
         toast.error("Login failed: No user data received.");
       }
     } catch (err: any) {
+      console.error("Unexpected login error:", err);
       toast.error(`An unexpected error occurred: ${err.message || 'Please try again.'}`);
     }
   };

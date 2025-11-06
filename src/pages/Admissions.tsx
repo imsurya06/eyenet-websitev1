@@ -25,6 +25,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import ConfettiOverlay from '@/components/ConfettiOverlay';
+import EnrollmentSuccessDialog from '@/components/EnrollmentSuccessDialog'; // Import the new dialog
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -37,6 +39,9 @@ const formSchema = z.object({
 });
 
 const Admissions = () => {
+  // Removed showConfetti, showSuccessDialog, enrolledCourseName, enrolledUserName states
+  // as they will not function with a direct form submission and page reload.
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,8 +53,7 @@ const Admissions = () => {
     },
   });
 
-  // The onSubmit function is removed as Formspree handles the submission directly
-  // via the <form> action and method attributes.
+  // Removed onSubmit function as Formspree handles the submission directly.
 
   return (
     <section
@@ -71,14 +75,14 @@ const Admissions = () => {
 
         {/* Right Section: Enroll Now Form */}
         <AnimateOnScroll isHero={true} delay={700} className="w-full lg:w-1/2 flex justify-center">
-          <div className="bg-white p-8 md:p-10 lg:p-12 rounded-lg shadow-xl w-full text-center">
+          <div className="bg-white p-8 md:p-10 lg:p-12 rounded-lg shadow-xl w-full text-center"> {/* Changed max-w-md lg:max-w-none to w-full, and text-center lg:text-left to text-center */}
             <h2 className="text-h2-mobile md:text-h2-desktop font-heading mb-2 text-foreground">
               Enroll Now
             </h2>
             <p className="text-text-medium font-body text-gray-600 mb-8">
               Let's Start your design journey
             </p>
-            <Form {...form}>
+            <Form {...form}> {/* Added Form wrapper here */}
               <form action="https://formspree.io/f/myzbeqer" method="POST" className="space-y-6">
                 {/* Hidden input for Formspree redirect */}
                 <input type="hidden" name="_next" value={`${window.location.origin}/`} />
@@ -96,8 +100,8 @@ const Admissions = () => {
                           type="text"
                           placeholder=""
                           {...field}
-                          name="name"
-                          required
+                          name="name" // Explicitly added name attribute
+                          required // Added required for basic HTML validation
                         />
                       </FormControl>
                       <FormMessage />
@@ -118,8 +122,8 @@ const Admissions = () => {
                           type="email"
                           placeholder=""
                           {...field}
-                          name="email"
-                          required
+                          name="email" // Explicitly added name attribute
+                          required // Added required for basic HTML validation
                         />
                       </FormControl>
                       <FormMessage />
@@ -140,8 +144,8 @@ const Admissions = () => {
                           type="tel"
                           placeholder=""
                           {...field}
-                          name="mobile"
-                          required
+                          name="mobile" // Explicitly added name attribute
+                          required // Added required for basic HTML validation
                         />
                       </FormControl>
                       <FormMessage />
@@ -160,6 +164,7 @@ const Admissions = () => {
                         <FormControl>
                           <SelectTrigger
                             className="w-full h-12 px-4 py-2 text-text-regular border border-input bg-muted focus:ring-ring focus:ring-offset-background"
+                            // Removed name="program" and required from SelectTrigger
                           >
                             <SelectValue placeholder="Select a program" />
                           </SelectTrigger>
@@ -198,8 +203,8 @@ const Admissions = () => {
                           checked={field.value}
                           onCheckedChange={field.onChange}
                           id="terms"
-                          name="terms"
-                          required
+                          name="terms" // Explicitly added name attribute
+                          required // Added required for basic HTML validation
                           className="border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
                         />
                       </FormControl>
@@ -219,10 +224,18 @@ const Admissions = () => {
                   Enroll
                 </Button>
               </form>
-            </Form>
+            </Form> {/* Closed Form wrapper here */}
           </div>
         </AnimateOnScroll>
       </div>
+      {/* ConfettiOverlay and EnrollmentSuccessDialog are commented out as they won't function with page reload */}
+      {/* <ConfettiOverlay show={showConfetti} />
+      <EnrollmentSuccessDialog
+        show={showSuccessDialog}
+        courseName={enrolledCourseName}
+        userName={enrolledUserName}
+        onClose={handleCloseSuccessDialog}
+      /> */}
     </section>
   );
 };

@@ -103,12 +103,14 @@ const StudentWriteBlogDialog: React.FC<StudentWriteBlogDialogProps> = ({ open, o
       try {
         const { error: uploadError } = await supabase.storage.from('images').upload(filePath, file);
         if (uploadError) {
+          console.error("Supabase upload error:", uploadError);
           toast.error(`Failed to upload image: ${uploadError.message}`);
           return;
         }
         const { data: publicUrlData } = supabase.storage.from('images').getPublicUrl(filePath);
         imageUrl = publicUrlData.publicUrl;
       } catch (error: any) {
+        console.error("Caught upload error in StudentWriteBlogDialog:", error);
         toast.error(`An unexpected error occurred during image upload: ${error.message || 'Please try again.'}`);
         return;
       }

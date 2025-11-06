@@ -29,6 +29,7 @@ export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         .order('title', { ascending: true }); // Order by title for consistent display
 
       if (error) {
+        console.error('Error fetching courses:', error);
         toast.error('Failed to load courses.');
         setCourses(initialCourses); // Fallback to initial data if Supabase fails
       } else {
@@ -47,6 +48,7 @@ export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       .eq('id', id);
 
     if (error) {
+      console.error('Error deleting course:', error);
       toast.error('Failed to delete course.');
     } else {
       setCourses(prevCourses => prevCourses.filter(course => course.id !== id));
@@ -63,6 +65,7 @@ export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       .select(); // Select the inserted data to get any default values/timestamps
 
     if (error) {
+      console.error('Error adding course:', error);
       toast.error('Failed to add course.');
     } else if (data && data.length > 0) {
       setCourses(prevCourses => [...prevCourses, data[0]]);
@@ -78,6 +81,7 @@ export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       .select(); // Select the updated data
 
     if (error) {
+      console.error('Error updating course:', error);
       toast.error('Failed to update course.');
     } else if (data && data.length > 0) {
       setCourses(prevCourses =>

@@ -6,10 +6,10 @@ import AnimateOnScroll from './AnimateOnScroll';
 import AdminAddDropdown from './AdminAddDropdown'; // Import the new dropdown component
 
 interface AdminHeaderProps {
-  // pageTitle: string; // Removed as it's not used in the component's JSX
+  pageTitle: string;
 }
 
-const AdminHeader: React.FC<AdminHeaderProps> = ({ /* pageTitle */ }) => {
+const AdminHeader: React.FC<AdminHeaderProps> = ({ pageTitle }) => {
   const [username, setUsername] = useState<string | null>(null);
 
   useEffect(() => {

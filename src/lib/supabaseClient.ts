@@ -25,4 +25,8 @@ if (!supabaseKey) {
   throw new Error('Invalid Supabase Key configuration.');
 }
 
+// Add these console logs to verify the values
+console.log('Supabase URL:', supabaseUrl);
+console.log('Supabase Anon Key (first 10 chars):', supabaseKey ? supabaseKey.substring(0, 10) + '...' : 'N/A');
+
 export const supabase = createClient(supabaseUrl, supabaseKey);

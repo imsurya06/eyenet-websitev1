@@ -36,6 +36,7 @@ export const TestimonialProvider: React.FC<{ children: ReactNode }> = ({ childre
         .order('created_at', { ascending: false });
 
       if (error) {
+        console.error('Error fetching testimonials:', error);
         toast.error('Failed to load testimonials.');
       } else {
         setTestimonials(data as Testimonial[]);
@@ -54,6 +55,7 @@ export const TestimonialProvider: React.FC<{ children: ReactNode }> = ({ childre
       .select();
 
     if (error) {
+      console.error('Error adding testimonial:', error);
       toast.error(`Failed to submit testimonial: ${error.message}`);
     } else if (data && data.length > 0) {
       setTestimonials(prev => [data[0], ...prev]);
@@ -69,6 +71,7 @@ export const TestimonialProvider: React.FC<{ children: ReactNode }> = ({ childre
       .select();
 
     if (error) {
+      console.error('Error updating testimonial:', error);
       toast.error(`Failed to update testimonial: ${error.message}`);
     } else if (data && data.length > 0) {
       setTestimonials(prev =>
@@ -85,6 +88,7 @@ export const TestimonialProvider: React.FC<{ children: ReactNode }> = ({ childre
       .eq('id', id);
 
     if (error) {
+      console.error('Error deleting testimonial:', error);
       toast.error(`Failed to delete testimonial: ${error.message}`);
     } else {
       setTestimonials(prev => prev.filter(t => t.id !== id));

@@ -47,6 +47,7 @@ const StudentTestimonialForm = () => {
       form.reset(); // Reset form after successful submission
     } catch (error) {
       // Error handling is already in context, but can add more specific here if needed
+      console.error("Error submitting testimonial from component:", error);
     }
   };
 

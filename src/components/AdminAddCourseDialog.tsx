@@ -123,6 +123,18 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    // --- Supabase Auth Status Check ---
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+    console.log("--- Supabase Auth Status Before Upload ---");
+    console.log("User:", user);
+    console.log("Session:", session);
+    console.log("User Error:", userError);
+    console.log("Session Error:", sessionError);
+    console.log("-----------------------------------------");
+    // --- End Supabase Auth Status Check ---
+
     let brochureLink = editingCourse?.brochureLink || '#';
     let imageUrl = editingCourse?.image || '/placeholder.svg';
 
@@ -133,6 +145,7 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
       try {
         const { data, error } = await supabase.storage.from('brochures').upload(filePath, file);
         if (error) {
+          console.error("Supabase brochure upload error:", error);
           throw error;
         }
         const { data: publicUrlData } = supabase.storage.from('brochures').getPublicUrl(filePath);
@@ -150,6 +163,7 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
       try {
         const { data, error } = await supabase.storage.from('images').upload(filePath, file);
         if (error) {
+          console.error("Supabase image upload error:", error);
           throw error;
         }
         const { data: publicUrlData } = supabase.storage.from('images').getPublicUrl(filePath);

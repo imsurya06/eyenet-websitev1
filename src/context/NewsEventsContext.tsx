@@ -29,6 +29,7 @@ export const NewsEventsProvider: React.FC<{ children: ReactNode }> = ({ children
         .order('date', { ascending: false }); // Order by date, newest first
 
       if (error) {
+        console.error('Error fetching news events:', error);
         toast.error('Failed to load news and events.');
         setNewsEvents(initialNewsEvents); // Fallback to initial data if Supabase fails
       } else {
@@ -49,6 +50,7 @@ export const NewsEventsProvider: React.FC<{ children: ReactNode }> = ({ children
       .select(); // Select the inserted data to get any default values/timestamps
 
     if (error) {
+      console.error('Error adding news event:', error);
       toast.error('Failed to add news or event.');
     } else if (data && data.length > 0) {
       setNewsEvents(prevNewsEvents => [...prevNewsEvents, data[0]]);
@@ -63,6 +65,7 @@ export const NewsEventsProvider: React.FC<{ children: ReactNode }> = ({ children
       .eq('id', id);
 
     if (error) {
+      console.error('Error deleting news event:', error);
       toast.error('Failed to delete news or event.');
     } else {
       setNewsEvents(prevNewsEvents => prevNewsEvents.filter(newsEvent => newsEvent.id !== id));
@@ -78,6 +81,7 @@ export const NewsEventsProvider: React.FC<{ children: ReactNode }> = ({ children
       .select(); // Select the updated data
 
     if (error) {
+      console.error('Error updating news event:', error);
       toast.error('Failed to update news or event.');
     } else if (data && data.length > 0) {
       setNewsEvents(prevNewsEvents =>

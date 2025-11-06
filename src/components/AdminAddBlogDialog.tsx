@@ -112,11 +112,13 @@ const AdminAddBlogDialog: React.FC<AdminAddBlogDialogProps> = ({ open, onOpenCha
       try {
         const { data, error } = await supabase.storage.from('images').upload(filePath, file);
         if (error) {
+          console.error("Supabase upload error:", error); // Log the full error object
           throw error;
         }
         const { data: publicUrlData } = supabase.storage.from('images').getPublicUrl(filePath);
         imageUrl = publicUrlData.publicUrl;
       } catch (error: any) {
+        console.error("Caught upload error in AdminAddBlogDialog:", error); // Log the full caught error
         toast.error(`Failed to upload image: ${error.message || 'Unknown error'}`);
         return;
       }
