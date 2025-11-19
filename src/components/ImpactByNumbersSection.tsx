@@ -35,7 +35,7 @@ const ImpactByNumbersSection = () => {
               muted
               loop
               autoPlay
-              poster="/public/placeholder.svg"
+              // poster="/public/placeholder.svg"
               className="w-full h-full object-cover"
             >
               <source src="/videos/impact-video.mp4" type="video/mp4" />
