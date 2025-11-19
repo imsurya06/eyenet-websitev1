@@ -31,17 +31,15 @@ const ImpactByNumbersSection = () => {
         <AnimateOnScroll delay={400} className="w-full lg:w-1/2">
           <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-lg">
             <video
-              controls
-              muted
-              loop
-              autoPlay
-              // poster="/public/placeholder.svg"
-              className="w-full h-full object-cover"
-              src="/videos/impact-video.mp4"
-            >
-              <source src="/videos/impact-video.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+  src={/videos/impact-video.mp4}
+  autoPlay
+  controls={true}
+  loop
+  playsInline
+  onPlay={() => console.log("play start")}
+  onPause={() => console.log("pause")}
+  onTimeUpdate={() => console.log("time update")}
+/>
           </div>
         </AnimateOnScroll>
 
