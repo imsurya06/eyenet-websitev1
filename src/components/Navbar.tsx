@@ -93,7 +93,7 @@ const Navbar = () => {
                       to={item.to}
                       className={({ isActive }) =>
                         cn(
-                          "text-large font-normal transition-colors hover:text-primary px-4 py-2 rounded-md", // Changed to text-large
+                          "text-h5-desktop font-normal transition-colors hover:text-primary px-4 py-2 rounded-md", // Changed to text-h5-desktop
                           isActive && "text-primary"
                         )
                       }
@@ -111,7 +111,7 @@ const Navbar = () => {
                           variant="ghost"
                           className={cn(
                             "font-normal transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 h-auto px-4 py-2",
-                            "text-large", // Changed to text-large
+                            "text-h5-desktop", // Changed to text-h5-desktop
                             (item.name === 'Courses' && (isCoursesPathActive || coursesOpen)) && "text-primary",
                             (item.name === 'Explore' && (isExplorePathActive || exploreOpen)) && "text-primary"
                           )}
@@ -197,7 +197,7 @@ const Navbar = () => {
                       onClick={() => setIsSheetOpen(false)}
                       className={({ isActive }) =>
                         cn(
-                          "text-lg font-normal hover:text-primary",
+                          "text-h5-mobile font-normal hover:text-primary", // Changed to text-h5-mobile
                           isActive ? "text-primary" : "text-muted-foreground"
                         )
                       }
@@ -208,7 +208,7 @@ const Navbar = () => {
                     <React.Fragment key={item.name}>
                       <span
                         className={cn(
-                          "text-lg font-normal",
+                          "text-h5-mobile font-normal", // Changed to text-h5-mobile
                           (item.name === 'Courses' && isCoursesPathActive) && "text-primary",
                           (item.name === 'Explore' && isExplorePathActive) && "text-primary",
                           !(item.name === 'Courses' && isCoursesPathActive) && !(item.name === 'Explore' && isExplorePathActive) && "text-muted-foreground"
@@ -224,7 +224,7 @@ const Navbar = () => {
                             onClick={() => setIsSheetOpen(false)}
                             className={({ isActive }) =>
                               cn(
-                                "text-base hover:text-primary",
+                                "text-base hover:text-primary", // Kept as text-base for dropdown items
                                 isActive ? "text-primary" : "text-muted-foreground"
                               )
                             }
