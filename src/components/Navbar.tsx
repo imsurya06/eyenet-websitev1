@@ -74,7 +74,7 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-background text-foreground shadow-lg py-2">
-      <div className="flex h-20 items-center justify-between px-3 md:px-8 lg:px-[80px]"> {/* Changed h-16 to h-20 */}
+      <div className="flex h-24 items-center justify-between px-3 md:px-8 lg:px-[80px]"> {/* Changed h-20 to h-24 */}
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-10 md:h-14" />
@@ -93,7 +93,7 @@ const Navbar = () => {
                       to={item.to}
                       className={({ isActive }) =>
                         cn(
-                          "text-lg font-normal transition-colors hover:text-primary px-4 py-2 rounded-md", // Changed to text-lg
+                          "text-lg font-normal transition-colors hover:text-primary px-4 py-2 rounded-md",
                           isActive && "text-primary"
                         )
                       }
@@ -111,7 +111,7 @@ const Navbar = () => {
                           variant="ghost"
                           className={cn(
                             "font-normal transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 h-auto px-4 py-2",
-                            "text-lg", // Changed to text-lg
+                            "text-lg",
                             (item.name === 'Courses' && (isCoursesPathActive || coursesOpen)) && "text-primary",
                             (item.name === 'Explore' && (isExplorePathActive || exploreOpen)) && "text-primary"
                           )}
@@ -197,7 +197,7 @@ const Navbar = () => {
                       onClick={() => setIsSheetOpen(false)}
                       className={({ isActive }) =>
                         cn(
-                          "text-lg font-normal hover:text-primary", // Changed to text-lg
+                          "text-lg font-normal hover:text-primary",
                           isActive ? "text-primary" : "text-muted-foreground"
                         )
                       }
@@ -208,7 +208,7 @@ const Navbar = () => {
                     <React.Fragment key={item.name}>
                       <span
                         className={cn(
-                          "text-lg font-normal", // Changed to text-lg
+                          "text-lg font-normal",
                           (item.name === 'Courses' && isCoursesPathActive) && "text-primary",
                           (item.name === 'Explore' && isExplorePathActive) && "text-primary",
                           !(item.name === 'Courses' && isCoursesPathActive) && !(item.name === 'Explore' && isExplorePathActive) && "text-muted-foreground"
@@ -224,7 +224,7 @@ const Navbar = () => {
                             onClick={() => setIsSheetOpen(false)}
                             className={({ isActive }) =>
                               cn(
-                                "text-base hover:text-primary", // Kept as text-base for dropdown items
+                                "text-base hover:text-primary",
                                 isActive ? "text-primary" : "text-muted-foreground"
                               )
                             }
