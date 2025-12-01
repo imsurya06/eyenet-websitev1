@@ -74,7 +74,7 @@ export default {
       },
       fontSize: {
         // Desktop Headings
-        'h1-desktop': ['4.5rem', { lineHeight: '120%' }], // 72px
+        'h1-desktop': ['5.5rem', { lineHeight: '120%' }], // Increased from 4.5rem
         'h2-desktop': ['3.25rem', { lineHeight: '120%' }], // 52px
         'h3-desktop': ['2.75rem', { lineHeight: '120%' }], // 44px
         'h4-desktop': ['2.25rem', { lineHeight: '140%' }], // 36px
@@ -82,7 +82,7 @@ export default {
         'h6-desktop': ['1.375rem', { lineHeight: '140%' }], // 22px
 
         // Mobile Headings
-        'h1-mobile': ['2.75rem', { lineHeight: '120%' }], // 44px
+        'h1-mobile': ['3.25rem', { lineHeight: '120%' }], // Increased from 2.75rem
         'h2-mobile': ['2.5rem', { lineHeight: '120%' }], // 40px
         'h3-mobile': ['2rem', { lineHeight: '120%' }], // 32px
         'h4-mobile': ['1.5rem', { lineHeight: '140%' }], // 24px
