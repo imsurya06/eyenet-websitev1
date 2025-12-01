@@ -24,7 +24,7 @@ const CourseDropdownMenuItem = React.forwardRef<
         to={to} // Using 'to' directly
         className={({ isActive }) =>
           cn(
-            "flex items-start gap-3 rounded-md p-3 text-left text-sm transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            "flex items-start gap-3 rounded-md p-3 text-left text-base transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             isActive && "text-primary",
             className
           )
@@ -42,8 +42,8 @@ const CourseDropdownMenuItem = React.forwardRef<
           </div>
         )}
         <div className="flex flex-col justify-center h-[3.5rem]">
-          <p className="text-sm font-normal leading-none">{title}</p>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <p className="text-base font-normal leading-none">{title}</p>
+          <p className="line-clamp-2 text-base leading-snug text-muted-foreground">
             {description || '\u00A0'}
           </p>
         </div>
