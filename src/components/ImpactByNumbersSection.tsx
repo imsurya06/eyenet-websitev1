@@ -59,7 +59,7 @@ const ImpactByNumbersSection = () => {
         </p>
       </AnimateOnScroll>
 
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-10 max-w-5xl mx-auto">
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-10 max-w-7xl mx-auto">
         {/* Video Player */}
         <AnimateOnScroll delay={400} className="w-full lg:w-1/2">
           <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-lg">
