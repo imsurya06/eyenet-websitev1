@@ -73,7 +73,9 @@ const AdminInfrastructure = () => {
               className="px-4 py-2 text-text-regular border-primary text-primary hover:bg-primary hover:text-primary-foreground"
               // Removed onMouseEnter and onMouseLeave
             >
-              Filter <Filter className="ml-2 h-4 w-4" />
+              <span> {/* Wrap children in a span */}
+                Filter <Filter className="ml-2 h-4 w-4" />
+              </span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
