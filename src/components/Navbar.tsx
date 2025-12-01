@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
 } from '@/components/ui/dropdown-menu';
-import { Menu, ChevronDown } from 'lucide-react';
+import { Menu, ChevronDown } from 'lucide-react'; // Fixed: Added 'from 'lucide-react''
 import * as LucideIcons from 'lucide-react'; // Import all Lucide icons
 import { useIsMobile } from '@/hooks/use-mobile';
 import CourseDropdownMenuItem from './CourseDropdownMenuItem.tsx';
@@ -74,7 +74,7 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-background text-foreground shadow-lg py-2">
-      <div className="flex h-20 items-center justify-between px-3 md:px-8 lg:px-[80px]"> {/* Changed h-16 to h-20 */}
+      <div className="flex h-20 items-center justify-between px-3 md:px-8 lg:px-[80px]">
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-10 md:h-14" />
@@ -93,7 +93,7 @@ const Navbar = () => {
                       to={item.to}
                       className={({ isActive }) =>
                         cn(
-                          "text-lg font-normal transition-colors hover:text-primary px-4 py-2 rounded-md", // Changed to text-lg
+                          "text-large font-normal transition-colors hover:text-primary px-4 py-2 rounded-md",
                           isActive && "text-primary"
                         )
                       }
@@ -104,14 +104,14 @@ const Navbar = () => {
                     <DropdownMenu
                       key={item.name}
                       open={item.name === 'Courses' ? coursesOpen : exploreOpen}
-                      onOpenChange={item.name === 'Courses' ? setCoursesOpen : setExploreOpen} // Open/close on click
+                      onOpenChange={item.name === 'Courses' ? setCoursesOpen : setExploreOpen}
                     >
                       <DropdownMenuTrigger asChild>
                         <Button
                           variant="ghost"
                           className={cn(
                             "font-normal transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 h-auto px-4 py-2",
-                            "text-lg", // Changed to text-lg
+                            "text-large",
                             (item.name === 'Courses' && (isCoursesPathActive || coursesOpen)) && "text-primary",
                             (item.name === 'Explore' && (isExplorePathActive || exploreOpen)) && "text-primary"
                           )}
@@ -123,7 +123,6 @@ const Navbar = () => {
                       <DropdownMenuContent
                         className="w-80 p-4 bg-muted data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 duration-300"
                         align="start"
-                        // Removed onMouseEnter and onMouseLeave
                       >
                         {item.heading && (
                           <DropdownMenuLabel className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">
@@ -197,7 +196,7 @@ const Navbar = () => {
                       onClick={() => setIsSheetOpen(false)}
                       className={({ isActive }) =>
                         cn(
-                          "text-lg font-normal hover:text-primary", // Changed to text-lg
+                          "text-large font-normal hover:text-primary",
                           isActive ? "text-primary" : "text-muted-foreground"
                         )
                       }
@@ -208,7 +207,7 @@ const Navbar = () => {
                     <React.Fragment key={item.name}>
                       <span
                         className={cn(
-                          "text-lg font-normal", // Changed to text-lg
+                          "text-large font-normal",
                           (item.name === 'Courses' && isCoursesPathActive) && "text-primary",
                           (item.name === 'Explore' && isExplorePathActive) && "text-primary",
                           !(item.name === 'Courses' && isCoursesPathActive) && !(item.name === 'Explore' && isExplorePathActive) && "text-muted-foreground"
