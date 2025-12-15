@@ -38,24 +38,26 @@ const OurProgramsSection = () => {
         </p>
       </AnimateOnScroll>
 
-      <div className="flex flex-wrap justify-center gap-8 mb-16"> {/* Changed to flexbox for centering */}
+      <div className="flex flex-wrap justify-center gap-8 mb-16">
         {programs.map((program, index) => (
-          <AnimateOnScroll key={index} delay={200 + index * 75}> {/* Reduced delay increment */}
-            <div className="flex flex-col items-center max-w-sm"> {/* Added max-w-sm for consistent card width */}
-              <div className="w-full h-48 md:h-64 overflow-hidden rounded-lg mb-6">
-                <img
-                  src={program.image}
-                  alt={program.title}
-                  className="w-full h-full object-cover object-center"
-                />
+          <AnimateOnScroll key={index} delay={200 + index * 75}>
+            <Link to={program.href} className="block group"> {/* Wrap the card with Link */}
+              <div className="flex flex-col items-center max-w-sm">
+                <div className="w-full h-48 md:h-64 overflow-hidden rounded-lg mb-6">
+                  <img
+                    src={program.image}
+                    alt={program.title}
+                    className="w-full h-full object-cover object-center"
+                  />
+                </div>
+                <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 group-hover:text-primary transition-colors">
+                  {program.title}
+                </h3>
+                <p className="text-text-regular font-body text-gray-600 max-w-xs">
+                  {program.description}
+                </p>
               </div>
-              <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2">
-                {program.title}
-              </h3>
-              <p className="text-text-regular font-body text-gray-600 max-w-xs">
-                {program.description}
-              </p>
-            </div>
+            </Link>
           </AnimateOnScroll>
         ))}
       </div>
