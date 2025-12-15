@@ -36,7 +36,7 @@ const AdminBlogCard: React.FC<AdminBlogCardProps> = ({ blog, onDelete, onEdit })
           <img
             src={blog.image}
             alt={blog.title}
-            className="w-full h-full object-contain"
+            className="w-full h-full object-cover"
           />
         </div>
       )}

@@ -29,7 +29,7 @@ const AdminInfrastructureImageCard: React.FC<AdminInfrastructureImageCardProps> 
         <img
           src={image.src}
           alt={image.alt}
-          className="w-full h-full object-contain"
+          className="w-full h-full object-cover"
         />
       </div>
       <div className="p-4 flex flex-col flex-grow">

@@ -59,7 +59,7 @@ const GalleryCarouselSection = () => {
                         <img
                           src={image.src}
                           alt={image.alt}
-                          className="w-full h-full object-contain"
+                          className="w-full h-full object-cover"
                         />
                       </CardContent>
                     </Card>

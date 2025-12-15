@@ -26,7 +26,7 @@ const AboutHeroSection = () => {
           <img
             src="/images/about-image-1.png"
             alt="Fashion model in traditional attire"
-            className="w-full h-full object-contain"
+            className="w-full h-full object-cover"
           />
         </AnimateOnScroll>
 
@@ -66,7 +66,7 @@ const AboutHeroSection = () => {
             <img
               src="/images/about-image-2.png"
               alt="Fashion model in light green attire"
-              className="w-full h-full object-contain"
+              className="w-full h-full object-cover"
             />
           </AnimateOnScroll>
         </div>
