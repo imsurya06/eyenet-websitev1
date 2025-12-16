@@ -87,7 +87,8 @@ export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 
     if (error) {
       console.error('Error updating course:', error);
-      toast.error('Failed to update course.');
+      // Display the specific error message from Supabase
+      toast.error(`Failed to update course: ${error.message}`);
     } else if (data && data.length > 0) {
       setCourses(prevCourses =>
         prevCourses.map(course => (course.id === updatedCourse.id ? data[0] as Course : course))
