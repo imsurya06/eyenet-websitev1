@@ -72,12 +72,10 @@ const CourseDetailsPage = () => {
         <AnimateOnScroll delay={50}>
           <Button
             variant="ghost"
-            asChild
             className="text-text-regular font-body text-primary hover:bg-primary/10 flex items-center gap-2"
+            onClick={() => navigate(-1)} // Navigate back to the previous page
           >
-            <Link to="/courses">
-              <ArrowLeft className="h-4 w-4" /> Back to Courses
-            </Link>
+            <ArrowLeft className="h-4 w-4" /> Back to Courses
           </Button>
         </AnimateOnScroll>
       </div>
