@@ -3,7 +3,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Clock, User } from 'lucide-react'; // Import Clock and User icons
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 import CallToActionSection from '@/components/CallToActionSection';
 import { useCourses } from '@/context/CourseContext';
@@ -78,12 +78,22 @@ const Courses = () => {
                         <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[4.9rem] overflow-hidden">
                           {course.title}
                         </h3>
-                        <p className="text-text-regular font-body text-gray-600 mb-6"> {/* Removed h-[6.4rem] overflow-hidden */}
+                        <p className="text-text-regular font-body text-gray-600 mb-4">
                           {truncateDescription(course.description.replace(' Details...', ''), 120)}{' '}
                           <Link to={`/courses/${course.category === 'fashion' ? 'fashion-design' : 'computer-courses'}/${course.id}`} className="text-primary hover:underline ml-1" onClick={(e) => e.stopPropagation()}>
                             more...
                           </Link>
                         </p>
+                        <div className="flex items-center gap-4 text-text-small font-body text-gray-700 mb-4">
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4 text-primary" />
+                            <span>{course.duration}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <User className="h-4 w-4 text-primary" />
+                            <span>{course.eligibility}</span>
+                          </div>
+                        </div>
                         <div className="flex flex-col items-center gap-2 mt-auto md:flex-row md:justify-between">
                           {/* Download Brochure - this should work as is because it's a direct download */}
                           <a href={course.brochureLink} download onClick={(e) => e.stopPropagation()} className="text-text-small font-body text-primary hover:underline whitespace-nowrap w-full text-center md:w-auto md:text-left">
