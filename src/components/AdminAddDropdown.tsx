@@ -10,20 +10,22 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { Plus, ListChecks, LayoutGrid, Home, Newspaper, BookOpen, Building2, Users } from 'lucide-react'; // Import Users icon
+import { Plus, ListChecks, LayoutGrid, Home, Newspaper, BookOpen, Building2, Users, Megaphone } from 'lucide-react'; // Import Users and Megaphone icons
 import { cn } from '@/lib/utils';
 import AdminAddCourseDialog from './AdminAddCourseDialog';
 import AdminAddImageDialog from './AdminAddImageDialog';
 import AdminAddInfrastructureImageDialog from './AdminAddInfrastructureImageDialog';
 import AdminAddNewsEventDialog from './AdminAddNewsEventDialog';
 import AdminAddBlogDialog from './AdminAddBlogDialog';
-import AdminAddFacultyDialog from './AdminAddFacultyDialog'; // Import AdminAddFacultyDialog
+import AdminAddFacultyDialog from './AdminAddFacultyDialog';
+import AdminAddAdvertisementDialog from './AdminAddAdvertisementDialog'; // Import AdminAddAdvertisementDialog
 import { useCourses } from '@/context/CourseContext';
 import { useGalleryImages } from '@/context/GalleryImageContext';
 import { useInfrastructureImages } from '@/context/InfrastructureImageContext';
 import { useNewsEvents } from '@/context/NewsEventsContext';
 import { useBlogs } from '@/context/BlogContext';
-import { useFaculty } from '@/context/FacultyContext'; // Import useFaculty
+import { useFaculty } from '@/context/FacultyContext';
+import { useAdvertisements } from '@/context/AdvertisementContext'; // Import useAdvertisements
 import { toast } from 'sonner';
 
 const AdminAddDropdown = () => {
@@ -32,7 +34,8 @@ const AdminAddDropdown = () => {
   const { addInfrastructureImage } = useInfrastructureImages();
   const { addNewsEvent } = useNewsEvents();
   const { addBlog } = useBlogs();
-  const { addFaculty } = useFaculty(); // Use addFaculty from context
+  const { addFaculty } = useFaculty();
+  const { addAdvertisement } = useAdvertisements(); // Use addAdvertisement from context
 
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
   const [isAddCourseDialogOpen, setIsAddCourseDialogOpen] = React.useState(false);
@@ -40,7 +43,8 @@ const AdminAddDropdown = () => {
   const [isAddInfrastructureImageDialogOpen, setIsAddInfrastructureImageDialogOpen] = React.useState(false);
   const [isAddNewsEventDialogOpen, setIsAddNewsEventDialogOpen] = React.useState(false);
   const [isAddBlogDialogOpen, setIsAddBlogDialogOpen] = React.useState(false);
-  const [isAddFacultyDialogOpen, setIsAddFacultyDialogOpen] = React.useState(false); // State for Faculty dialog
+  const [isAddFacultyDialogOpen, setIsAddFacultyDialogOpen] = React.useState(false);
+  const [isAddAdvertisementDialogOpen, setIsAddAdvertisementDialogOpen] = React.useState(false); // State for Advertisement dialog
 
   const handleAddCourseClick = () => {
     setIsAddCourseDialogOpen(true);
@@ -67,8 +71,13 @@ const AdminAddDropdown = () => {
     setIsDropdownOpen(false);
   };
 
-  const handleAddFacultyClick = () => { // New handler for Faculty
+  const handleAddFacultyClick = () => {
     setIsAddFacultyDialogOpen(true);
+    setIsDropdownOpen(false);
+  };
+
+  const handleAddAdvertisementClick = () => { // New handler for Advertisement
+    setIsAddAdvertisementDialogOpen(true);
     setIsDropdownOpen(false);
   };
 
@@ -141,15 +150,26 @@ const AdminAddDropdown = () => {
               <span>Blogs</span>
             </div>
           </DropdownMenuItem>
+          <DropdownMenuSeparator className="my-1" />
+
+          <DropdownMenuItem asChild className="cursor-pointer">
+            <div
+              className="flex items-center gap-2 px-2 py-2 text-text-regular font-body transition-colors hover:bg-accent hover:text-accent-foreground rounded-sm"
+              onClick={handleAddFacultyClick}
+            >
+              <Users className="h-4 w-4" />
+              <span>Faculty</span>
+            </div>
+          </DropdownMenuItem>
           <DropdownMenuSeparator className="my-1" /> {/* Separator for new item */}
 
           <DropdownMenuItem asChild className="cursor-pointer">
             <div
               className="flex items-center gap-2 px-2 py-2 text-text-regular font-body transition-colors hover:bg-accent hover:text-accent-foreground rounded-sm"
-              onClick={handleAddFacultyClick} // New Faculty option
+              onClick={handleAddAdvertisementClick} // New Advertisement option
             >
-              <Users className="h-4 w-4" />
-              <span>Faculty</span>
+              <Megaphone className="h-4 w-4" />
+              <span>Advertisement</span>
             </div>
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -207,6 +227,15 @@ const AdminAddDropdown = () => {
         onSave={(facultyMember) => {
           addFaculty(facultyMember);
           toast.success(`Faculty member "${facultyMember.name}" added successfully!`);
+        }}
+      />
+      <AdminAddAdvertisementDialog
+        open={isAddAdvertisementDialogOpen}
+        onOpenChange={setIsAddAdvertisementDialogOpen}
+        editingAdvertisement={null}
+        onSave={(ad) => {
+          addAdvertisement(ad);
+          toast.success(`Advertisement "${ad.title}" added successfully!`);
         }}
       />
     </>
