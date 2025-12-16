@@ -61,13 +61,13 @@ const Courses = () => {
                         {course.tag} / {course.category === 'fashion' ? 'Fashion' : 'Computer'}
                       </span>
                       <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[4.9rem] overflow-hidden">
-                        <Link to={`/courses/${course.category}-courses/${course.id}`} className="hover:underline">
+                        <Link to={`/courses/${course.category === 'fashion' ? 'fashion-design' : 'computer-courses'}/${course.id}`} className="hover:underline">
                           {course.title}
                         </Link>
                       </h3>
                       <p className="text-text-regular font-body text-gray-600 mb-6 h-[6.4rem] overflow-hidden">
                         {course.description.split(' Details...')[0]}
-                        <Link to={`/courses/${course.category}-courses/${course.id}`} className="text-primary hover:underline ml-1">
+                        <Link to={`/courses/${course.category === 'fashion' ? 'fashion-design' : 'computer-courses'}/${course.id}`} className="text-primary hover:underline ml-1">
                           Details...
                         </Link>
                       </p>

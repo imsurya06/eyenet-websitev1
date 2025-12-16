@@ -6,14 +6,13 @@ import AnimateOnScroll from '@/components/AnimateOnScroll';
 import { useCourses } from '@/context/CourseContext';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { CheckCircle, Clock, User, Briefcase, BookOpen, Download } from 'lucide-react';
+import { CheckCircle, Clock, User, Briefcase, BookOpen, Download, Frown } from 'lucide-react'; // Added Frown icon
 
 const CourseDetailsPage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { courses, loading } = useCourses(); // Get loading state from context
+  const { courses, loading } = useCourses();
   const course = courses.find(c => c.id === slug);
 
-  // Added console logs for debugging
   console.log('CourseDetailsPage - Slug:', slug);
   console.log('CourseDetailsPage - Courses (length):', courses.length);
   console.log('CourseDetailsPage - Loading:', loading);
@@ -37,17 +36,24 @@ const CourseDetailsPage = () => {
   }
 
   if (!course) {
+    console.error(`CourseDetailsPage: Course with slug "${slug}" not found.`); // Explicit error log
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background p-4 text-foreground">
         <AnimateOnScroll isHero={true} delay={500}>
-          <h1 className="text-h1-mobile md:text-h1-desktop font-heading mb-4 text-foreground text-center">
+          <Frown className="h-20 w-20 text-destructive mb-6" /> {/* Prominent icon */}
+          <h1 className="text-h1-mobile md:text-h1-desktop font-heading mb-4 text-center">
             Course Not Found
           </h1>
         </AnimateOnScroll>
         <AnimateOnScroll isHero={true} delay={600}>
-          <p className="text-text-medium font-body text-gray-600 text-center">
-            The course you are looking for does not exist.
+          <p className="text-text-medium font-body text-gray-600 text-center mb-8">
+            We couldn't find the course you're looking for. It might have been moved or doesn't exist.
           </p>
+        </AnimateOnScroll>
+        <AnimateOnScroll isHero={true} delay={700}>
+          <Button asChild className="px-6 py-3 text-text-regular bg-primary hover:bg-primary/90 text-primary-foreground">
+            <Link to="/courses">View All Courses</Link>
+          </Button>
         </AnimateOnScroll>
       </div>
     );
