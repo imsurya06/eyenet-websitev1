@@ -17,7 +17,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { UploadCloud, ImagePlus } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod'; // Corrected import statement
+import * as z from 'zod';
 import {
   Form,
   FormControl,
@@ -29,13 +29,13 @@ import {
 import { useCourses } from '@/context/CourseContext';
 import { toast } from 'sonner';
 import { Course } from '@/data/courses';
-import { supabase } from '@/lib/supabaseClient'; // Import Supabase client
+import { supabase } from '@/lib/supabaseClient';
 
 interface AdminAddCourseDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  editingCourse: Course | null; // New prop for editing
-  onSave: (course: Course) => void; // New prop for saving (add or update)
+  editingCourse: Course | null;
+  onSave: (course: Course) => void;
 }
 
 // Zod schema for form validation
@@ -45,8 +45,13 @@ const formSchema = z.object({
   type: z.enum(['Course', 'Others'], { message: 'Please select a valid type.' }).default('Course'),
   courseMode: z.enum(['Offline', 'Online'], { message: 'Please select a course mode.' }).default('Offline'),
   courseGenre: z.enum(['computer', 'fashion'], { message: 'Please select a course genre.' }),
-  brochureFile: z.any().optional(), // File object
-  courseImage: z.any().optional(), // File object
+  brochureFile: z.any().optional(),
+  courseImage: z.any().optional(),
+  duration: z.string().min(1, { message: 'Duration is required.' }),
+  eligibility: z.string().min(1, { message: 'Eligibility is required.' }),
+  learningOutcomesText: z.string().optional(),
+  careerProspectsText: z.string().optional(),
+  moduleTitlesText: z.string().optional(), // For simplicity, we'll just take titles and generate generic descriptions
 });
 
 const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpenChange, editingCourse, onSave }) => {
@@ -63,25 +68,33 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
       courseGenre: undefined,
       brochureFile: undefined,
       courseImage: undefined,
+      duration: '',
+      eligibility: '',
+      learningOutcomesText: '',
+      careerProspectsText: '',
+      moduleTitlesText: '',
     },
   });
 
   useEffect(() => {
     if (open && editingCourse) {
-      // Pre-fill form fields when editing an existing course
       form.reset({
         courseName: editingCourse.title,
         courseDescription: editingCourse.description.replace(' Details...', ''),
         type: editingCourse.tag as 'Course' | 'Others',
-        courseMode: editingCourse.enrollLink.includes('online') ? 'Online' : 'Offline', // Assuming enrollLink indicates mode
+        courseMode: editingCourse.enrollLink.includes('online') ? 'Online' : 'Offline',
         courseGenre: editingCourse.category,
-        brochureFile: undefined, // Files cannot be pre-filled for security reasons
-        courseImage: undefined, // Files cannot be pre-filled for security reasons
+        brochureFile: undefined,
+        courseImage: undefined,
+        duration: editingCourse.duration,
+        eligibility: editingCourse.eligibility,
+        learningOutcomesText: editingCourse.learningOutcomes.join('\n'),
+        careerProspectsText: editingCourse.careerProspects.join('\n'),
+        moduleTitlesText: editingCourse.modules.map(m => m.title).join('\n'),
       });
       setBrochureFileName(editingCourse.brochureLink !== '#' ? editingCourse.brochureLink.split('/').pop() || null : null);
       setCourseImagePreview(editingCourse.image !== '/placeholder.svg' ? editingCourse.image : null);
     } else if (open && !editingCourse) {
-      // Reset form for adding a new course
       form.reset({
         courseName: '',
         courseDescription: '',
@@ -90,6 +103,11 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
         courseGenre: undefined,
         brochureFile: undefined,
         courseImage: undefined,
+        duration: '',
+        eligibility: '',
+        learningOutcomesText: '',
+        careerProspectsText: '',
+        moduleTitlesText: '',
       });
       setBrochureFileName(null);
       setCourseImagePreview(null);
@@ -123,18 +141,6 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    // --- Supabase Auth Status Check ---
-    const { data: { user }, error: userError } = await supabase.auth.getUser();
-    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-
-    console.log("--- Supabase Auth Status Before Upload ---");
-    console.log("User:", user);
-    console.log("Session:", session);
-    console.log("User Error:", userError);
-    console.log("Session Error:", sessionError);
-    console.log("-----------------------------------------");
-    // --- End Supabase Auth Status Check ---
-
     let brochureLink = editingCourse?.brochureLink || '#';
     let imageUrl = editingCourse?.image || '/placeholder.svg';
 
@@ -174,6 +180,10 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
       }
     }
 
+    const learningOutcomes = values.learningOutcomesText ? values.learningOutcomesText.split('\n').map(s => s.trim()).filter(s => s.length > 0) : [];
+    const careerProspects = values.careerProspectsText ? values.careerProspectsText.split('\n').map(s => s.trim()).filter(s => s.length > 0) : [];
+    const modules = values.moduleTitlesText ? values.moduleTitlesText.split('\n').map(s => s.trim()).filter(s => s.length > 0).map(title => ({ title, description: `Detailed content for ${title}.` })) : [];
+
     const courseToSave: Course = {
       id: editingCourse?.id || `new-course-${Date.now()}`,
       image: imageUrl,
@@ -181,12 +191,17 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
       title: values.courseName,
       description: values.courseDescription + ' Details...',
       brochureLink: brochureLink,
-      enrollLink: '/admissions', // Default enroll link, can be made dynamic if needed
+      enrollLink: '/admissions',
       category: values.courseGenre,
       icon: values.courseGenre === 'fashion' ? ImagePlus : UploadCloud,
+      duration: values.duration,
+      eligibility: values.eligibility,
+      learningOutcomes,
+      careerProspects,
+      modules,
     };
 
-    onSave(courseToSave); // Call the onSave prop
+    onSave(courseToSave);
     toast.success(`${editingCourse ? 'Course updated' : 'Course added'} successfully!`);
     form.reset();
     setBrochureFileName(null);
@@ -333,6 +348,76 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
                         </FormLabel>
                       </FormItem>
                     </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="duration"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-text-regular font-body text-foreground">Duration:</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g., 6 Months" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="eligibility"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-text-regular font-body text-foreground">Eligibility:</FormLabel>
+                  <FormControl>
+                    <Input placeholder="e.g., 10th Pass or Equivalent" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="learningOutcomesText"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-text-regular font-body text-foreground">Learning Outcomes (one per line):</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Outcome 1\nOutcome 2\n..." rows={5} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="careerProspectsText"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-text-regular font-body text-foreground">Career Prospects (one per line):</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Prospect 1\nProspect 2\n..." rows={5} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="moduleTitlesText"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-text-regular font-body text-foreground">Module Titles (one per line):</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Module 1 Title\nModule 2 Title\n..." rows={5} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
