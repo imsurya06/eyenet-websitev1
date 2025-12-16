@@ -25,22 +25,19 @@ import AdminGallery from "./pages/admin/AdminGallery";
 import AdminInfrastructure from "./pages/admin/AdminInfrastructure";
 import AdminNewsEvents from "./pages/admin/AdminNewsEvents";
 import AdminBlogs from "./pages/admin/AdminBlogs";
-import AdminImages from "./pages/admin/AdminImages";
-import AdminTestimonials from "./pages/admin/AdminTestimonials";
-import AdminFaculty from "./pages/admin/AdminFaculty";
-import AdminAdvertisements from "./pages/admin/AdminAdvertisements"; // Import AdminAdvertisements
+import AdminImages from "./pages/admin/AdminImages"; // Import the new AdminImages page
+import AdminTestimonials from "./pages/admin/AdminTestimonials"; // Import AdminTestimonials
+import AdminFaculty from "./pages/admin/AdminFaculty"; // Import AdminFaculty
 import Blogs from "./pages/Blogs";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
-import AdvertisementPopup from "./components/AdvertisementPopup"; // Import AdvertisementPopup
 import { CourseProvider } from "./context/CourseContext";
 import { GalleryImageProvider } from "./context/GalleryImageContext";
 import { InfrastructureImageProvider } from "./context/InfrastructureImageContext";
 import { NewsEventsProvider } from "./context/NewsEventsContext";
 import { BlogProvider } from "./context/BlogContext";
 import { TestimonialProvider } from "./context/TestimonialContext";
-import { FacultyProvider } from "./context/FacultyContext";
-import { AdvertisementProvider } from "./context/AdvertisementContext"; // Import AdvertisementProvider
+import { FacultyProvider } from "./context/FacultyContext"; // Import FacultyProvider
 
 const queryClient = new QueryClient();
 
@@ -68,18 +65,6 @@ const ConditionalFooter = () => {
   return <Footer />;
 };
 
-// New component to conditionally render the AdvertisementPopup
-const ConditionalAdvertisementPopup = () => {
-  const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith('/admin-dashboard');
-
-  if (isAdminRoute) {
-    return null; // Don't render popup on admin dashboard routes
-  }
-
-  return <AdvertisementPopup />;
-};
-
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
@@ -94,48 +79,44 @@ const App = () => {
                 <NewsEventsProvider>
                   <BlogProvider>
                     <TestimonialProvider>
-                      <FacultyProvider>
-                        <AdvertisementProvider> {/* Wrap with AdvertisementProvider */}
-                          <ConditionalNavbar />
-                          <ConditionalAdvertisementPopup /> {/* Render the conditional popup */}
-                          <Routes>
-                            <Route path="/" element={<Index />} />
-                            <Route path="/about" element={<About />} />
-                            <Route path="/admissions" element={<Admissions />} />
-                            <Route path="/courses" element={<Courses />} />
-                            <Route path="/courses/fashion-design" element={<FashionDesignCourses />} />
-                            <Route path="/courses/fashion-design/:slug" element={<CourseDetailsPage />} />
-                            <Route path="/courses/computer-courses" element={<ComputerCourses />} />
-                            <Route path="/courses/computer-courses/:slug" element={<CourseDetailsPage />} />
-                            <Route path="/gallery" element={<Gallery />} />
-                            <Route path="/explore" element={<Explore />} />
-                            <Route path="/explore/students-zone" element={<StudentsZone />} />
-                            <Route path="/explore/infrastructure" element={<Infrastructure />} />
-                            <Route path="/explore/gallery" element={<Gallery />} />
-                            <Route path="/explore/news-events" element={<NewsEvents />} />
-                            <Route path="/blogs" element={<Blogs />} />
-                            <Route path="/contact" element={<Contact />} />
-                            <Route path="/admin-login" element={<AdminLogin />} />
-                            
-                            {/* Admin Dashboard with nested routes */}
-                            <Route path="/admin-dashboard" element={<AdminDashboard />}>
-                              <Route index element={<AdminCourses />} />
-                              <Route path="courses" element={<AdminCourses />} />
-                              <Route path="gallery" element={<AdminGallery />} />
-                              <Route path="infrastructure" element={<AdminInfrastructure />} />
-                              <Route path="news-events" element={<AdminNewsEvents />} />
-                              <Route path="blogs" element={<AdminBlogs />} />
-                              <Route path="images" element={<AdminImages />} />
-                              <Route path="testimonials" element={<AdminTestimonials />} />
-                              <Route path="faculty" element={<AdminFaculty />} />
-                              <Route path="advertisements" element={<AdminAdvertisements />} /> {/* New route */}
-                            </Route>
+                      <FacultyProvider> {/* Wrap with FacultyProvider */}
+                        <ConditionalNavbar />
+                        <Routes>
+                          <Route path="/" element={<Index />} />
+                          <Route path="/about" element={<About />} />
+                          <Route path="/admissions" element={<Admissions />} />
+                          <Route path="/courses" element={<Courses />} />
+                          <Route path="/courses/fashion-design" element={<FashionDesignCourses />} />
+                          <Route path="/courses/fashion-design/:slug" element={<CourseDetailsPage />} />
+                          <Route path="/courses/computer-courses" element={<ComputerCourses />} />
+                          <Route path="/courses/computer-courses/:slug" element={<CourseDetailsPage />} />
+                          <Route path="/gallery" element={<Gallery />} />
+                          <Route path="/explore" element={<Explore />} />
+                          <Route path="/explore/students-zone" element={<StudentsZone />} />
+                          <Route path="/explore/infrastructure" element={<Infrastructure />} />
+                          <Route path="/explore/gallery" element={<Gallery />} />
+                          <Route path="/explore/news-events" element={<NewsEvents />} />
+                          <Route path="/blogs" element={<Blogs />} />
+                          <Route path="/contact" element={<Contact />} />
+                          <Route path="/admin-login" element={<AdminLogin />} />
+                          
+                          {/* Admin Dashboard with nested routes */}
+                          <Route path="/admin-dashboard" element={<AdminDashboard />}>
+                            <Route index element={<AdminCourses />} />
+                            <Route path="courses" element={<AdminCourses />} />
+                            <Route path="gallery" element={<AdminGallery />} />
+                            <Route path="infrastructure" element={<AdminInfrastructure />} />
+                            <Route path="news-events" element={<AdminNewsEvents />} />
+                            <Route path="blogs" element={<AdminBlogs />} />
+                            <Route path="images" element={<AdminImages />} />
+                            <Route path="testimonials" element={<AdminTestimonials />} />
+                            <Route path="faculty" element={<AdminFaculty />} /> {/* New route */}
+                          </Route>
 
-                            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                            <Route path="*" element={<NotFound />} />
-                          </Routes>
-                          <ConditionalFooter />
-                        </AdvertisementProvider>
+                          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                          <Route path="*" element={<NotFound />} />
+                        </Routes>
+                        <ConditionalFooter />
                       </FacultyProvider>
                     </TestimonialProvider>
                   </BlogProvider>
