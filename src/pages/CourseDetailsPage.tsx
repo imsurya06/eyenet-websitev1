@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom'; // Keep useNavigate for other potential uses, but won't use for this button
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 import { useCourses } from '@/context/CourseContext';
 import { Button } from '@/components/ui/button';
@@ -12,7 +12,7 @@ const CourseDetailsPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const { courses, loading } = useCourses();
   const course = courses.find(c => c.id === slug);
-  // const navigate = useNavigate(); // No longer needed for this specific button
+  const navigate = useNavigate();
 
   console.log('CourseDetailsPage - Slug:', slug);
   console.log('CourseDetailsPage - Courses (length):', courses.length);
@@ -60,6 +60,11 @@ const CourseDetailsPage = () => {
     );
   }
 
+  // Ensure array properties are always arrays, even if null/undefined from DB
+  const learningOutcomes = course.learningOutcomes || [];
+  const careerProspects = course.careerProspects || [];
+  const modules = course.modules || [];
+
   return (
     <div className="bg-background text-foreground">
       {/* Back Button */}
@@ -67,10 +72,10 @@ const CourseDetailsPage = () => {
         <AnimateOnScroll delay={50}>
           <Button
             variant="ghost"
-            asChild // Use asChild to render Link component inside Button
+            asChild
             className="text-text-regular font-body text-primary hover:bg-primary/10 flex items-center gap-2"
           >
-            <Link to="/courses"> {/* Direct link to the courses page */}
+            <Link to="/courses">
               <ArrowLeft className="h-4 w-4" /> Back to Courses
             </Link>
           </Button>
@@ -137,7 +142,7 @@ const CourseDetailsPage = () => {
               </h2>
             </AnimateOnScroll>
             <ul className="space-y-3 text-text-regular font-body text-gray-700 list-none p-0">
-              {course.learningOutcomes.map((outcome, index) => (
+              {learningOutcomes.map((outcome, index) => (
                 <AnimateOnScroll key={index} delay={200 + index * 50} className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0 mt-1" />
                   <span>{outcome}</span>
@@ -153,7 +158,7 @@ const CourseDetailsPage = () => {
               </h2>
             </AnimateOnScroll>
             <ul className="space-y-3 text-text-regular font-body text-gray-700 list-none p-0">
-              {course.careerProspects.map((prospect, index) => (
+              {careerProspects.map((prospect, index) => (
                 <AnimateOnScroll key={index} delay={200 + index * 50} className="flex items-start gap-3">
                   <Briefcase className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                   <span>{prospect}</span>
@@ -174,7 +179,7 @@ const CourseDetailsPage = () => {
           </AnimateOnScroll>
           <AnimateOnScroll delay={200}>
             <Accordion type="single" collapsible className="w-full">
-              {course.modules.map((module, index) => (
+              {modules.map((module, index) => (
                 <AccordionItem key={index} value={`item-${index}`} className="border-b border-gray-300">
                   <AccordionTrigger className="text-h6-mobile md:text-h6-desktop font-heading text-foreground hover:no-underline py-4">
                     {module.title}
