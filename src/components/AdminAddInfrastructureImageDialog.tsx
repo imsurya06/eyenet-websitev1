@@ -41,7 +41,9 @@ interface AdminAddInfrastructureImageDialogProps {
 const formSchema = z.object({
   imageAlt: z.string().min(2, { message: 'Image Alt Text must be at least 2 characters.' }),
   imageCategory: z.enum(['lab', 'classroom', 'library', 'campus', 'other'], { message: 'Please select an image category.' }),
-  imageFile: z.any().optional(), // File object is optional for editing
+  imageFile: z.any()
+    .refine((file) => !file || (file instanceof File && file.size <= 10 * 1024 * 1024), 'Image size must be less than 10MB.')
+    .optional(),
 });
 
 const AdminAddInfrastructureImageDialog: React.FC<AdminAddInfrastructureImageDialogProps> = ({ open, onOpenChange, editingImage, onSave }) => {

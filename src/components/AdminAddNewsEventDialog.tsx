@@ -48,7 +48,9 @@ const formSchema = z.object({
   description: z.string().min(10, { message: 'Description must be at least 10 characters.' }),
   date: z.date({ required_error: 'A date is required.' }),
   category: z.enum(['news', 'event'], { message: 'Please select a category.' }),
-  imageFile: z.any().optional(), // File object is optional for editing
+  imageFile: z.any()
+    .refine((file) => !file || (file instanceof File && file.size <= 10 * 1024 * 1024), 'Image size must be less than 10MB.')
+    .optional(),
 });
 
 const AdminAddNewsEventDialog: React.FC<AdminAddNewsEventDialogProps> = ({ open, onOpenChange, editingNewsEvent, onSave }) => {

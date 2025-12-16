@@ -15,6 +15,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Link } from 'react-router-dom'; // Import Link
+import { truncateText } from '@/lib/utils'; // Import truncateText
 
 interface AdminNewsEventCardProps {
   newsEvent: NewsEvent;
@@ -30,6 +32,8 @@ const AdminNewsEventCard: React.FC<AdminNewsEventCardProps> = ({ newsEvent, onDe
   });
 
   const CategoryIcon = newsEvent.category === 'news' ? Newspaper : CalendarDays;
+  const truncatedDescription = truncateText(newsEvent.description, 150);
+  const isDescriptionTruncated = newsEvent.description.length > 150;
 
   return (
     <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-col">
@@ -56,7 +60,12 @@ const AdminNewsEventCard: React.FC<AdminNewsEventCardProps> = ({ newsEvent, onDe
           {newsEvent.title}
         </h3>
         <p className="text-text-regular font-body text-gray-600 mb-4 h-[4.8rem] overflow-hidden">
-          {newsEvent.description}
+          {truncatedDescription}
+          {isDescriptionTruncated && (
+            <Link to="/explore/news-events" className="text-primary hover:underline ml-1">
+              Read More
+            </Link>
+          )}
         </p>
         <div className="flex items-center gap-2 mt-auto">
           <Button

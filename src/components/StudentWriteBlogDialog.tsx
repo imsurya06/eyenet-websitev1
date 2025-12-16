@@ -45,7 +45,9 @@ const formSchema = z.object({
   author: z.string().min(2, { message: 'Your name must be at least 2 characters.' }),
   date: z.date({ required_error: 'A date is required.' }),
   content: z.string().min(50, { message: 'Content must be at least 50 characters.' }),
-  imageFile: z.any().optional(), // File object is optional
+  imageFile: z.any()
+    .refine((file) => !file || (file instanceof File && file.size <= 10 * 1024 * 1024), 'Image size must be less than 10MB.')
+    .optional(),
 });
 
 const StudentWriteBlogDialog: React.FC<StudentWriteBlogDialogProps> = ({ open, onOpenChange }) => {

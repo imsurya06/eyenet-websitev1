@@ -47,7 +47,9 @@ const formSchema = z.object({
   author: z.string().min(2, { message: 'Author name must be at least 2 characters.' }),
   date: z.date({ required_error: 'A date is required.' }),
   content: z.string().min(10, { message: 'Content must be at least 10 characters.' }),
-  imageFile: z.any().optional(), // File object is optional for editing
+  imageFile: z.any()
+    .refine((file) => !file || (file instanceof File && file.size <= 10 * 1024 * 1024), 'Image size must be less than 10MB.')
+    .optional(),
 });
 
 const AdminAddBlogDialog: React.FC<AdminAddBlogDialogProps> = ({ open, onOpenChange, editingBlog, onSave }) => {

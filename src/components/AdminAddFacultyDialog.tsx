@@ -42,7 +42,9 @@ const formSchema = z.object({
   qualification: z.string().min(5, { message: 'Qualification must be at least 5 characters.' }),
   achievements: z.string().optional(),
   description: z.string().min(10, { message: 'Description must be at least 10 characters.' }),
-  imageFile: z.any().optional(),
+  imageFile: z.any()
+    .refine((file) => !file || (file instanceof File && file.size <= 10 * 1024 * 1024), 'Image size must be less than 10MB.')
+    .optional(),
 });
 
 const AdminAddFacultyDialog: React.FC<AdminAddFacultyDialogProps> = ({ open, onOpenChange, editingFaculty, onSave }) => {

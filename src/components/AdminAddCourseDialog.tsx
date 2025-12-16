@@ -45,8 +45,12 @@ const formSchema = z.object({
   type: z.enum(['Course', 'Others'], { message: 'Please select a valid type.' }).default('Course'),
   courseMode: z.enum(['Offline', 'Online'], { message: 'Please select a course mode.' }).default('Offline'),
   courseGenre: z.enum(['computer', 'fashion'], { message: 'Please select a course genre.' }),
-  brochureFile: z.any().optional(),
-  courseImage: z.any().optional(),
+  brochureFile: z.any()
+    .refine((file) => !file || (file instanceof File && file.size <= 10 * 1024 * 1024), 'Brochure file size must be less than 10MB.')
+    .optional(),
+  courseImage: z.any()
+    .refine((file) => !file || (file instanceof File && file.size <= 10 * 1024 * 1024), 'Image size must be less than 10MB.')
+    .optional(),
   duration: z.string().min(1, { message: 'Duration is required.' }),
   eligibility: z.string().min(1, { message: 'Eligibility is required.' }),
   learningOutcomesText: z.string().optional(),

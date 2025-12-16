@@ -15,6 +15,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Link } from 'react-router-dom'; // Import Link
+import { truncateText } from '@/lib/utils'; // Import truncateText
 
 interface AdminBlogCardProps {
   blog: Blog;
@@ -28,6 +30,9 @@ const AdminBlogCard: React.FC<AdminBlogCardProps> = ({ blog, onDelete, onEdit })
     month: 'long',
     day: 'numeric',
   });
+
+  const truncatedContent = truncateText(blog.content, 150);
+  const isContentTruncated = blog.content.length > 150;
 
   return (
     <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-col">
@@ -58,7 +63,12 @@ const AdminBlogCard: React.FC<AdminBlogCardProps> = ({ blog, onDelete, onEdit })
           <span>{blog.author}</span>
         </div>
         <p className="text-text-regular font-body text-gray-600 mb-4 h-[4.8rem] overflow-hidden">
-          {blog.content}
+          {truncatedContent}
+          {isContentTruncated && (
+            <Link to="/blogs" className="text-primary hover:underline ml-1">
+              Read More
+            </Link>
+          )}
         </p>
         <div className="flex items-center gap-2 mt-auto">
           <Button
