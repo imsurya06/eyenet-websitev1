@@ -74,10 +74,10 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-background text-foreground shadow-lg py-2">
-      <div className="flex h-24 items-center justify-between px-3 md:px-8 lg:px-[80px]"> {/* Changed h-20 to h-24 */}
+      <div className="flex h-20 items-center justify-between px-3 md:px-8 lg:px-[80px]"> {/* Changed h-24 to h-20 */}
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-10 md:h-14" />
+          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-8 md:h-12" /> {/* Adjusted logo height */}
         </Link>
 
         {/* Desktop Navigation */}
