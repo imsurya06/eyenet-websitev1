@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import { initialCourses, Course } from '@/data/courses';
+import { Course } from '@/data/courses'; // Keep Course interface, but initialCourses is no longer imported
 import { supabase } from '@/lib/supabaseClient'; // Import Supabase client
 import { toast } from 'sonner'; // Import toast for notifications
 
@@ -31,7 +31,7 @@ export const CourseProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       if (error) {
         console.error('Error fetching courses:', error);
         toast.error('Failed to load courses.');
-        setCourses(initialCourses); // Fallback to initial data if Supabase fails
+        // Removed fallback to initialCourses. If Supabase fails, courses will remain empty.
       } else {
         setCourses(data as Course[]);
       }
