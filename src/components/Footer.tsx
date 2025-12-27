@@ -27,7 +27,7 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: 'https://facebook.com', name: 'Facebook' },
+    { icon: Facebook, href: 'https://www.facebook.com/kubendrarajan1402/', name: 'Facebook' },
     { icon: Instagram, href: 'https://www.instagram.com/eye_net_fashion/', name: 'Instagram' },
     { icon: X, href: 'https://x.com', name: 'X' },
     { icon: Linkedin, href: 'https://linkedin.com', name: 'LinkedIn' },
