@@ -28,7 +28,7 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: Facebook, href: 'https://facebook.com', name: 'Facebook' },
-    { icon: Instagram, href: 'https://instagram.com', name: 'Instagram' },
+    { icon: Instagram, href: 'https://www.instagram.com/eye_net_fashion/', name: 'Instagram' },
     { icon: X, href: 'https://x.com', name: 'X' },
     { icon: Linkedin, href: 'https://linkedin.com', name: 'LinkedIn' },
     { icon: Youtube, href: 'https://youtube.com', name: 'YouTube' },
