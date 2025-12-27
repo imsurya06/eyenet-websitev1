@@ -23,6 +23,10 @@ interface AdminFacultyCardProps {
 }
 
 const AdminFacultyCard: React.FC<AdminFacultyCardProps> = ({ faculty, onDelete, onEdit }) => {
+  const twoWeeksInMs = 14 * 24 * 60 * 60 * 1000; // Two weeks in milliseconds
+  const createdAtDate = new Date(faculty.created_at);
+  const isNewFaculty = (new Date().getTime() - createdAtDate.getTime()) < twoWeeksInMs;
+
   return (
     <div className="bg-white rounded-lg shadow-md drop-shadow-lg overflow-hidden border border-gray-200 flex flex-col">
       <div className="w-full h-48 overflow-hidden relative">
@@ -31,10 +35,12 @@ const AdminFacultyCard: React.FC<AdminFacultyCardProps> = ({ faculty, onDelete, 
           alt={faculty.name}
           className="w-full h-full object-contain"
         />
-        {/* New Tag for Faculty Image */}
-        <span className="absolute top-2 left-2 bg-primary text-primary-foreground text-text-tiny font-body px-2 py-1 rounded-full">
-          New Faculty
-        </span>
+        {/* New Tag for Faculty Image - conditionally rendered */}
+        {isNewFaculty && (
+          <span className="absolute top-2 left-2 bg-primary text-primary-foreground text-text-tiny font-body px-2 py-1 rounded-full">
+            New Faculty
+          </span>
+        )}
       </div>
       <div className="p-4 flex flex-col flex-grow">
         <h3 className="text-h6-mobile md:text-h6-desktop font-heading mb-2 text-foreground h-[2.8rem] overflow-hidden">
