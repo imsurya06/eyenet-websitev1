@@ -1,5 +1,3 @@
-import { Image } from 'lucide-react';
-
 export interface GalleryImage {
   id: string;
   src: string;
@@ -18,9 +16,7 @@ export const initialGalleryImages: GalleryImage[] = [
   { id: 'grid-1', src: '/images/img5.png', alt: 'Traditional attire model 3', category: 'fashion' },
   { id: 'grid-2', src: '/images/img6.png', alt: 'Traditional attire model 4', category: 'fashion' },
   { id: 'grid-3', src: '/images/img7.png', alt: 'Studio portrait model', category: 'fashion' },
-  { id: 'grid-4', src: '/public/placeholder.svg', alt: 'Placeholder image', category: 'general' },
-  { id: 'grid-5', src: '/public/placeholder.svg', alt: 'Placeholder image', category: 'general' },
-  { id: 'grid-6', src: '/public/placeholder.svg', alt: 'Placeholder image', category: 'general' },
+  // Removed placeholder images: grid-4, grid-5, grid-6
 
   // Images from ImageGallerySection (Home page)
   { id: 'home-gallery-1', src: '/images/img1.png', alt: 'Traditional attire model 1', category: 'fashion' },
