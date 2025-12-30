@@ -32,7 +32,7 @@ const Contact = () => {
           </AnimateOnScroll>
 
           <AnimateOnScroll isHero={true} delay={800} className="space-y-6 w-full max-w-md">
-            <form action="https://formspree.io/f/myzbeqer" method="POST" className="space-y-6">
+            <form action="https://formspree.io/f/xeqyqjkk" method="POST" className="space-y-6">
               {/* Hidden input for Formspree redirect */}
               <input type="hidden" name="_next" value={`${window.location.origin}/`} />
               <div>

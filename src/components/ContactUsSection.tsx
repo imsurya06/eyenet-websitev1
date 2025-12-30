@@ -31,8 +31,8 @@ const ContactUsSection = () => {
             <AnimateOnScroll delay={300}>
               <div className="flex items-center gap-4 justify-center lg:justify-start"> {/* Added justify-center for mobile centering */}
                 <Mail className="h-6 w-6 text-primary" />
-                <a href="mailto:email@example.com" className="text-text-regular font-body text-foreground hover:underline">
-                  email@example.com
+                <a href="mailto:eyenetfashion@gmail.com" className="text-text-regular font-body text-foreground hover:underline">
+                  eyenetfashion@gmail.com
                 </a>
               </div>
             </AnimateOnScroll>
@@ -57,7 +57,7 @@ const ContactUsSection = () => {
 
         {/* Right Section: Contact Form */}
         <AnimateOnScroll delay={600} className="w-full max-w-lg mx-auto lg:mx-0">
-          <form action="https://formspree.io/f/myzbeqer" method="POST" className="space-y-6">
+          <form action="https://formspree.io/f/xeqyqjkk" method="POST" className="space-y-6">
             <div>
               <Label htmlFor="name" className="text-text-regular font-body text-foreground mb-2 block">
                 Name

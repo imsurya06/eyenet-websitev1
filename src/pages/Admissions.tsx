@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -79,7 +79,7 @@ const Admissions = () => {
               Let's Start your design journey
             </p>
             <Form {...form}>
-              <form action="https://formspree.io/f/myzbeqer" method="POST" className="space-y-6">
+              <form action="https://formspree.io/f/xeqyqjkk" method="POST" className="space-y-6">
                 <input type="hidden" name="_next" value={`${window.location.origin}/`} />
                 <FormField
                   control={form.control}
