@@ -164,8 +164,8 @@ const Navbar = () => {
               <Button variant="outline" asChild className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                 <Link to="/contact">Contact</Link>
               </Button>
-              <Button variant="default" className="hover:animate-shake">
-                Apply
+              <Button variant="default" asChild className="hover:animate-shake">
+                <Link to="/admissions">Apply</Link>
               </Button>
               <AdminMenu />
             </div>
@@ -239,8 +239,8 @@ const Navbar = () => {
                 <Button variant="outline" asChild className="mt-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                   <Link to="/contact" onClick={() => setIsSheetOpen(false)}>Contact</Link>
                 </Button>
-                <Button variant="default" className="mt-2 hover:animate-shake" onClick={() => setIsSheetOpen(false)}>
-                  Apply
+                <Button variant="default" asChild className="mt-2 hover:animate-shake">
+                  <Link to="/admissions" onClick={() => setIsSheetOpen(false)}>Apply</Link>
                 </Button>
                 {/* AdminMenu is intentionally NOT rendered here for mobile */}
               </nav>
