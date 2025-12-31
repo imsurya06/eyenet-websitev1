@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { Phone, Mail, Facebook, Instagram, Youtube, MessageSquareText } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const socialLinks = [
+const socialAndContactIcons = [ // Renamed to reflect all icons
+  { icon: Mail, href: 'mailto:eyenetfashion@gmail.com', name: 'Email' }, // Moved Mail here
   { icon: Facebook, href: 'https://www.facebook.com/kubendrarajan1402/', name: 'Facebook' },
   { icon: Instagram, href: 'https://www.instagram.com/eye_net_fashion/', name: 'Instagram' },
   { icon: MessageSquareText, href: 'https://wa.me/919842173725', name: 'WhatsApp' },
@@ -14,30 +15,27 @@ const socialLinks = [
 
 const SecondaryNavbar = () => {
   return (
-    <div className="bg-background text-foreground py-2 px-3 md:px-8 lg:px-[80px] flex flex-col sm:flex-row items-center justify-between gap-2 text-text-small font-body border-b border-border"> {/* Changed background and text color, added bottom border */}
-      {/* Contact Info */}
-      <div className="flex items-center gap-4">
+    <div className="bg-background text-foreground py-2 px-3 md:px-8 lg:px-[80px] flex flex-col sm:flex-row items-center justify-between gap-2 text-text-small font-body border-b border-border">
+      {/* Contact Info (Phone only) */}
+      <div className="flex items-center gap-1">
         <a href="tel:+919842173725" className="flex items-center gap-1 hover:underline">
-          <Phone className="h-5 w-5" /> {/* Increased icon size */}
+          <Phone className="h-5 w-5" />
           <span>+91 9842173725</span>
-        </a>
-        <a href="mailto:eyenetfashion@gmail.com" className="flex items-center gap-1 hover:underline">
-          <Mail className="h-5 w-5" /> {/* Increased icon size, removed text */}
         </a>
       </div>
 
-      {/* Social Links */}
+      {/* Social and Contact Icons (Mail, Facebook, Instagram, WhatsApp, YouTube) */}
       <div className="flex items-center gap-4 mt-2 sm:mt-0">
-        {socialLinks.map((social) => (
+        {socialAndContactIcons.map((item) => (
           <a
-            key={social.name}
-            href={social.href}
+            key={item.name}
+            href={item.href}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={social.name}
-            className="hover:text-primary transition-colors" // Changed hover color to primary
+            aria-label={item.name}
+            className="hover:text-primary transition-colors"
           >
-            <social.icon className="h-5 w-5" /> {/* Increased icon size */}
+            <item.icon className="h-5 w-5" />
           </a>
         ))}
       </div>
