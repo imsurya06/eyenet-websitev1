@@ -73,28 +73,28 @@ export default {
         body: ['Source Sans 3', 'sans-serif'],
       },
       fontSize: {
-        // Desktop Headings
-        'h1-desktop': ['5.5rem', { lineHeight: '120%' }], // Increased from 4.5rem
-        'h2-desktop': ['3.25rem', { lineHeight: '120%' }], // 52px
-        'h3-desktop': ['2.75rem', { lineHeight: '120%' }], // 44px
-        'h4-desktop': ['2.25rem', { lineHeight: '140%' }], // 36px
-        'h5-desktop': ['1.75rem', { lineHeight: '140%' }], // 28px
-        'h6-desktop': ['1.375rem', { lineHeight: '140%' }], // 22px
+        // Desktop Headings (Adjusted)
+        'h1-desktop': ['4rem', { lineHeight: '120%' }], // Reduced from 5.5rem
+        'h2-desktop': ['2.5rem', { lineHeight: '120%' }], // Reduced from 3.25rem
+        'h3-desktop': ['2.25rem', { lineHeight: '120%' }], // Reduced from 2.75rem
+        'h4-desktop': ['1.875rem', { lineHeight: '140%' }], // Reduced from 2.25rem
+        'h5-desktop': ['1.75rem', { lineHeight: '140%' }], // Kept same
+        'h6-desktop': ['1.375rem', { lineHeight: '140%' }], // Kept same
 
-        // Mobile Headings
-        'h1-mobile': ['3.25rem', { lineHeight: '120%' }], // Increased from 2.75rem
-        'h2-mobile': ['2.5rem', { lineHeight: '120%' }], // 40px
-        'h3-mobile': ['2rem', { lineHeight: '120%' }], // 32px
-        'h4-mobile': ['1.5rem', { lineHeight: '140%' }], // 24px
-        'h5-mobile': ['1.25rem', { lineHeight: '140%' }], // 20px
-        'h6-mobile': ['1.125rem', { lineHeight: '140%' }], // 18px
+        // Mobile Headings (Kept same)
+        'h1-mobile': ['3.25rem', { lineHeight: '120%' }],
+        'h2-mobile': ['2.5rem', { lineHeight: '120%' }],
+        'h3-mobile': ['2rem', { lineHeight: '120%' }],
+        'h4-mobile': ['1.5rem', { lineHeight: '140%' }],
+        'h5-mobile': ['1.25rem', { lineHeight: '140%' }],
+        'h6-mobile': ['1.125rem', { lineHeight: '140%' }],
 
-        // Body Text Sizes (Increased by ~2px each)
-        'text-large': ['1.5rem', { lineHeight: '160%' }], // 24px
-        'text-medium': ['1.25rem', { lineHeight: '160%' }], // 20px
-        'text-regular': ['1.125rem', { lineHeight: '160%' }], // 18px
-        'text-small': ['1rem', { lineHeight: '160%' }], // 16px
-        'text-tiny': ['0.875rem', { lineHeight: '160%' }], // 14px
+        // Body Text Sizes (Kept same)
+        'text-large': ['1.5rem', { lineHeight: '160%' }],
+        'text-medium': ['1.25rem', { lineHeight: '160%' }],
+        'text-regular': ['1.125rem', { lineHeight: '160%' }],
+        'text-small': ['1rem', { lineHeight: '160%' }],
+        'text-tiny': ['0.875rem', { lineHeight: '160%' }],
       },
       keyframes: {
         "accordion-down": {
