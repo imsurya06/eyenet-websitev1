@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Phone, Mail, Facebook, Instagram, Youtube, MessageSquareText } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -14,12 +14,37 @@ const socialAndContactIcons = [
 ];
 
 const SecondaryNavbar = () => {
+  const secondaryNavLinks = [
+    { name: 'Faculty', to: '/faculty' },
+    { name: 'Gallery', to: '/gallery' },
+    { name: 'FAQ', to: '/about#faq-section' },
+    { name: '360° View', to: '/360-view' },
+  ];
+
   return (
-    <div className="bg-background text-foreground py-3 px-3 md:px-8 lg:px-[80px] flex items-center justify-end text-text-small font-body border-b border-border"> {/* Increased py-2 to py-3 for more height */}
-      {/* Grouped Contact Info and Social Icons on the right */}
-      <div className="flex items-center gap-4 flex-wrap justify-center sm:justify-end">
+    <div className="bg-background text-foreground py-3 px-3 md:px-8 lg:px-[80px] flex flex-col sm:flex-row items-center justify-between gap-2 text-text-small font-body border-b border-border">
+      {/* Left Section: New Navigation Links */}
+      <div className="flex items-center gap-4 flex-wrap justify-center sm:justify-start">
+        {secondaryNavLinks.map((link) => (
+          <NavLink
+            key={link.name}
+            to={link.to}
+            className={({ isActive }) =>
+              cn(
+                "hover:text-primary transition-colors",
+                isActive && "text-primary font-semibold"
+              )
+            }
+          >
+            {link.name}
+          </NavLink>
+        ))}
+      </div>
+
+      {/* Right Section: Contact Info and Social Icons */}
+      <div className="flex items-center gap-4 flex-wrap justify-center sm:justify-end mt-2 sm:mt-0">
         <a href="tel:+919842173725" className="flex items-center gap-1 hover:underline">
-          <Phone className="h-6 w-6" /> {/* Increased icon size to h-6 w-6 */}
+          <Phone className="h-6 w-6" />
           <span>+91 9842173725</span>
         </a>
         {socialAndContactIcons.map((item) => (
@@ -31,7 +56,7 @@ const SecondaryNavbar = () => {
             aria-label={item.name}
             className="hover:text-primary transition-colors"
           >
-            <item.icon className="h-6 w-6" /> {/* Increased icon size to h-6 w-6 */}
+            <item.icon className="h-6 w-6" />
           </a>
         ))}
       </div>

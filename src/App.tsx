@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
-import SecondaryNavbar from "./components/SecondaryNavbar"; // Import SecondaryNavbar
+import SecondaryNavbar from "./components/SecondaryNavbar";
 import About from "./pages/About";
 import Courses from "./pages/Courses";
 import Gallery from "./pages/Gallery";
@@ -26,10 +26,12 @@ import AdminGallery from "./pages/admin/AdminGallery";
 import AdminInfrastructure from "./pages/admin/AdminInfrastructure";
 import AdminNewsEvents from "./pages/admin/AdminNewsEvents";
 import AdminBlogs from "./pages/admin/AdminBlogs";
-import AdminImages from "./pages/admin/AdminImages"; // Import the new AdminImages page
-import AdminTestimonials from "./pages/admin/AdminTestimonials"; // Import AdminTestimonials
-import AdminFaculty from "./pages/admin/AdminFaculty"; // Import AdminFaculty
+import AdminImages from "./pages/admin/AdminImages";
+import AdminTestimonials from "./pages/admin/AdminTestimonials";
+import AdminFaculty from "./pages/admin/AdminFaculty";
 import Blogs from "./pages/Blogs";
+import FacultyPage from "./pages/FacultyPage"; // Import new FacultyPage
+import ThreeSixtyView from "./pages/ThreeSixtyView"; // Import new ThreeSixtyView
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import { CourseProvider } from "./context/CourseContext";
@@ -38,7 +40,7 @@ import { InfrastructureImageProvider } from "./context/InfrastructureImageContex
 import { NewsEventsProvider } from "./context/NewsEventsContext";
 import { BlogProvider } from "./context/BlogContext";
 import { TestimonialProvider } from "./context/TestimonialContext";
-import { FacultyProvider } from "./context/FacultyContext"; // Import FacultyProvider
+import { FacultyProvider } from "./context/FacultyContext";
 
 const queryClient = new QueryClient();
 
@@ -80,8 +82,8 @@ const App = () => {
                 <NewsEventsProvider>
                   <BlogProvider>
                     <TestimonialProvider>
-                      <FacultyProvider> {/* Wrap with FacultyProvider */}
-                        <SecondaryNavbar /> {/* Render SecondaryNavbar here */}
+                      <FacultyProvider>
+                        <SecondaryNavbar />
                         <ConditionalNavbar />
                         <Routes>
                           <Route path="/" element={<Index />} />
@@ -99,6 +101,8 @@ const App = () => {
                           <Route path="/explore/gallery" element={<Gallery />} />
                           <Route path="/explore/news-events" element={<NewsEvents />} />
                           <Route path="/blogs" element={<Blogs />} />
+                          <Route path="/faculty" element={<FacultyPage />} /> {/* New route for Faculty */}
+                          <Route path="/360-view" element={<ThreeSixtyView />} /> {/* New route for 360 View */}
                           <Route path="/contact" element={<Contact />} />
                           <Route path="/admin-login" element={<AdminLogin />} />
                           
@@ -112,7 +116,7 @@ const App = () => {
                             <Route path="blogs" element={<AdminBlogs />} />
                             <Route path="images" element={<AdminImages />} />
                             <Route path="testimonials" element={<AdminTestimonials />} />
-                            <Route path="faculty" element={<AdminFaculty />} /> {/* New route */}
+                            <Route path="faculty" element={<AdminFaculty />} />
                           </Route>
 
                           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
