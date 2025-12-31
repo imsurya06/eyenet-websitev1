@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { Phone, Mail, Facebook, Instagram, Youtube, MessageSquareText } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const socialAndContactIcons = [ // Renamed to reflect all icons
-  { icon: Mail, href: 'mailto:eyenetfashion@gmail.com', name: 'Email' }, // Moved Mail here
+const socialAndContactIcons = [
+  { icon: Mail, href: 'mailto:eyenetfashion@gmail.com', name: 'Email' },
   { icon: Facebook, href: 'https://www.facebook.com/kubendrarajan1402/', name: 'Facebook' },
   { icon: Instagram, href: 'https://www.instagram.com/eye_net_fashion/', name: 'Instagram' },
   { icon: MessageSquareText, href: 'https://wa.me/919842173725', name: 'WhatsApp' },
@@ -15,17 +15,13 @@ const socialAndContactIcons = [ // Renamed to reflect all icons
 
 const SecondaryNavbar = () => {
   return (
-    <div className="bg-background text-foreground py-2 px-3 md:px-8 lg:px-[80px] flex flex-col sm:flex-row items-center justify-between gap-2 text-text-small font-body border-b border-border">
-      {/* Contact Info (Phone only) */}
-      <div className="flex items-center gap-1">
+    <div className="bg-background text-foreground py-2 px-3 md:px-8 lg:px-[80px] flex items-center justify-end text-text-small font-body border-b border-border">
+      {/* Grouped Contact Info and Social Icons on the right */}
+      <div className="flex items-center gap-4 flex-wrap justify-center sm:justify-end"> {/* flex-wrap for mobile, justify-end for desktop */}
         <a href="tel:+919842173725" className="flex items-center gap-1 hover:underline">
           <Phone className="h-5 w-5" />
           <span>+91 9842173725</span>
         </a>
-      </div>
-
-      {/* Social and Contact Icons (Mail, Facebook, Instagram, WhatsApp, YouTube) */}
-      <div className="flex items-center gap-4 mt-2 sm:mt-0">
         {socialAndContactIcons.map((item) => (
           <a
             key={item.name}
