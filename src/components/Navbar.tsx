@@ -12,7 +12,7 @@ import {
   DropdownMenuLabel,
 } from '@/components/ui/dropdown-menu';
 import { Menu, ChevronDown } from 'lucide-react';
-import * as LucideIcons from 'lucide-react'; // Import all Lucide icons
+import * as LucideIcons from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import CourseDropdownMenuItem from './CourseDropdownMenuItem.tsx';
 import AdminMenu from './AdminMenu';
@@ -74,10 +74,10 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-background text-foreground shadow-lg py-2">
-      <div className="flex h-16 md:h-20 items-center justify-between px-3 md:px-8 lg:px-[80px]"> {/* Adjusted height for mobile */}
+      <div className="flex h-16 md:h-20 items-center justify-between px-3 md:px-8 lg:px-[80px]">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-10 md:h-18" /> {/* Adjusted logo height for mobile */}
+          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-[60px] md:h-[108px]" /> {/* Increased logo height by 150% */}
         </Link>
 
         {/* Desktop Navigation */}
@@ -104,7 +104,7 @@ const Navbar = () => {
                     <DropdownMenu
                       key={item.name}
                       open={item.name === 'Courses' ? coursesOpen : exploreOpen}
-                      onOpenChange={item.name === 'Courses' ? setCoursesOpen : setExploreOpen} // Open/close on click
+                      onOpenChange={item.name === 'Courses' ? setCoursesOpen : setExploreOpen}
                     >
                       <DropdownMenuTrigger asChild>
                         <Button
@@ -123,7 +123,6 @@ const Navbar = () => {
                       <DropdownMenuContent
                         className="w-80 p-4 bg-muted data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 duration-300"
                         align="start"
-                        // Removed onMouseEnter and onMouseLeave
                       >
                         {item.heading && (
                           <DropdownMenuLabel className="px-3 py-2 text-xs font-semibold uppercase text-muted-foreground">
@@ -185,7 +184,7 @@ const Navbar = () => {
               {/* Logo inside the SheetContent */}
               <div className="flex items-center justify-center py-4 border-b border-border mb-4 bg-white">
                 <Link to="/" onClick={() => setIsSheetOpen(false)} className="flex justify-center">
-                  <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="max-h-16 w-auto object-contain" />
+                  <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="max-h-[60px] w-auto object-contain" /> {/* Increased logo height by 150% */}
                 </Link>
               </div>
               <nav className="flex flex-col gap-4 pt-6">
@@ -242,7 +241,6 @@ const Navbar = () => {
                 <Button variant="default" asChild className="mt-2 hover:animate-shake">
                   <Link to="/admissions" onClick={() => setIsSheetOpen(false)}>Apply</Link>
                 </Button>
-                {/* AdminMenu is intentionally NOT rendered here for mobile */}
               </nav>
             </SheetContent>
           </Sheet>

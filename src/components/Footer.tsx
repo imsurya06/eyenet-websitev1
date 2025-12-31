@@ -17,7 +17,7 @@ const Footer = () => {
     { name: 'About', href: '/about' },
     { name: 'Admissions', href: '/admissions' },
     { name: 'Courses', href: '/courses' },
-    { name: 'Explore', href: '/explore/infrastructure' }, // Redirected to infrastructure
+    { name: 'Explore', href: '/explore/infrastructure' },
   ];
 
   const secondaryNavLinks = [
@@ -45,7 +45,7 @@ const Footer = () => {
         {/* Column 1: Logo */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
           <Link to="/" className="mb-6">
-            <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-10" />
+            <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-[60px]" /> {/* Increased logo height by 150% */}
           </Link>
         </div>
 

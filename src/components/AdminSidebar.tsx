@@ -4,7 +4,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ListChecks, Image, Home, Newspaper, BookOpen, MessageSquareText, Users } from 'lucide-react'; // Import Users icon
+import { ArrowRight, ListChecks, Image, Home, Newspaper, BookOpen, MessageSquareText, Users } from 'lucide-react';
 
 interface SidebarLink {
   name: string;
@@ -20,16 +20,16 @@ const sidebarNavItems: SidebarLink[] = [
   { name: 'News & Events', href: '/admin-dashboard/news-events', icon: Newspaper },
   { name: 'Blogs', href: '/admin-dashboard/blogs', icon: BookOpen },
   { name: 'Testimonials', href: '/admin-dashboard/testimonials', icon: MessageSquareText },
-  { name: 'Faculty', href: '/admin-dashboard/faculty', icon: Users }, // New Faculty link
+  { name: 'Faculty', href: '/admin-dashboard/faculty', icon: Users },
 ];
 
 const AdminSidebar = () => {
   return (
-    <aside className="fixed left-0 top-0 w-64 bg-background border-r border-border h-screen flex flex-col shadow-lg z-40"> {/* Added fixed, left-0, top-0, and z-40 */}
+    <aside className="fixed left-0 top-0 w-64 bg-background border-r border-border h-screen flex flex-col shadow-lg z-40">
       {/* Logo */}
       <div className="p-6 border-b border-border flex justify-center">
         <Link to="/">
-          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-15" /> {/* Increased logo height to h-15 (60px) */}
+          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-[108px]" /> {/* Increased logo height by 150% */}
         </Link>
       </div>
 
