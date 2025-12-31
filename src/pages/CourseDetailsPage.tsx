@@ -95,7 +95,7 @@ const CourseDetailsPage = () => {
           </AnimateOnScroll>
           {course.image && (
             <AnimateOnScroll isHero={true} delay={300} className="mt-8 w-full rounded-lg overflow-hidden shadow-lg mx-auto">
-              <img src={course.image} alt={course.title} className="w-full h-auto object-cover object-top" />
+              <img src={course.image} alt={course.title} className="w-full h-auto object-contain object-center" />
             </AnimateOnScroll>
           )}
         </div>

@@ -64,7 +64,7 @@ const Admissions = () => {
             <img
               src="/images/poster-eyenet.png"
               alt="Photoshop Mastery Admission Open Poster"
-              className="w-full h-auto object-cover object-top"
+              className="w-full h-full object-contain object-center"
             />
           </div>
         </AnimateOnScroll>

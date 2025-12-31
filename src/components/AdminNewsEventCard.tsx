@@ -42,7 +42,7 @@ const AdminNewsEventCard: React.FC<AdminNewsEventCardProps> = ({ newsEvent, onDe
           <img
             src={newsEvent.image}
             alt={newsEvent.title}
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-contain object-center"
           />
         </div>
       )}

@@ -12,7 +12,7 @@ const FounderDirectorSection = () => {
           <img
             src="/images/founder-director.png"
             alt="Founder & Director"
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-contain object-center"
           />
         </AnimateOnScroll>
 
@@ -31,7 +31,8 @@ const FounderDirectorSection = () => {
               training, industry-relevant courses, and practical projects that
               mirror real-world design challenges. Our teaching approach
               combines creativity, technology, and professional discipline,
-              ensuring that every student not only masters tools like
+              ensuring that every student
+              not only masters tools like
               Photoshop and Illustrator but also develops the confidence to
               apply their skills in diverse industry settings. By fostering a
               supportive and inspiring learning environment, we prepare our
