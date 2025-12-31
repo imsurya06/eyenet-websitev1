@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Facebook, Instagram, X, Linkedin, Youtube } from 'lucide-react';
+import { Facebook, Instagram, X, Linkedin, Youtube, MessageSquareText } from 'lucide-react'; // Replaced Whatsapp with MessageSquareText
 import PrivacyPolicyDialog from './PrivacyPolicyDialog';
 import TermsAndConditionsDialog from './TermsAndConditionsDialog';
 import CookieSettingsDialog from './CookieSettingsDialog';
@@ -31,7 +31,8 @@ const Footer = () => {
     { icon: Instagram, href: 'https://www.instagram.com/eye_net_fashion/', name: 'Instagram' },
     { icon: X, href: 'https://x.com', name: 'X' },
     { icon: Linkedin, href: 'https://linkedin.com', name: 'LinkedIn' },
-    { icon: Youtube, href: 'https://youtube.com', name: 'YouTube' },
+    { icon: MessageSquareText, href: 'https://wa.me/919842173725', name: 'WhatsApp' }, // Updated icon
+    { icon: Youtube, href: 'https://www.youtube.com/@EyenetEducationalAcademy', name: 'YouTube' },
   ];
 
   // State for dialogs
@@ -45,7 +46,7 @@ const Footer = () => {
         {/* Column 1: Logo */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
           <Link to="/" className="mb-6">
-            <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-[60px]" /> {/* Increased logo height by 150% */}
+            <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-[60px]" />
           </Link>
         </div>
 

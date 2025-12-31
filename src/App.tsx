@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
+import SecondaryNavbar from "./components/SecondaryNavbar"; // Import SecondaryNavbar
 import About from "./pages/About";
 import Courses from "./pages/Courses";
 import Gallery from "./pages/Gallery";
@@ -80,6 +81,7 @@ const App = () => {
                   <BlogProvider>
                     <TestimonialProvider>
                       <FacultyProvider> {/* Wrap with FacultyProvider */}
+                        <SecondaryNavbar /> {/* Render SecondaryNavbar here */}
                         <ConditionalNavbar />
                         <Routes>
                           <Route path="/" element={<Index />} />

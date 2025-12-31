@@ -39,8 +39,8 @@ const ContactUsSection = () => {
             <AnimateOnScroll delay={400}>
               <div className="flex items-center gap-4 justify-center lg:justify-start"> {/* Added justify-center for mobile centering */}
                 <Phone className="h-6 w-6 text-primary" />
-                <a href="tel:+15550000000" className="text-text-regular font-body text-foreground hover:underline">
-                  +1 (555) 000-0000
+                <a href="tel:+919842173725" className="text-text-regular font-body text-foreground hover:underline">
+                  +91 9842173725
                 </a>
               </div>
             </AnimateOnScroll>
