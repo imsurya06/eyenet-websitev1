@@ -15,11 +15,11 @@ const socialAndContactIcons = [
 
 const SecondaryNavbar = () => {
   return (
-    <div className="bg-background text-foreground py-2 px-3 md:px-8 lg:px-[80px] flex items-center justify-end text-text-small font-body border-b border-border">
+    <div className="bg-background text-foreground py-3 px-3 md:px-8 lg:px-[80px] flex items-center justify-end text-text-small font-body border-b border-border"> {/* Increased py-2 to py-3 for more height */}
       {/* Grouped Contact Info and Social Icons on the right */}
-      <div className="flex items-center gap-4 flex-wrap justify-center sm:justify-end"> {/* flex-wrap for mobile, justify-end for desktop */}
+      <div className="flex items-center gap-4 flex-wrap justify-center sm:justify-end">
         <a href="tel:+919842173725" className="flex items-center gap-1 hover:underline">
-          <Phone className="h-5 w-5" />
+          <Phone className="h-6 w-6" /> {/* Increased icon size to h-6 w-6 */}
           <span>+91 9842173725</span>
         </a>
         {socialAndContactIcons.map((item) => (
@@ -31,7 +31,7 @@ const SecondaryNavbar = () => {
             aria-label={item.name}
             className="hover:text-primary transition-colors"
           >
-            <item.icon className="h-5 w-5" />
+            <item.icon className="h-6 w-6" /> {/* Increased icon size to h-6 w-6 */}
           </a>
         ))}
       </div>
