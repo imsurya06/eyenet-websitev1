@@ -143,7 +143,7 @@ const Navbar = () => {
                         {item.footer && (
                           <>
                             <DropdownMenuSeparator className="my-2" />
-                            <div className="px-3 py-2 text-text-small"> {/* Changed from text-sm */}
+                            <div className="px-3 py-2 text-text-tiny"> {/* Changed from text-text-small to text-text-tiny */}
                               {item.footer.text}{' '}
                               <Link to={item.footer.linkTo} className="text-primary hover:underline font-normal">
                                 {item.footer.linkText}
