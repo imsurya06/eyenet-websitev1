@@ -15,7 +15,7 @@ import CollaborationsSection from '@/components/CollaborationsSection';
 const Index = () => {
   return (
     <>
-      <div className="relative flex flex-col md:flex-row items-center justify-center px-3 md:px-8 lg:px-[80px] bg-background min-h-screen py-12 md:py-16 lg:py-20"> {/* Reintroduced min-h-screen and adjusted padding */}
+      <div className="relative flex flex-col md:flex-row items-center justify-center px-3 md:px-8 lg:px-[80px] bg-background min-h-screen py-12 md:py-16 lg:py-20 md:gap-x-12">
         {/* Mobile Background Image with Overlay */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat md:hidden"
@@ -25,7 +25,7 @@ const Index = () => {
         </div>
 
         {/* Left Section: Text Content */}
-        <AnimateOnScroll isHero={true} delay={100} className="relative z-10 text-center md:text-left max-w-2xl md:mr-12 md:mb-0 md:flex-1">
+        <AnimateOnScroll isHero={true} delay={100} className="relative z-10 text-center md:text-left max-w-2xl md:w-1/2 md:mb-0">
           <h1 className="text-h1-mobile md:text-h1-desktop font-heading mb-4 text-white md:text-foreground">
             Design your <br className="hidden md:block" /> future with creative excellence
           </h1>
@@ -45,11 +45,11 @@ const Index = () => {
         </AnimateOnScroll>
 
         {/* Right Section: Image (Desktop Only) */}
-        <AnimateOnScroll isHero={true} delay={200} className="hidden md:flex flex-1 justify-center md:justify-end relative z-10">
+        <AnimateOnScroll isHero={true} delay={200} className="hidden md:flex md:w-1/2 justify-center relative z-10">
           <img
             src="/images/hero-model.png"
             alt="Fashion model illustration"
-            className="w-full h-auto max-h-[80vh] object-contain object-center rounded-lg animate-float" // Removed shadow-2xl
+            className="w-full h-auto max-h-[80vh] object-contain object-center rounded-lg animate-float"
           />
         </AnimateOnScroll>
       </div>
