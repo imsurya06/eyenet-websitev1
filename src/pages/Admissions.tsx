@@ -27,6 +27,7 @@ import {
 } from '@/components/ui/form';
 import ConfettiOverlay from '@/components/ConfettiOverlay';
 import EnrollmentSuccessDialog from '@/components/EnrollmentSuccessDialog';
+import { useCourses } from '@/context/CourseContext'; // Import useCourses
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -39,6 +40,7 @@ const formSchema = z.object({
 });
 
 const Admissions = () => {
+  const { courses, loading: coursesLoading } = useCourses(); // Fetch courses and loading state
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -189,28 +191,26 @@ const Admissions = () => {
                       <FormLabel className="text-text-regular font-body text-foreground mb-2 block text-left">
                         Program*
                       </FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select onValueChange={field.onChange} defaultValue={field.value} disabled={coursesLoading}>
                         <FormControl>
                           <SelectTrigger
                             className="w-full h-12 px-4 py-2 text-text-regular border border-input bg-muted focus:ring-ring focus:ring-offset-background"
                           >
-                            <SelectValue placeholder="Select a program" />
+                            <SelectValue placeholder={coursesLoading ? "Loading programs..." : "Select a program"} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="Diploma in Fashion Designing">Diploma in Fashion Designing</SelectItem>
-                          <SelectItem value="Diploma in Dress Making (Female)">Diploma in Dress Making (Female)</SelectItem>
-                          <SelectItem value="Diploma in Dress Making (Child)">Diploma in Dress Making (Child)</SelectItem>
-                          <SelectItem value="Chudithar Making">Chudithar Making</SelectItem>
-                          <SelectItem value="Blouse Making">Blouse Making</SelectItem>
-                          <SelectItem value="Drafting & Pattern Making">Drafting & Pattern Making</SelectItem>
-                          <SelectItem value="Aari Making Course">Aari Making Course</SelectItem>
-                          <SelectItem value="Fashion Illustration Course">Fashion Illustration Course</SelectItem>
-                          <SelectItem value="Fabric Painting Course">Fabric Painting Course</SelectItem>
-                          <SelectItem value="Computer Basics & Applications">Computer Basics & Applications</SelectItem>
-                          <SelectItem value="Web Designing">Web Designing</SelectItem>
-                          <SelectItem value="Photoshop Mastery">Photoshop Mastery</SelectItem>
-                          <SelectItem value="Computer Application & Programming">Computer Application & Programming</SelectItem>
+                          {courses.length > 0 ? (
+                            courses.map((course) => (
+                              <SelectItem key={course.id} value={course.title}>
+                                {course.title}
+                              </SelectItem>
+                            ))
+                          ) : (
+                            <SelectItem value="no-programs" disabled>
+                              No programs available
+                            </SelectItem>
+                          )}
                         </SelectContent>
                       </Select>
                       <FormMessage />
