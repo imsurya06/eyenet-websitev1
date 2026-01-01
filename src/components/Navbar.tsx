@@ -77,7 +77,7 @@ const Navbar = () => {
       <div className="flex h-auto items-center justify-between px-3 md:px-8 lg:px-[80px]">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-[60px] md:h-[108px]" />
+          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="max-h-16 md:max-h-24 w-auto object-contain" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -93,7 +93,7 @@ const Navbar = () => {
                       to={item.to}
                       className={({ isActive }) =>
                         cn(
-                          "text-lg font-normal transition-colors hover:text-primary px-4 py-2 rounded-md",
+                          "text-text-regular font-normal transition-colors hover:text-primary px-4 py-2 rounded-md",
                           isActive && "text-primary"
                         )
                       }
@@ -111,7 +111,7 @@ const Navbar = () => {
                           variant="ghost"
                           className={cn(
                             "font-normal transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 h-auto px-4 py-2",
-                            "text-lg",
+                            "text-text-regular", // Changed from text-lg
                             (item.name === 'Courses' && (isCoursesPathActive || coursesOpen)) && "text-primary",
                             (item.name === 'Explore' && (isExplorePathActive || exploreOpen)) && "text-primary"
                           )}
@@ -143,7 +143,7 @@ const Navbar = () => {
                         {item.footer && (
                           <>
                             <DropdownMenuSeparator className="my-2" />
-                            <div className="px-3 py-2 text-sm">
+                            <div className="px-3 py-2 text-text-small"> {/* Changed from text-sm */}
                               {item.footer.text}{' '}
                               <Link to={item.footer.linkTo} className="text-primary hover:underline font-normal">
                                 {item.footer.linkText}
@@ -184,7 +184,7 @@ const Navbar = () => {
               {/* Logo inside the SheetContent */}
               <div className="flex items-center justify-center py-4 border-b border-border mb-4 bg-white">
                 <Link to="/" onClick={() => setIsSheetOpen(false)} className="flex justify-center">
-                  <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="max-h-[60px] w-auto object-contain" />
+                  <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="max-h-16 w-auto object-contain" /> {/* Adjusted logo size for mobile sheet */}
                 </Link>
               </div>
               <nav className="flex flex-col gap-4 pt-6">
@@ -196,7 +196,7 @@ const Navbar = () => {
                       onClick={() => setIsSheetOpen(false)}
                       className={({ isActive }) =>
                         cn(
-                          "text-lg font-normal hover:text-primary",
+                          "text-text-regular font-normal hover:text-primary", // Changed from text-lg
                           isActive ? "text-primary" : "text-muted-foreground"
                         )
                       }
@@ -207,7 +207,7 @@ const Navbar = () => {
                     <React.Fragment key={item.name}>
                       <span
                         className={cn(
-                          "text-lg font-normal",
+                          "text-text-regular font-normal", // Changed from text-lg
                           (item.name === 'Courses' && isCoursesPathActive) && "text-primary",
                           (item.name === 'Explore' && isExplorePathActive) && "text-primary",
                           !(item.name === 'Courses' && isCoursesPathActive) && !(item.name === 'Explore' && isExplorePathActive) && "text-muted-foreground"
@@ -223,7 +223,7 @@ const Navbar = () => {
                             onClick={() => setIsSheetOpen(false)}
                             className={({ isActive }) =>
                               cn(
-                                "text-base hover:text-primary",
+                                "text-text-small hover:text-primary", // Changed from text-base
                                 isActive ? "text-primary" : "text-muted-foreground"
                               )
                             }
