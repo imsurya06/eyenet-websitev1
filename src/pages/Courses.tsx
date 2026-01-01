@@ -7,6 +7,7 @@ import { ArrowRight, Clock, User } from 'lucide-react'; // Import Clock and User
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 import CallToActionSection from '@/components/CallToActionSection';
 import { useCourses } from '@/context/CourseContext';
+import NCFTLogo from '@/components/NCFTLogo'; // Import NCFTLogo
 
 const Courses = () => {
   const { courses, loading } = useCourses();
@@ -26,6 +27,7 @@ const Courses = () => {
 
   return (
     <div className="bg-background text-foreground">
+      <NCFTLogo /> {/* Added NCFTLogo here */}
       {/* Hero Section for All Courses */}
       <section className="py-12 md:py-16 lg:py-20 px-3 md:px-8 lg:px-[80px] text-center">
         <div className="max-w-4xl mx-auto">

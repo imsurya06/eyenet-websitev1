@@ -7,6 +7,7 @@ import { useCourses } from '@/context/CourseContext';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { CheckCircle, Clock, User, Briefcase, BookOpen, Download, Frown, ArrowLeft } from 'lucide-react';
+import NCFTLogo from '@/components/NCFTLogo'; // Import NCFTLogo
 
 const CourseDetailsPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -67,6 +68,7 @@ const CourseDetailsPage = () => {
 
   return (
     <div className="bg-background text-foreground">
+      <NCFTLogo /> {/* Added NCFTLogo here */}
       {/* Back Button */}
       <div className="px-3 md:px-8 lg:px-[80px] pt-8">
         <AnimateOnScroll delay={50}>
