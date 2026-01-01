@@ -15,7 +15,7 @@ import CollaborationsSection from '@/components/CollaborationsSection';
 const Index = () => {
   return (
     <>
-      <div className="relative flex flex-col md:flex-row items-center justify-center px-3 md:px-8 lg:px-[80px] bg-background min-h-[70vh] md:min-h-[80vh] py-12 md:py-16 lg:py-20 md:gap-x-12">
+      <div className="relative flex flex-col md:flex-row items-center justify-center px-3 md:px-8 lg:px-[80px] bg-background min-h-screen py-12 md:py-16 lg:py-20 md:gap-x-12">
         {/* Mobile Background Image with Overlay */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat md:hidden"
@@ -45,11 +45,11 @@ const Index = () => {
         </AnimateOnScroll>
 
         {/* Right Section: Image (Desktop Only) */}
-        <AnimateOnScroll isHero={true} delay={200} className="hidden md:flex md:w-1/2 h-full justify-end relative z-10">
+        <AnimateOnScroll isHero={true} delay={200} className="hidden md:flex md:w-1/2 relative z-10 flex justify-end items-end"> {/* Added flex, justify-end, items-end */}
           <img
             src="/images/hero-model.png"
             alt="Fashion model illustration"
-            className="w-full h-full object-cover object-right rounded-lg animate-float"
+            className="max-h-[80vh] w-auto object-contain object-right rounded-lg animate-float"
           />
         </AnimateOnScroll>
       </div>
