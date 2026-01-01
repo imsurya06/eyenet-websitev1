@@ -45,11 +45,11 @@ const Index = () => {
         </AnimateOnScroll>
 
         {/* Right Section: Image (Desktop Only) */}
-        <AnimateOnScroll isHero={true} delay={200} className="hidden md:flex md:w-1/2 justify-center relative z-10">
+        <AnimateOnScroll isHero={true} delay={200} className="hidden md:flex md:w-1/2 h-full justify-center relative z-10"> {/* Added h-full to the container */}
           <img
             src="/images/hero-model.png"
             alt="Fashion model illustration"
-            className="w-full h-auto max-h-[80vh] object-contain object-center rounded-lg animate-float"
+            className="w-full h-full object-cover object-right rounded-lg animate-float" // Changed object-contain to object-cover and object-center to object-right, removed max-h-[80vh]
           />
         </AnimateOnScroll>
       </div>
