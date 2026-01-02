@@ -54,14 +54,14 @@ const Index = () => {
         </AnimateOnScroll>
       </div>
 
+      {/* Our Programs Section - Moved here */}
+      <OurProgramsSection />
+
       {/* Collaborations Section */}
       <CollaborationsSection />
 
       {/* Why Choose Us Section (Home Page Specific) */}
       <HomeWhyChooseUsSection />
-
-      {/* Our Programs Section */}
-      <OurProgramsSection />
 
       {/* Impact By Numbers Section */}
       <ImpactByNumbersSection />
