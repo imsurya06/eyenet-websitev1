@@ -124,6 +124,25 @@
   h6 {
     @apply text-h6-mobile md:text-h6-desktop;
   }
+
+  /* Apply desktop body text sizes at md breakpoint */
+  @media (min-width: 768px) {
+    .text-text-large {
+      @apply text-desktop-text-large;
+    }
+    .text-text-medium {
+      @apply text-desktop-text-medium;
+    }
+    .text-text-regular {
+      @apply text-desktop-text-regular;
+    }
+    .text-text-small {
+      @apply text-desktop-text-small;
+    }
+    .text-text-tiny {
+      @apply text-desktop-text-tiny;
+    }
+  }
 }
 
 @keyframes shake {

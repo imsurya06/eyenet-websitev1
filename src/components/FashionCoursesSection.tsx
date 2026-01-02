@@ -57,7 +57,7 @@ const FashionCoursesSection = () => {
                     <span className="inline-block bg-muted text-text-small font-body text-gray-600 px-3 py-1 rounded-full mb-4 border border-input">
                       {course.tag} / Offline
                     </span>
-                    <h3 className="text-h4-mobile md:text-h4-desktop font-heading mb-2 text-foreground h-[7rem] line-clamp-3 overflow-hidden"> {/* Increased height to h-[7rem] */}
+                    <h3 className="text-h4-mobile md:text-h4-desktop font-heading mb-2 text-foreground h-[7.5rem] line-clamp-3 overflow-hidden"> {/* Increased height to h-[7.5rem] */}
                       {course.title}
                     </h3>
                     <p className="text-text-regular font-body text-gray-600 mb-4">

@@ -74,10 +74,10 @@ export default {
       },
       fontSize: {
         // Desktop Headings (Adjusted to be larger)
-        'h1-desktop': ['5.5rem', { lineHeight: '120%' }], // Increased from 4rem
-        'h2-desktop': ['3.25rem', { lineHeight: '120%' }], // Increased from 2.5rem
-        'h3-desktop': ['2.75rem', { lineHeight: '120%' }], // Increased from 2.25rem
-        'h4-desktop': ['2.25rem', { lineHeight: '140%' }], // Increased from 1.875rem
+        'h1-desktop': ['5.5rem', { lineHeight: '120%' }],
+        'h2-desktop': ['3.25rem', { lineHeight: '120%' }],
+        'h3-desktop': ['2.75rem', { lineHeight: '120%' }],
+        'h4-desktop': ['2.25rem', { lineHeight: '140%' }],
         'h5-desktop': ['1.75rem', { lineHeight: '140%' }],
         'h6-desktop': ['1.375rem', { lineHeight: '140%' }],
 
@@ -89,12 +89,19 @@ export default {
         'h5-mobile': ['1.25rem', { lineHeight: '140%' }],
         'h6-mobile': ['1.125rem', { lineHeight: '140%' }],
 
-        // Body Text Sizes (Adjusted to be larger)
-        'text-large': ['1.75rem', { lineHeight: '160%' }], // Increased from 1.5rem
-        'text-medium': ['1.5rem', { lineHeight: '160%' }], // Increased from 1.25rem
-        'text-regular': ['1.125rem', { lineHeight: '160%' }],
-        'text-small': ['1rem', { lineHeight: '160%' }],
-        'text-tiny': ['0.875rem', { lineHeight: '160%' }],
+        // Body Text Sizes (Mobile-first definitions)
+        'text-large': ['1.25rem', { lineHeight: '160%' }], // Reduced from 1.75rem
+        'text-medium': ['1.125rem', { lineHeight: '160%' }], // Reduced from 1.5rem
+        'text-regular': ['1rem', { lineHeight: '160%' }], // Reduced from 1.125rem
+        'text-small': ['0.875rem', { lineHeight: '160%' }], // Reduced from 1rem
+        'text-tiny': ['0.75rem', { lineHeight: '160%' }], // Reduced from 0.875rem
+
+        // Desktop overrides for body text (will be applied via globals.css)
+        'desktop-text-large': ['1.75rem', { lineHeight: '160%' }],
+        'desktop-text-medium': ['1.5rem', { lineHeight: '160%' }],
+        'desktop-text-regular': ['1.125rem', { lineHeight: '160%' }],
+        'desktop-text-small': ['1rem', { lineHeight: '160%' }],
+        'desktop-text-tiny': ['0.875rem', { lineHeight: '160%' }],
       },
       keyframes: {
         "accordion-down": {
@@ -113,7 +120,7 @@ export default {
             height: "0",
           },
         },
-        shake: { // Defined the shake keyframes here
+        shake: {
           "0%, 100%": { transform: "translateX(0) rotate(0deg)" },
           "10%": { transform: "translateX(-5px) rotate(-4deg)" },
           "20%": { transform: "translateX(5px) rotate(4deg)" },
@@ -125,7 +132,7 @@ export default {
           "80%": { transform: "translateX(5px) rotate(4deg)" },
           "90%": { transform: "translateX(-5px) rotate(-4deg)" },
         },
-        float: { // New float keyframes
+        float: {
           '0%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-10px)' },
           '100%': { transform: 'translateY(0px)' },
@@ -134,8 +141,8 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        shake: "shake 0.8s infinite", // Registered the shake animation with a duration and infinite loop
-        float: 'float 3s ease-in-out infinite', // Registered the float animation
+        shake: "shake 0.8s infinite",
+        float: 'float 3s ease-in-out infinite',
       },
     },
   },

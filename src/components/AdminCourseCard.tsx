@@ -44,7 +44,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({ course, onDelete, onE
           {course.tag} / {course.category === 'fashion' ? 'Fashion' : 'Computer'}
         </span>
         <Link to={courseDetailPath} className="block group"> {/* Make title clickable */}
-          <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[7rem] line-clamp-3 overflow-hidden group-hover:text-primary transition-colors"> {/* Increased height to h-[7rem] */}
+          <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[7.5rem] line-clamp-3 overflow-hidden group-hover:text-primary transition-colors"> {/* Increased height to h-[7.5rem] */}
             {course.title}
           </h3>
         </Link>

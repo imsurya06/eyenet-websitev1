@@ -77,7 +77,7 @@ const Navbar = () => {
       <div className="flex h-auto items-center justify-between px-3 md:px-8 lg:px-[80px]">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-10 md:h-12 lg:h-16 w-auto object-contain" /> {/* Adjusted logo size */}
+          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-8 md:h-10 lg:h-12 w-auto object-contain" /> {/* Adjusted logo size */}
         </Link>
 
         {/* Desktop Navigation */}
