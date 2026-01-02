@@ -65,6 +65,14 @@ const Navbar = () => {
   const [coursesOpen, setCoursesOpen] = React.useState(false);
   const [exploreOpen, setExploreOpen] = React.useState(false);
   const [isSheetOpen, setIsSheetOpen] = React.useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = React.useState<{ [key: string]: boolean }>({});
+
+  // Reset mobile dropdown state when sheet closes
+  React.useEffect(() => {
+    if (!isSheetOpen) {
+      setMobileDropdownOpen({});
+    }
+  }, [isSheetOpen]);
 
   // Determine if a dropdown's sub-links are active
   const isDropdownPathActive = (links: { to: string }[]) => {
@@ -76,6 +84,13 @@ const Navbar = () => {
 
   const exploreItem = navItems.find(item => item.name === 'Explore' && item.type === 'dropdown');
   const isExplorePathActive = exploreItem ? isDropdownPathActive(exploreItem.links) : false;
+
+  const toggleMobileDropdown = (name: string) => {
+    setMobileDropdownOpen(prevState => ({
+      ...prevState,
+      [name]: !prevState[name]
+    }));
+  };
 
   return (
     <nav className="sticky top-0 z-50 bg-background text-foreground shadow-lg py-2 md:py-3">
@@ -185,7 +200,7 @@ const Navbar = () => {
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[250px] sm:w-[300px]">
+            <SheetContent side="right" className="w-[280px] sm:w-[320px]"> {/* Adjusted width */}
               {/* Logo inside the SheetContent */}
               <div className="flex items-center justify-center py-4 border-b border-border mb-4 bg-white">
                 <Link to="/" onClick={() => setIsSheetOpen(false)} className="flex justify-center">
@@ -209,35 +224,39 @@ const Navbar = () => {
                       {item.name}
                     </NavLink>
                   ) : (
-                    <React.Fragment key={item.name}>
-                      <span
+                    <div key={item.name}>
+                      <button
+                        onClick={() => toggleMobileDropdown(item.name)}
                         className={cn(
-                          "text-text-regular font-normal",
+                          "flex items-center justify-between w-full text-text-regular font-normal hover:text-primary py-2",
                           (item.name === 'Courses' && isCoursesPathActive) && "text-primary",
                           (item.name === 'Explore' && isExplorePathActive) && "text-primary",
                           !(item.name === 'Courses' && isCoursesPathActive) && !(item.name === 'Explore' && isExplorePathActive) && "text-muted-foreground"
                         )}
                       >
                         {item.name}
-                      </span>
-                      <div className="ml-4 flex flex-col gap-2">
-                        {item.links.map((link) => (
-                          <NavLink
-                            key={link.name}
-                            to={link.to}
-                            onClick={() => setIsSheetOpen(false)}
-                            className={({ isActive }) =>
-                              cn(
-                                "text-text-small hover:text-primary",
-                                isActive ? "text-primary" : "text-muted-foreground"
-                              )
-                            }
-                          >
-                            {link.name}
-                          </NavLink>
-                        ))}
-                      </div>
-                    </React.Fragment>
+                        <ChevronDown className={cn("h-4 w-4 transition-transform", mobileDropdownOpen[item.name] && "rotate-180")} />
+                      </button>
+                      {mobileDropdownOpen[item.name] && (
+                        <div className="ml-4 flex flex-col gap-2 mt-2">
+                          {item.links.map((link) => (
+                            <NavLink
+                              key={link.name}
+                              to={link.to}
+                              onClick={() => setIsSheetOpen(false)}
+                              className={({ isActive }) =>
+                                cn(
+                                  "text-text-small hover:text-primary",
+                                  isActive ? "text-primary" : "text-muted-foreground"
+                                )
+                              }
+                            >
+                              {link.name}
+                            </NavLink>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   )
                 ))}
                 <Button variant="outline" asChild className="mt-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
