@@ -14,8 +14,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { UploadCloud, ImagePlus } from 'lucide-react';
-import { useForm } from 'react-hook-form'; // Fixed: Changed '=>' to 'from'
+import { UploadCloud, ImagePlus, MonitorPlay, Camera, Sparkles, MessageSquareText } from 'lucide-react'; // Import new icons
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import {
@@ -44,7 +44,7 @@ const formSchema = z.object({
   courseDescription: z.string().min(10, { message: 'Course Description must be at least 10 characters.' }),
   type: z.enum(['Course', 'Others'], { message: 'Please select a valid type.' }).default('Course'),
   courseMode: z.enum(['Offline', 'Online'], { message: 'Please select a course mode.' }).default('Offline'),
-  courseGenre: z.enum(['computer', 'fashion', 'other'], { message: 'Please select a course genre.' }), // Updated to include 'other'
+  courseGenre: z.enum(['computer', 'fashion', 'multimedia', 'photography', 'beautician', 'spoken-english'], { message: 'Please select a course genre.' }), // Updated categories
   brochureFile: z.any()
     .refine((file) => !file || (file instanceof File && file.size <= 10 * 1024 * 1024), 'Brochure file size must be less than 10MB.')
     .optional(),
@@ -56,7 +56,7 @@ const formSchema = z.object({
   learningOutcomesText: z.string().optional(),
   careerProspectsText: z.string().optional(),
   moduleTitlesText: z.string().optional(),
-  moduleDescriptionsText: z.string().optional(), // New field for module descriptions
+  moduleDescriptionsText: z.string().optional(),
 });
 
 const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpenChange, editingCourse, onSave }) => {
@@ -70,7 +70,7 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
       courseDescription: '',
       type: 'Course',
       courseMode: 'Offline',
-      courseGenre: undefined, // Keep as undefined to force selection for new courses
+      courseGenre: undefined,
       brochureFile: undefined,
       courseImage: undefined,
       duration: '',
@@ -78,7 +78,7 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
       learningOutcomesText: '',
       careerProspectsText: '',
       moduleTitlesText: '',
-      moduleDescriptionsText: '', // Default value for new field
+      moduleDescriptionsText: '',
     },
   });
 
@@ -90,25 +90,24 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
           courseDescription: editingCourse.description.replace(' Details...', ''),
           type: editingCourse.tag as 'Course' | 'Others',
           courseMode: editingCourse.enrollLink.includes('online') ? 'Online' : 'Offline',
-          courseGenre: editingCourse.category || 'fashion', // Provide a default if null/undefined
+          courseGenre: editingCourse.category, // This is now compatible due to updated Course interface
           brochureFile: undefined,
           courseImage: undefined,
           duration: editingCourse.duration,
           eligibility: editingCourse.eligibility,
-          learningOutcomesText: (editingCourse.learningOutcomes || []).join('\n'), // Fallback to empty array
-          careerProspectsText: (editingCourse.careerProspects || []).join('\n'), // Fallback to empty array
-          moduleTitlesText: (editingCourse.modules || []).map(m => m.title).join('\n'), // Fallback to empty array
-          moduleDescriptionsText: (editingCourse.modules || []).map(m => m.description).join('\n'), // Pre-fill module descriptions
+          learningOutcomesText: (editingCourse.learningOutcomes || []).join('\n'),
+          careerProspectsText: (editingCourse.careerProspects || []).join('\n'),
+          moduleTitlesText: (editingCourse.modules || []).map(m => m.title).join('\n'),
+          moduleDescriptionsText: (editingCourse.modules || []).map(m => m.description).join('\n'),
         });
         setBrochureFileName(editingCourse.brochureLink !== '#' ? editingCourse.brochureLink.split('/').pop() || null : null);
         setCourseImagePreview(editingCourse.image !== '/public/placeholder.svg' ? editingCourse.image : null);
       } catch (e) {
         console.error("Error resetting form for editing course:", e);
         toast.error("Failed to load course for editing. Please check console for details.");
-        onOpenChange(false); // Close dialog to prevent being stuck
+        onOpenChange(false);
       }
     } else if (open && !editingCourse) {
-      // Reset to default values for adding a new course
       form.reset();
       setBrochureFileName(null);
       setCourseImagePreview(null);
@@ -189,8 +188,32 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
 
     const modules = moduleTitles.map((title, index) => ({
       title,
-      description: moduleDescriptions[index] || `Detailed content for ${title}.`, // Fallback if description is missing
+      description: moduleDescriptions[index] || `Detailed content for ${title}.`,
     }));
+
+    let courseIcon;
+    switch (values.courseGenre) {
+      case 'fashion':
+        courseIcon = ImagePlus;
+        break;
+      case 'computer':
+        courseIcon = UploadCloud;
+        break;
+      case 'multimedia':
+        courseIcon = MonitorPlay;
+        break;
+      case 'photography':
+        courseIcon = Camera;
+        break;
+      case 'beautician':
+        courseIcon = Sparkles;
+        break;
+      case 'spoken-english':
+        courseIcon = MessageSquareText;
+        break;
+      default:
+        courseIcon = UploadCloud; // Fallback icon
+    }
 
     const courseToSave: Course = {
       id: editingCourse?.id || `new-course-${Date.now()}`,
@@ -200,8 +223,8 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
       description: values.courseDescription + ' Details...',
       brochureLink: brochureLink,
       enrollLink: '/admissions',
-      category: values.courseGenre,
-      icon: values.courseGenre === 'fashion' ? ImagePlus : UploadCloud,
+      category: values.courseGenre, // This is now compatible due to updated Course interface
+      icon: courseIcon,
       duration: values.duration,
       eligibility: values.eligibility,
       learningOutcomes,
@@ -337,7 +360,7 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
                     <RadioGroup
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                      className="flex space-x-4"
+                      className="flex flex-wrap gap-4"
                     >
                       <FormItem className="flex items-center space-x-2 space-y-0">
                         <FormControl>
@@ -357,10 +380,34 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
                       </FormItem>
                       <FormItem className="flex items-center space-x-2 space-y-0">
                         <FormControl>
-                          <RadioGroupItem value="other" />
+                          <RadioGroupItem value="multimedia" />
                         </FormControl>
                         <FormLabel className="font-normal text-text-regular font-body text-foreground">
-                          Other Courses
+                          Multimedia Training
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="photography" />
+                        </FormControl>
+                        <FormLabel className="font-normal text-text-regular font-body text-foreground">
+                          Photography
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="beautician" />
+                        </FormControl>
+                        <FormLabel className="font-normal text-text-regular font-body text-foreground">
+                          Beautician Course
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="spoken-english" />
+                        </FormControl>
+                        <FormLabel className="font-normal text-text-regular font-body text-foreground">
+                          Spoken English
                         </FormLabel>
                       </FormItem>
                     </RadioGroup>
