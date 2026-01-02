@@ -10,13 +10,14 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { Filter, Image, HardDrive, ListChecks } from 'lucide-react'; // Added ListChecks for 'All Courses'
+import { Filter, Image, HardDrive, ListChecks, MoreHorizontal } from 'lucide-react'; // Added MoreHorizontal for 'Other Courses'
 import { cn } from '@/lib/utils';
 
 const filterItems = [
   { name: 'All Courses', href: '/admin-dashboard/courses', icon: ListChecks }, // New 'All Courses' option
   { name: 'Fashion designing', href: '/admin-dashboard/courses?category=fashion', icon: Image },
   { name: 'Computer course', href: '/admin-dashboard/courses?category=computer', icon: HardDrive },
+  { name: 'Other Courses', href: '/admin-dashboard/courses?category=other', icon: MoreHorizontal }, // New 'Other Courses' option
 ];
 
 const AdminCourseFilter = () => {

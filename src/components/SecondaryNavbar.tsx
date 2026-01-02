@@ -19,6 +19,7 @@ const SecondaryNavbar = () => {
     { name: 'Gallery', to: '/gallery' },
     { name: 'FAQ', to: '/about#faq-section' },
     { name: '360° View', to: '/360-view' },
+    { name: 'Our Services', to: '/our-services' }, // New 'Our Services' link
   ];
 
   return (

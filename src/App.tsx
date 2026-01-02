@@ -32,6 +32,7 @@ import AdminFaculty from "./pages/admin/AdminFaculty";
 import Blogs from "./pages/Blogs";
 import FacultyPage from "./pages/FacultyPage"; // Import new FacultyPage
 import ThreeSixtyView from "./pages/ThreeSixtyView"; // Import new ThreeSixtyView
+import OurServices from "./pages/OurServices"; // Import new OurServices page
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import { CourseProvider } from "./context/CourseContext";
@@ -103,6 +104,7 @@ const App = () => {
                           <Route path="/blogs" element={<Blogs />} />
                           <Route path="/faculty" element={<FacultyPage />} /> {/* New route for Faculty */}
                           <Route path="/360-view" element={<ThreeSixtyView />} /> {/* New route for 360 View */}
+                          <Route path="/our-services" element={<OurServices />} /> {/* New route for Our Services */}
                           <Route path="/contact" element={<Contact />} />
                           <Route path="/admin-login" element={<AdminLogin />} />
                           

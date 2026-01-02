@@ -15,7 +15,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { UploadCloud, ImagePlus } from 'lucide-react';
-import { useForm } from 'react-hook-form';
+import { useForm } => 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import {
@@ -44,7 +44,7 @@ const formSchema = z.object({
   courseDescription: z.string().min(10, { message: 'Course Description must be at least 10 characters.' }),
   type: z.enum(['Course', 'Others'], { message: 'Please select a valid type.' }).default('Course'),
   courseMode: z.enum(['Offline', 'Online'], { message: 'Please select a course mode.' }).default('Offline'),
-  courseGenre: z.enum(['computer', 'fashion'], { message: 'Please select a course genre.' }),
+  courseGenre: z.enum(['computer', 'fashion', 'other'], { message: 'Please select a course genre.' }), // Updated to include 'other'
   brochureFile: z.any()
     .refine((file) => !file || (file instanceof File && file.size <= 10 * 1024 * 1024), 'Brochure file size must be less than 10MB.')
     .optional(),
@@ -353,6 +353,14 @@ const AdminAddCourseDialog: React.FC<AdminAddCourseDialogProps> = ({ open, onOpe
                         </FormControl>
                         <FormLabel className="font-normal text-text-regular font-body text-foreground">
                           Fashion designing course
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-2 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="other" />
+                        </FormControl>
+                        <FormLabel className="font-normal text-text-regular font-body text-foreground">
+                          Other Courses
                         </FormLabel>
                       </FormItem>
                     </RadioGroup>

@@ -45,6 +45,7 @@ const navItems = [
       { name: 'Infrastructure', description: 'Explore our facilities and campus', to: '/explore/infrastructure', icon: LucideIcons.Home },
       { name: 'Gallery', description: 'View our creative works and events', to: '/explore/gallery', icon: LucideIcons.LayoutGrid },
       { name: 'News & Events', description: 'Stay updated with the latest happenings', to: '/explore/news-events', icon: LucideIcons.CalendarDays },
+      { name: 'Our Services', description: 'Specialized training and additional services', to: '/our-services', icon: LucideIcons.Briefcase }, // New 'Our Services' link
     ],
     footer: {
       text: 'Start your design journey',
