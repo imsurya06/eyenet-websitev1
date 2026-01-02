@@ -27,9 +27,9 @@ const AdminSidebar = () => {
   return (
     <aside className="fixed left-0 top-0 w-64 bg-background border-r border-border h-screen flex flex-col shadow-lg z-40">
       {/* Logo */}
-      <div className="p-4 border-b border-border flex justify-center"> {/* Reduced vertical padding to p-4 */}
+      <div className="p-4 border-b border-border flex justify-center">
         <Link to="/">
-          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-[108px]" />
+          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-12 md:h-16 lg:h-20 w-auto object-contain" /> {/* Adjusted logo size */}
         </Link>
       </div>
 
