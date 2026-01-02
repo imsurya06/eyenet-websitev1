@@ -95,6 +95,7 @@ const App = () => {
                           <Route path="/courses/fashion-design/:slug" element={<CourseDetailsPage />} />
                           <Route path="/courses/computer-courses" element={<ComputerCourses />} />
                           <Route path="/courses/computer-courses/:slug" element={<CourseDetailsPage />} />
+                          <Route path="/courses/other-courses/:slug" element={<CourseDetailsPage />} /> {/* New route for other courses */}
                           <Route path="/gallery" element={<Gallery />} />
                           <Route path="/explore" element={<Explore />} />
                           <Route path="/explore/students-zone" element={<StudentsZone />} />

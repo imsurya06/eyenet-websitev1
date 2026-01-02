@@ -29,6 +29,10 @@ const navItems = [
     links: [
       { name: 'Fashion design Courses', description: 'Professional certification for creative professionals', to: '/courses/fashion-design', icon: LucideIcons.Tablet },
       { name: 'Computer courses', description: 'Digital and print design curriculum', to: '/courses/computer-courses', icon: LucideIcons.Laptop },
+      { name: 'Multimedia Training', description: 'Comprehensive training in video editing, animation, and digital content creation.', to: '/courses/other-courses/multimedia-training', icon: LucideIcons.MonitorPlay },
+      { name: 'Photography', description: 'Master the art of photography, from basic techniques to advanced studio setups.', to: '/courses/other-courses/photography', icon: LucideIcons.Camera },
+      { name: 'Spoken English', description: 'Improve your communication skills with our interactive spoken English courses.', to: '/courses/other-courses/spoken-english', icon: LucideIcons.MessageSquareText },
+      { name: 'Beautician Course', description: 'Learn professional beauty techniques, makeup artistry, and salon management.', to: '/courses/other-courses/beautician-course', icon: LucideIcons.Sparkles },
     ],
     footer: {
       text: 'Start your design journey',
