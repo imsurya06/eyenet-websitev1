@@ -77,7 +77,7 @@ const Navbar = () => {
       <div className="flex h-auto items-center justify-between px-3 md:px-8 lg:px-[80px]">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-8 md:h-10 lg:h-12 w-auto object-contain" /> {/* Adjusted logo size */}
+          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-12 md:h-[60px] lg:h-[72px] w-auto object-contain" /> {/* Adjusted logo size */}
         </Link>
 
         {/* Desktop Navigation */}
@@ -184,7 +184,7 @@ const Navbar = () => {
               {/* Logo inside the SheetContent */}
               <div className="flex items-center justify-center py-4 border-b border-border mb-4 bg-white">
                 <Link to="/" onClick={() => setIsSheetOpen(false)} className="flex justify-center">
-                  <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-10 w-auto object-contain" /> {/* Adjusted logo size for mobile sheet */}
+                  <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-[60px] w-auto object-contain" /> {/* Adjusted logo size for mobile sheet */}
                 </Link>
               </div>
               <nav className="flex flex-col gap-4 pt-6">
