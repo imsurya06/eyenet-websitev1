@@ -17,8 +17,10 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import CourseDropdownMenuItem from './CourseDropdownMenuItem.tsx';
 import AdminMenu from './AdminMenu';
 import { cn } from '@/lib/utils';
+import { useCourses } from '@/context/CourseContext'; // Import useCourses
 
-const navItems = [
+// Define the base nav items structure
+const baseNavItems = [
   { type: 'link', name: 'Home', to: '/' },
   { type: 'link', name: 'About', to: '/about' },
   { type: 'link', name: 'Admissions', to: '/admissions' },
@@ -26,10 +28,7 @@ const navItems = [
     type: 'dropdown',
     name: 'Courses',
     heading: 'courses',
-    links: [
-      { name: 'Fashion design Courses', description: 'Professional certification for creative professionals', to: '/courses/fashion-design', icon: LucideIcons.Tablet },
-      { name: 'Computer courses', description: 'Digital and print design curriculum', to: '/courses/computer-courses', icon: LucideIcons.Laptop },
-    ],
+    links: [], // This will be dynamically populated
     footer: {
       text: 'Start your design journey',
       linkText: 'Apply now',
@@ -45,7 +44,7 @@ const navItems = [
       { name: 'Infrastructure', description: 'Explore our facilities and campus', to: '/explore/infrastructure', icon: LucideIcons.Home },
       { name: 'Gallery', description: 'View our creative works and events', to: '/explore/gallery', icon: LucideIcons.LayoutGrid },
       { name: 'News & Events', description: 'Stay updated with the latest happenings', to: '/explore/news-events', icon: LucideIcons.CalendarDays },
-      { name: 'Our Services', description: 'Specialized training and additional services', to: '/our-services', icon: LucideIcons.Briefcase }, // New 'Our Services' link
+      { name: 'Our Services', description: 'Specialized training and additional services', to: '/our-services', icon: LucideIcons.Briefcase },
     ],
     footer: {
       text: 'Start your design journey',
@@ -61,6 +60,27 @@ const Navbar = () => {
   const [coursesOpen, setCoursesOpen] = React.useState(false);
   const [exploreOpen, setExploreOpen] = React.useState(false);
   const [isSheetOpen, setIsSheetOpen] = React.useState(false);
+
+  const { courses } = useCourses(); // Fetch courses from context
+
+  const navItems = React.useMemo(() => {
+    const courseDropdownLinks = courses.map(course => ({
+      name: course.title,
+      description: course.description.replace(' Details...', ''),
+      to: `/courses/${course.category === 'fashion' ? 'fashion-design' : course.category === 'computer' ? 'computer-courses' : 'other-courses'}/${course.id}`, // Correct path for CourseDetailsPage
+      icon: course.category === 'fashion' ? LucideIcons.Tablet : course.category === 'computer' ? LucideIcons.Laptop : LucideIcons.Briefcase, // Default icon for 'other'
+    }));
+
+    return baseNavItems.map(item => {
+      if (item.name === 'Courses' && item.type === 'dropdown') {
+        return {
+          ...item,
+          links: courseDropdownLinks,
+        };
+      }
+      return item;
+    });
+  }, [courses]); // Re-calculate only when courses change
 
   // Determine if a dropdown's sub-links are active
   const isDropdownPathActive = (links: { to: string }[]) => {
@@ -78,7 +98,7 @@ const Navbar = () => {
       <div className="flex h-auto items-center justify-between px-3 md:px-8 lg:px-[80px]">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-12 md:h-[60px] lg:h-[72px] w-auto object-contain" /> {/* Adjusted logo size */}
+          <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-12 md:h-[60px] lg:h-[72px] w-auto object-contain" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -185,7 +205,7 @@ const Navbar = () => {
               {/* Logo inside the SheetContent */}
               <div className="flex items-center justify-center py-4 border-b border-border mb-4 bg-white">
                 <Link to="/" onClick={() => setIsSheetOpen(false)} className="flex justify-center">
-                  <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-[60px] w-auto object-contain" /> {/* Adjusted logo size for mobile sheet */}
+                  <img src="/design-system/eyenet png.png" alt="Eyenet Logo" className="h-[60px] w-auto object-contain" />
                 </Link>
               </div>
               <nav className="flex flex-col gap-4 pt-6">
