@@ -1,19 +1,32 @@
 "use client";
 
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { initialGalleryImages, GalleryImage } from '@/data/galleryImages';
 
 interface GalleryImageContextType {
   galleryImages: GalleryImage[];
   addGalleryImage: (image: GalleryImage) => void;
   deleteGalleryImage: (id: string) => void;
-  updateGalleryImage: (updatedImage: GalleryImage) => void; // Added updateGalleryImage function
+  updateGalleryImage: (updatedImage: GalleryImage) => void;
+  loading: boolean; // Added loading state
 }
 
 const GalleryImageContext = createContext<GalleryImageContextType | undefined>(undefined);
 
 export const GalleryImageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>(initialGalleryImages);
+  const [loading, setLoading] = useState(true); // Initialize loading state
+
+  useEffect(() => {
+    // Simulate fetching images. In a real app, this would be an async call to a DB.
+    // For now, we'll just set a timeout to simulate loading.
+    const timer = setTimeout(() => {
+      setGalleryImages(initialGalleryImages); // Use initial data
+      setLoading(false);
+    }, 500); // Simulate 500ms loading time
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const addGalleryImage = (image: GalleryImage) => {
     setGalleryImages(prevImages => [...prevImages, image]);
@@ -30,7 +43,7 @@ export const GalleryImageProvider: React.FC<{ children: ReactNode }> = ({ childr
   };
 
   return (
-    <GalleryImageContext.Provider value={{ galleryImages, addGalleryImage, deleteGalleryImage, updateGalleryImage }}>
+    <GalleryImageContext.Provider value={{ galleryImages, addGalleryImage, deleteGalleryImage, updateGalleryImage, loading }}>
       {children}
     </GalleryImageContext.Provider>
   );

@@ -77,7 +77,7 @@ const Courses = () => {
                         <span className="inline-block bg-muted text-text-small font-body text-gray-600 px-3 py-1 rounded-full mb-4 border border-input">
                           {course.tag} / {course.category === 'fashion' ? 'Fashion' : 'Computer'}
                         </span>
-                        <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[4.9rem] overflow-hidden">
+                        <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[5.5rem] line-clamp-3 overflow-hidden">
                           {course.title}
                         </h3>
                         <p className="text-text-regular font-body text-gray-600 mb-4">

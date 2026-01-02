@@ -44,11 +44,11 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({ course, onDelete, onE
           {course.tag} / {course.category === 'fashion' ? 'Fashion' : 'Computer'}
         </span>
         <Link to={courseDetailPath} className="block group"> {/* Make title clickable */}
-          <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[4.9rem] overflow-hidden group-hover:text-primary transition-colors">
+          <h3 className="text-h5-mobile md:text-h5-desktop font-heading mb-2 text-foreground h-[5.5rem] line-clamp-3 overflow-hidden group-hover:text-primary transition-colors">
             {course.title}
           </h3>
         </Link>
-        <p className="text-text-regular font-body text-gray-600 mb-6 h-[6.4rem] overflow-hidden">
+        <p className="text-text-regular font-body text-gray-600 mb-6 h-[6.4rem] line-clamp-3 overflow-hidden">
           {truncatedDescription}
           {isDescriptionTruncated && (
             <Link to={courseDetailPath} className="text-primary hover:underline ml-1">
